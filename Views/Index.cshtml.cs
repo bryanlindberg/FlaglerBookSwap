@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace FlaglerBookSwap.Pages
+namespace FlaglerBookSwap.Views
 {
     public class IndexModel : PageModel
     {
