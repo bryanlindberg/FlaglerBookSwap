@@ -1,0 +1,36 @@
+﻿@page
+@model FlaglerBookSwap.Views.IndexModel
+@{
+    ViewData["Title"] = "Textbook Swap";
+}
+<body class="body-home">
+    <div class="text-center">
+        <h1 class="display-4 header-font">TEXTBOOK SWAP</h1>
+        <h4 class="display-4">Welcome to Flagler's very own Book swap!</h4>
+        <img src="C:\Users\pbcsc\Source\Repos\FlaglerBookSwap\wwwroot\Pictures\book-list.png" />
+    </div>
+
+
+    <div class="side-by-side">
+        <div class="text-right">
+            <h3>To list your book click here!</h3>
+            <a class="nav-link text-dark btn btn-primary btn-font" asp-page="/Search & List/Listings">
+                <!-- I have to move all the pages to their correct MVC but when i tried doing that I got an error so
+                    i think it has to do with the model naming so i'll fix that later -->
+                List book!
+            </a>
+            <!-- trying to use pictures below the buttons but they're not working yet-->
+            <img src="C:\Users\pbcsc\Source\Repos\FlaglerBookSwap\wwwroot\Pictures\book-list.png" />
+        </div>
+
+        <div class="text-left">
+            <h3>Want to find a textbook?</h3>
+            <a class="nav-link text-dark btn btn-primary btn-font" asp-page="/Search & List/Searching">
+                Search book!
+            </a>
+            <!-- trying to use pictures below the buttons but they're not working yet-->
+            <img src="~/images/search-book.jpg" />
+        </div>
+    </div>
+
+</body>

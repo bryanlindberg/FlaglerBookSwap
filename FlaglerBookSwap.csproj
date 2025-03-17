@@ -18,7 +18,13 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="wwwroot\Pictures\" />
     <Folder Include="Views\Home\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Pictures\book-list.png" />
+    <None Include="wwwroot\Pictures\searc-book.jpg" />
   </ItemGroup>
 
 </Project>
