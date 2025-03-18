@@ -1,6 +1,16 @@
-﻿namespace FlaglerBookSwap.Data
+﻿using FlaglerBookSwap.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+
+namespace FlaglerBookSwap.Data
 {
-    public class AppDbContext
+    public class AppDbContext : IdentityDbContext<Users>
     {
+
+        public AppDbContext(DbContextOptions options) : base(options) 
+        {
+
+        }
+
     }
 }

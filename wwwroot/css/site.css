@@ -36,6 +36,18 @@ body {
     align-items: center;
 }
 
+    .side-by-side > div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 10px;
+    }
+
+    .side-by-side img {
+        margin-top: 10px;
+    }
+
+
     .side-by-side .text-right,
     .side-by-side .text-left {
         flex: 1;
@@ -48,12 +60,15 @@ body {
 .header-font {
     font-family: 'Sans Serif Collection';
 }
+
 .body-home {
     background-color: #cf8e38;
 }
+
 .profile-clr {
     background-color: #A3282F;
 }
+
 .login-clr {
     background-color: #e7daa7;
 }
