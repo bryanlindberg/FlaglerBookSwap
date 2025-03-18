@@ -5,8 +5,9 @@ namespace FlaglerBookSwap.Pages.Account
 {
     public class RegisterModel : PageModel
     {
-        public void OnGet()
+        public IActionResult Register()
         {
+            return RedirectToPage("/Account/Register");
         }
     }
 }

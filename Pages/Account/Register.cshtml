@@ -1,6 +1,57 @@
 ﻿@page
-@model RegisterModel
+@model FlaglerBookSwap.ViewModels.RegisterViewModel
 @{
     ViewData["Title"] = "Register";
 }
-<h3>Sign up below</h3>
+
+<body class="account-container">
+    <div class="text-center">
+        <h1 class="display-4 header-font">@ViewData["Title"]</h1>
+    </div>
+    <div class="text-center"></div>
+    <div class="account-box">
+        <form asp-page="Register" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label">Full Name</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label">Email</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label">Password</label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="ConfirmPassword" class="form-label">Confirm Password</label>
+                <input asp-for="ConfirmPassword" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="BirthYear" class="form-label">Birthyear</label>
+                <input asp-for="BirthYear" class="form-control" />
+                <span asp-validation-for="BirthYear" class="text-danger"></span>
+            </div>
+            <input type="submit" value="Register" class="btn btn-success w-100 p-2" />
+            <p class="text-center mt-2">
+               Already have an account? <a class="text-decoration-none mt-3" asp-page="Login">
+                    Login
+                </a>
+            </p>
+            <div class="text-center">
+                <a asp-controller="Home" asp-action="Index" class="text-decoration-none mt-3">Back</a>
+            </div>
+        </form>
+    </div>
+</body>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial.cshtml");
+    }
+}

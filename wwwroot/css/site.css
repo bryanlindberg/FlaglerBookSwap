@@ -72,3 +72,21 @@ body {
 .login-clr {
     background-color: #e7daa7;
 }
+.bookstore-clr {
+    background-color: darkkhaki
+}
+.account-container {
+    background-color: #e7daa7;
+
+}
+
+.account-box {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+    opacity: .9;
+}
+
