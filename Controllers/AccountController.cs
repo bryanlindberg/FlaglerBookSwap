@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using FlaglerBookSwap.ViewModels;
+using FlaglerBookSwap.Views.Account;
 
 namespace FlaglerBookSwap.Controllers
 {
@@ -8,7 +9,8 @@ namespace FlaglerBookSwap.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            return View();
+            var model = new LoginModel();
+            return View(model);
         }
 
         [HttpPost]

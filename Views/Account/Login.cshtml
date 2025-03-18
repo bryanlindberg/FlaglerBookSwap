@@ -1,9 +1,13 @@
 ﻿@page
 @model FlaglerBookSwap.Views.Account.LoginModel
 @{
-    ViewData["Title"] = "Login";
-    Layout = "~/Views/Shared/_AccountLayout.cshtml"; 
+    if (ViewData != null)
+    {
+        ViewData["Title"] = "Login";
+    }
 }
+<h1>Login</h1>
+
 
 <div class="account-container">
     <div class="account-box">
