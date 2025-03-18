@@ -1,5 +1,5 @@
 ﻿@page
-@model FlaglerBookSwap.Views.IndexModel
+@model FlaglerBookSwap.Pages.IndexModel
 @{
     ViewData["Title"] = "Textbook Swap";
 }
@@ -7,7 +7,7 @@
     <div class="text-center">
         <h1 class="display-4 header-font">TEXTBOOK SWAP</h1>
         <h4 class="display-4">Welcome to Flagler's very own Book swap!</h4>
-        <img src="C:\Users\pbcsc\Source\Repos\FlaglerBookSwap\wwwroot\Pictures\book-list.png" />
+        <img src="~/Pictures/home-flagler-logo.png" style="height:250px; width:270px"/>
     </div>
 
 
@@ -19,8 +19,7 @@
                     i think it has to do with the model naming so i'll fix that later -->
                 List book!
             </a>
-            <!-- trying to use pictures below the buttons but they're not working yet-->
-            <img src="C:\Users\pbcsc\Source\Repos\FlaglerBookSwap\wwwroot\Pictures\book-list.png" />
+            <img src="~/Pictures/book-list.png" style="height:300px; width:250px" />
         </div>
 
         <div class="text-left">
@@ -28,8 +27,8 @@
             <a class="nav-link text-dark btn btn-primary btn-font" asp-page="/Search & List/Searching">
                 Search book!
             </a>
-            <!-- trying to use pictures below the buttons but they're not working yet-->
-            <img src="~/images/search-book.jpg" />
+            <!-- looking for better pictures-->
+            <img src="~/Pictures/looking.png" style="height:300px; width:300px"  />
         </div>
     </div>
 

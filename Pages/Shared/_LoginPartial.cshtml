@@ -1,0 +1,21 @@
+﻿@using FlaglerBookSwap.Models
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<Users> SignInManager;
+<ul class="navbar-nav ms-auto">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Account" asp-action="Logout">Logout</a> <!--asp-page="/Profile">Hello @User.Identity.Name!-->
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Controller" asp-action="/Account/Login">Login</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="AccountController" asp-action="/Account/Register">Register</a>
+        </li>
+    }
+    
+</ul>
