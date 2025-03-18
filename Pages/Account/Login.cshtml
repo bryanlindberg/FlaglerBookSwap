@@ -1,0 +1,49 @@
+﻿@page
+@model FlaglerBookSwap.Views.Account.LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<body class="site">
+    <div class="account-container">
+        <div class="text-center">
+            <h1 class="display-4 header-font">@ViewData["Title"]</h1>
+        </div>
+        <div class="account-box">
+            <form asp-page="./Login" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="mb-3">
+                    <asp-for="Email" class="form-label">Email</>
+                    <asp-for="Email" class="form-control" />
+                    <asp-validation-for="Email" class="text-danger"></>
+                </div>
+
+                <div class="mb-3">
+                    <asp-for="Password" class="form-label">Password</>
+                    <asp-for="Password" class="form-control" />
+                    <asp-validation-for="Password" class="text-danger"></>
+                </div>
+
+                <div class="form-check mb-3">
+                    <label class="form-check-label">
+
+                    </label>
+                </div>
+
+                <input type="submit" value="Login" class="btn btn-success w-100 p-2" />
+
+                <div class="text-center">
+                    <a asp-page="/Index" class="text-decoration-none mt-3">Back</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+
+
+
+<a class="nav-link text-dark btn btn-primary btn-font" asp-page="Register">
+    Register
+</a>
