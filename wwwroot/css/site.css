@@ -66,9 +66,12 @@ body {
 }
 
 .profile-clr {
-    background-color: #A3282F;
+    background-color: #E9423A;
 }
 
 .login-clr {
     background-color: #e7daa7;
+}
+.bookstore-clr{
+    background-color: darkkhaki
 }

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace FlaglerBookSwap.Views.Account
+namespace FlaglerBookSwap.Pages
 {
     public class LoginModel : PageModel
     {
