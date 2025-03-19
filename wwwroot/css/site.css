@@ -88,5 +88,10 @@ body {
     max-width: 500px;
     width: 100%;
     opacity: .9;
+    margin-right: 20px; /* Add some space between the box and the image */
 }
+.account-image {
+    display: flex;
+    align-items: center;
+} /*puts an image next to registration and image box*/
 

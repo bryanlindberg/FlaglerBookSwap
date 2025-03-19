@@ -4,6 +4,7 @@ namespace FlaglerBookSwap.ViewModels
 {
     public class ChangePasswordViewModel
     {
+        //we can use this model for change info of profile 
         [Required(ErrorMessage = "Email is required")]
         [EmailAddress]
         public string Email { get; set; }
