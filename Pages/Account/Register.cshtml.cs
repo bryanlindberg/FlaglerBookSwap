@@ -25,7 +25,7 @@ namespace FlaglerBookSwap.Pages.Account
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(RegisterViewModel model)
+        public async Task<IActionResult> OnPostAsync()
         {
             if(ModelState.IsValid) 
             {
@@ -36,7 +36,7 @@ namespace FlaglerBookSwap.Pages.Account
                     UserName = RegisterViewModel.Email,                 
                 };
 
-                var result = await userManager.CreateAsync(user, model.Password);
+                var result = await userManager.CreateAsync(user, RegisterViewModel.Password);
 
                 if(result.Succeeded)
                 {

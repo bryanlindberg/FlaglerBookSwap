@@ -8,7 +8,7 @@ namespace FlaglerBookSwap.ViewModels
         [Required(ErrorMessage ="Name is required")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage ="Email is required")]
+        [Required(ErrorMessage ="Flagler Email is required")]
         [EmailAddress]
         public string Email { get; set; }
 

@@ -2,6 +2,7 @@ using FlaglerBookSwap.Data;
 using FlaglerBookSwap.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace FlaglerBookSwap
 {
@@ -46,14 +47,16 @@ namespace FlaglerBookSwap
             }
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
 
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();    
 
             app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+            name: "default",
+            pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.MapRazorPages();
 
