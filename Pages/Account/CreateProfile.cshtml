@@ -1,0 +1,56 @@
+﻿@page
+@model FlaglerBookSwap.Pages.Account.CreateProfileModel
+@{
+    ViewData["Title"] = "Create Your Profile!";
+}
+
+<body class="account-container">
+    <div class="text-center">
+        <h1 class="display-4 header-font">@ViewData["Title"]</h1>
+    </div>
+    <div class="account-content">
+        <div class="account-box">
+            <form asp-page="Login" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="mb-3">
+                    <label asp-for="CreateProfileViewModel.Major" class="form-label">Major</label>
+                    <div class="form-check-inline">
+                        @for (var i = 0; i < Model.CreateProfileViewModel.Major.Count(); i++)
+                        {
+                            <div class="form-check">
+                                <input asp-for="@Model.CreateProfileViewModel.Major[i].Selected" class="form-check-input" />
+                                <label asp-for="@Model.CreateProfileViewModel.Major[i].Selected">@Model.CreateProfileViewModel.Major[i].Text</label>
+                                <input type="hidden" asp-for="@Model.CreateProfileViewModel.Major[i].Value" />
+                                <input type="hidden" asp-for="@Model.CreateProfileViewModel.Major[i].Text" />
+                            </div>
+                        }
+                    </div>
+                    <span asp-validation-for="CreateProfileViewModel.Major" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="CreateProfileViewModel.GradYear" class="form-label">Graduation Year</label>
+                    <select asp-for="CreateProfileViewModel.GradYear" asp-items="Model.GraduationYears" class="form-control"></select>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="CreateProfileViewModel.PhoneNumber" class="form-label">Phone Number</label>
+                    <input asp-for="CreateProfileViewModel.PhoneNumber" class="form-control" />
+                    <span asp-validation-for="CreateProfileViewModel.PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="CreateProfileViewModel.Gender" class="form-label">Gender</label>
+                    <input asp-for="CreateProfileViewModel.Gender" class="form-control" />
+                    <span asp-validation-for="CreateProfileViewModel.Gender" class="text-danger"></span>
+                </div>
+                <input type="submit" value="CreateProfile" class="btn btn-success w-100 p-2" />
+            </form>
+        </div>
+    </div>
+</body>
+
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial.cshtml");
+    }
+}
