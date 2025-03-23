@@ -1,17 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
 
 namespace FlaglerBookSwap.ViewModels
 {
-    public class CreateProfileViewModel
+    public class EditProfileViewModel
     {
+   
         [Required(ErrorMessage = "Please check off your major")]
-        public List<CreateMajorViewModel> Major { get; set; }
+        public List<EditMajorViewModel> Major { get; set; }
 
         [Required(ErrorMessage = "Please pick your graduation year")]
         public string GradYear { get; set; }
 
-        [Required(ErrorMessage="Please enter your phone number")]
+        [Required(ErrorMessage = "Please enter your phone number")]
         public string PhoneNumber { get; set; }
 
         public string Gender { get; set; }
@@ -19,7 +19,7 @@ namespace FlaglerBookSwap.ViewModels
         public string ProfilePic { get; set; }
     }
 
-    public class CreateMajorViewModel
+    public class EditMajorViewModel
     {
         public string Value { get; set; }
         public string Text { get; set; }

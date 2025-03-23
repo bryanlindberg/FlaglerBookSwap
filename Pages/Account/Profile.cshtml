@@ -6,6 +6,21 @@
 <body class="profile-clr">
     <div class="text-center">
         <h1 class="display-4 header-font">@ViewData["Title"]</h1>
+        <h4>Welcome to your profile</h4>
     </div>
-    <p>Welcome to your profile </p>
+    
 </body>
+<div class="side-by-side">
+    <div class="text-right">
+        <div accesskey="">
+            <a class="nav-link text-decoration-underline btn btn-primary btn-font" asp-page="/Account/ProfileListing">Your Listings</a>
+            <a class="nav-link text-decoration-underline btn btn-primary btn-font" asp-page="/Account/ProfileWishlist">Your Wishlist</a>
+        </div>
+    </div>
+
+    <div class="text-left">
+        <div accesskey="">
+            <a class="nav-link text-decoration-underline btn btn-primary btn-font" asp-page="/Account/EditProfile">Edit Your Profile Info!</a>
+        </div>
+    </div>
+</div>

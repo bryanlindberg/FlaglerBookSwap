@@ -66,14 +66,14 @@ body {
 }
 
 .profile-clr {
-    background-color: #A3282F;
+    background-color: #FF746C;
 }
 
 .login-clr {
     background-color: #e7daa7;
 }
 .bookstore-clr {
-    background-color: darkkhaki
+    background-color: #FAF9F6;
 }
 .account-container {
     background-color: #e7daa7;
@@ -85,13 +85,21 @@ body {
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-    max-width: 500px;
+    max-width: 600px;
     width: 100%;
-    opacity: .9;
-    margin-right: 20px; /* Add some space between the box and the image */
+    margin: 0 auto;
+   /* opacity: .9;
+    margin-right: 20px; Add some space between the box and the image */
 }
 .account-image {
     display: flex;
     align-items: center;
 } /*puts an image next to registration and image box*/
+
+.center-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+}
 

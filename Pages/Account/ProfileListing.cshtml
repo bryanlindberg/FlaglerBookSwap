@@ -1,0 +1,25 @@
+﻿@page
+@model FlaglerBookSwap.Pages.Account.ProfileListingModel
+@{
+    ViewData["Title"] = "Your Current Listings";
+}
+<body class="account-container">
+    <div class="text-center">
+        <h1 class="display-4 header-font">@ViewData["Title"]</h1>
+    </div>
+    <div class="account-content">
+        <p>Your listings will appear here.</p>
+    </div>
+    <div class="account-box">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Book Title</th>
+                    <th>Author</th>
+                    <th>Condition</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</body>
