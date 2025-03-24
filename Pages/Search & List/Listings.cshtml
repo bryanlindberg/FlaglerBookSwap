@@ -3,6 +3,16 @@
 @{
     ViewData["Title"] = "Find the Book you want to list!";
 }
+<body>
+    <div class="text-center">
+        <h1>@ViewData["Title"]</h1>
+    </div>
 
-<h1>@ViewData["Title"]</h1>
+    <input type="submit" value="Find Textbook" class="btn btn-success w-100 p-2" />
+    <p class="text-center mt-2">Can’t find the textbook(s) you’re looking for? click here to enter the info manually! 
+    <a class="text-decoration-none mt-3" asp-page="/Search & List/ManualList">
+        Manually list textbook
+    </a>
+    </p>
+</body>
 
