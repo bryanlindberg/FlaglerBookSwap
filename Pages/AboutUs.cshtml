@@ -36,6 +36,29 @@ else
                     <td>@textbook.Authors</td> 
                 </tr>
             }
+    
         </tbody>
     </table>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Course Code</th>
+                <th>Term</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var courses in Model.Courses)
+            {
+                <tr>
+                    <td>@courses.course_title</td>
+                    <td>@courses.course_code</td>
+                    <td>@courses.term</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
 }

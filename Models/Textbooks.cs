@@ -5,7 +5,7 @@ namespace FlaglerBookSwap.Models
     public class Textbooks
     {
         [Key]
-        public short Textbook_ID { get; set; }
+        public short textbook_id { get; set; }
         public string? Book_Title { get; set; }
         public string? Authors { get; set; }
         public double ISBN { get; set; }

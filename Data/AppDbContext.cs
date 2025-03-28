@@ -7,5 +7,6 @@ public class AppDbContext : DbContext
     : base(options)
     { }
     //I believe this is the thing that actually connects the class "Textbooks" to the table "Textbooks"
-    public DbSet<Textbooks> Textbooks { get; set; }  
+    public DbSet<Textbooks> Textbooks { get; set; }
+    public DbSet<Courses> Courses { get; set; }
 }
