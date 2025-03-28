@@ -1,4 +1,5 @@
 ﻿@page
+@using FlaglerBookSwap.Models
 @using FlaglerBookSwap.Pages
 @model FlaglerBookSwap.Pages.AboutUsModel
 @{
@@ -10,3 +11,31 @@
 
 <p>We created this to help students get rid of their old textbooks by giving them a platform to trade or sell </p>
 
+<h2>Textbooks List</h2>
+
+@if (Model.Textbooks == null || !Model.Textbooks.Any())  
+{
+    <p>No textbooks found.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>ISBN</th>
+                <th>Author</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var textbook in Model.Textbooks) 
+            {
+                <tr>
+                    <td>@textbook.Book_Title</td>
+                    <td>@textbook.ISBN</td>
+                    <td>@textbook.Authors</td> 
+                </tr>
+            }
+        </tbody>
+    </table>
+}
