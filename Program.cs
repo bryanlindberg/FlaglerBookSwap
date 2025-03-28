@@ -29,7 +29,7 @@ namespace FlaglerBookSwap
                 options.SignIn.RequireConfirmedEmail = true; ////so they have to confirm their email
                 options.SignIn.RequireConfirmedAccount = true; //so they have to confirm their email
                                                                // options.Lockout.MaxFailedAccessAttempts = 5; lockout after 5 failed attempts interesting idea but we don't need to do that
-                options.User.RequireUniqueEmail = true; //so once account = one email
+                options.User.RequireUniqueEmail = true; //so one account = one email
                 options.SignIn.RequireConfirmedPhoneNumber = false; //so they don't have to confirm their phone number
                 options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+"; //so they can use these characters in their username
                 //IDk if the above code is required but it's there for now
