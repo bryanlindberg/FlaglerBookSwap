@@ -30,5 +30,6 @@ namespace FlaglerBookSwap.Models
         }
         //public string? profile_picture { get; set; } NEED TO ADD THIS TO DATABASE
         //public string? gender { get; set; } NEED TO ADD THIS TO DATABASE
+
     }
 }

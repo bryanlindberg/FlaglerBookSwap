@@ -1,16 +1,12 @@
 ﻿using FlaglerBookSwap.Models;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace FlaglerBookSwap.Data
+public class AppDbContext : DbContext
 {
-    public class AppDbContext : IdentityDbContext<Users>
-    {
-
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) 
-        {
-
-        }
-
-    }
+    public AppDbContext(DbContextOptions<AppDbContext> options)
+    : base(options)
+    { }
+    //I believe this is the thing that actually connects the class "Textbooks" to the table "Textbooks"
+    public DbSet<Textbooks> Textbooks { get; set; }
+    public DbSet<Courses> Courses { get; set; }
 }
