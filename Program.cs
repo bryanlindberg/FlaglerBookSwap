@@ -2,6 +2,7 @@ using FlaglerBookSwap.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace FlaglerBookSwap
 {
@@ -17,6 +18,9 @@ namespace FlaglerBookSwap
             //configure dbContext
             builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+            // or i put in qoutes DefaultConnection
+            builder.Services.AddDbContext<AppDbContext>(options =>
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddIdentity<Users, IdentityRole>(options =>
             {
