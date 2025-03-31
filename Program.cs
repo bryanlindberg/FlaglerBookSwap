@@ -14,7 +14,8 @@ namespace FlaglerBookSwap
 
             // Add services to the container.
             builder.Services.AddRazorPages();
-
+            
+            //configure dbContext
             builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
@@ -36,6 +37,7 @@ namespace FlaglerBookSwap
             })
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -48,7 +50,6 @@ namespace FlaglerBookSwap
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
 
             app.UseAuthorization();
@@ -60,9 +61,9 @@ namespace FlaglerBookSwap
 
             app.MapRazorPages();
 
-            app.MapStaticAssets();
+            /*app.MapStaticAssets();
             app.MapRazorPages()
-               .WithStaticAssets();
+               .WithStaticAssets();*/
 
             app.Run();
         }
