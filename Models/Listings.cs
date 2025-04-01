@@ -8,7 +8,7 @@ namespace FlaglerBookSwap.Models
         public short ListingID { get; set; }
         public DateTime date_listed { get; set; }
         public string condition { get; set; }
-        //public string edition { get; set; } NEED TO ADD TO DB
+        //public string edition { get; set; } NEED TO ADD TO LOCAL DB
         public decimal price { get; set; }
         public string photo { get; set; }
         public bool list_status { get; set; }
