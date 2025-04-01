@@ -12,6 +12,7 @@ namespace FlaglerBookSwap.Models
         public decimal price { get; set; }
         public string photo { get; set; }
         public bool list_status { get; set; }
+        //public bool willing_to_trade { get; set; } NEED TO ADD TO LOCAL DB
         public short userID { get; set; }
         public short textbook_id { get; set; }
     }
