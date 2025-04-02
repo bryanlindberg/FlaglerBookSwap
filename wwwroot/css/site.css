@@ -103,3 +103,6 @@ body {
     height: 100vh; /* Full viewport height */
 }
 
+.form-control {
+    width: 50%
+}

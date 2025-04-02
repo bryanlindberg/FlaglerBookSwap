@@ -1,12 +1,13 @@
 ﻿@page
-@model FlaglerBookSwap.Pages.ListingsModel
+@model ListingsModel
 @{
     ViewData["Title"] = "Find the Book you want to list!";
 }
-<body>
+<form method="post">
     <div class="text-center">
         <h1>@ViewData["Title"]</h1>
     </div>
+    <!--
     <select name="selectedSubject" class="form-control">
         <option value="10">---Please select a subject---</option>
         <option value="1">ACC</option>
@@ -19,6 +20,29 @@
         <option value="8">HTM</option>
         <option value="9">BIO</option>
         </select>
+          --->
+
+    <div class="row">
+        <div class="col-md-6">
+            <input type="text" asp-for="ClassNumber" class="form-control" placeholder="Course Number" />
+        </div>
+        <div class="col-md-6">
+            <select asp-for="Term" class="form-control">
+                <option value="">Please select a term</option>
+                <option value="Spring 2025">Spring 2025</option>
+                <option value="Fall 2025">Fall 2025</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <select asp-for="Section" class="form-control">
+                <option value="">Please select a section</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+            </select>
+        </div>
+
+    </div>
+    <br />
     <input type="submit" value="Find Textbook" class="btn btn-success w-100 p-2" />
     <p class="text-center mt-2">
         Can’t find the textbook(s) you’re looking for? click here to enter the info manually!
@@ -26,5 +50,9 @@
             Manually list textbook
         </a>
     </p>
-</body>
+</form>
 
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <pre>@Model.Message</pre>
+}

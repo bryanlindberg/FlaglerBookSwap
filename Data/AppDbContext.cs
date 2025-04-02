@@ -8,5 +8,6 @@ public class AppDbContext : DbContext
     { }
     //I believe this is the thing that actually connects the class "Textbooks" to the table "Textbooks"
     public DbSet<Textbooks> Textbooks { get; set; }
+    public DbSet<Courses_Textbooks> Courses_Textbooks { get; set; }
     public DbSet<Courses> Courses { get; set; }
 }
