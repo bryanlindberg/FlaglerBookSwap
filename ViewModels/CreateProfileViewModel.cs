@@ -11,12 +11,13 @@ namespace FlaglerBookSwap.ViewModels
         [Required(ErrorMessage = "Please pick your graduation year")]
         public string GradYear { get; set; }
 
-        [Required(ErrorMessage="Please enter your phone number")]
+        [StringLength(40, MinimumLength = 10)]
+        [Required(ErrorMessage = "Please enter your phone number")]
         public string PhoneNumber { get; set; }
 
-        public string Gender { get; set; }
+        public string Gender { get; set; } // Not required
 
-        public string ProfilePic { get; set; }
+        public string ProfilePic { get; set; } // Not required
     }
 
     public class CreateMajorViewModel

@@ -2,6 +2,7 @@ using FlaglerBookSwap.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace FlaglerBookSwap
 {
@@ -13,10 +14,14 @@ namespace FlaglerBookSwap
 
 
             builder.Services.AddRazorPages();
-
-            //sets the connection string to the database in appsettings.json
+            
+            //configure dbContext
             builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+            // or i put in qoutes DefaultConnection
+            //builder.Services.AddDbContext<AppDbContext>(options =>
+           // options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+         
 
             builder.Services.AddIdentity<Users, IdentityRole>(options =>
             {
@@ -31,8 +36,8 @@ namespace FlaglerBookSwap
                 options.SignIn.RequireConfirmedPhoneNumber = false;
                 options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
             })
-            .AddEntityFrameworkStores<AppDbContext>() 
-            .AddDefaultTokenProviders();
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
 
             var app = builder.Build();
 
@@ -55,8 +60,10 @@ namespace FlaglerBookSwap
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.MapRazorPages();
-            app.MapStaticAssets();
-            app.MapRazorPages().WithStaticAssets();
+
+            /*app.MapStaticAssets();
+            app.MapRazorPages()
+               .WithStaticAssets();*/
 
             app.Run();
         }

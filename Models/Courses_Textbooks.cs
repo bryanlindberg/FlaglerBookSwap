@@ -6,7 +6,7 @@ namespace FlaglerBookSwap.Models
     {
         [Key]
         public byte unique_id { get; set; }
-        public short course_id  { get; set; }
+        public short course_id { get; set; }
         public short textbook_id { get; set; }
     }
 }

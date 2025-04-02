@@ -17,7 +17,7 @@ namespace FlaglerBookSwap.Pages.Account
         private readonly UserManager<Users> userManager;
         private readonly ILogger<RegisterModel> logger;
 
-        public RegisterModel(UserManager<Users> userManager, SignInManager<Users> signInManager)
+        public RegisterModel(UserManager<Users> userManager, SignInManager<Users> signInManager, ILogger<RegisterModel> logger)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
@@ -25,7 +25,8 @@ namespace FlaglerBookSwap.Pages.Account
         }
 
         [BindProperty]
-        public RegisterViewModel RegisterViewModel { get; set; }    
+        public RegisterViewModel RegisterViewModel { get; set; }
+
         public IActionResult OnGet()
         {
             return Page();
@@ -33,24 +34,27 @@ namespace FlaglerBookSwap.Pages.Account
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if(ModelState.IsValid) 
+            if (ModelState.IsValid)
             {
                 Users user = new Users
                 {
                     FullName = RegisterViewModel.Name,
                     Email = RegisterViewModel.Email,
-                    UserName = RegisterViewModel.Email,                 
+                    UserName = RegisterViewModel.Email,                   
                 };
 
                 var result = await userManager.CreateAsync(user, RegisterViewModel.Password);
 
-                if(result.Succeeded)
+                if (result.Succeeded)
                 {
                     logger.LogInformation("User created a new account with password.");
                     await signInManager.SignInAsync(user, isPersistent: false);
 
                     //code to send email to user
-                    string resultMsg = "Welcome to Flagler Book Swap website! Your account has been created successfully.";
+                    string createProfileLink = Url.Page("/Account/CreateProfile", pageHandler: null, values: new { area = "Identity" }, protocol: Request.Scheme);
+                    string resultMsg = $@"
+                    <p>Welcome to Flagler Book Swap website! Your account has been created successfully.</p>
+                    <p>Please <a href='{createProfileLink}'>click here</a> to create your profile.</p>";
 
                     bool emailSent = SendStudentEmail(user.Email, user.FullName, resultMsg);
 
@@ -61,7 +65,7 @@ namespace FlaglerBookSwap.Pages.Account
                     else
                     {
                         logger.LogInformation("Email failed to send.");
-                    }                  
+                    }
                     return RedirectToPage("/Account/Login"); //should bring the user to the login page but it doesn't and i need to                 
                 }
                 else
@@ -70,17 +74,18 @@ namespace FlaglerBookSwap.Pages.Account
                     {
                         ModelState.AddModelError(string.Empty, error.Description);
                     }
-                    
+
                 }
-                
+
             }
             return Page();
         }
 
+
         public bool SendStudentEmail(string sendStudentEmail, string sendStudentName, string resultMsg)
         {
-            string sendFromEmail = "reuelcis33@gmail.com"; //put in my email
-            string sendFromName = "Mortgage Calculator";
+            string sendFromEmail = "flaglerbookswap@gmail.com"; //put in your email
+            string sendFromName = "Flagler Book Swap";
             string sendToEmail = sendStudentEmail;
             string sendToName = sendStudentName;
 
@@ -99,23 +104,22 @@ namespace FlaglerBookSwap.Pages.Account
             {
                 SmtpClient client = new SmtpClient();
                 client.Host = "smtp.gmail.com";
-                System.Net.NetworkCredential basicauthenticationinfo = new System.Net.NetworkCredential("***@gmail.com", "****"); //put in app code
-                client.Port = int.Parse("587");
+                client.Port = 587;
+                //client.Host = "smtp.office365.com";
+                //client.Port = 587;
                 client.EnableSsl = true;
                 client.UseDefaultCredentials = false;
-                client.Credentials = basicauthenticationinfo;
+                client.Credentials = new System.Net.NetworkCredential("flaglerbookswap@gmail.com", "jbsk jggt jcqs teeg\r\n"); //use an app password
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;
                 client.Send(emailMessage);
                 return true;
             }
-
             catch (Exception ex)
             {
                 logger.LogError($"An error occurred while sending email: {ex.Message}");
                 return false;
             }
         }
-
     }
 }
 

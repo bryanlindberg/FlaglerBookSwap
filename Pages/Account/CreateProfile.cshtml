@@ -41,7 +41,12 @@
                     <input asp-for="CreateProfileViewModel.Gender" class="form-control" />
                     <span asp-validation-for="CreateProfileViewModel.Gender" class="text-danger"></span>
                 </div>
-                <input type="submit" value="CreateProfile" class="btn btn-success w-100 p-2" />
+                <div class="mb-3">
+                    <label asp-for="CreateProfileViewModel.ProfilePic" class="form-label">Profile Picture</label>
+                    <input asp-for="CreateProfileViewModel.ProfilePic" type="file" class="form-control" />
+                    <span asp-validation-for="CreateProfileViewModel.ProfilePic" class="text-danger"></span>
+                </div>
+                <input type="submit" value="Create Profile" class="btn btn-success w-100 p-2" />
             </form>
         </div>
     </div>
