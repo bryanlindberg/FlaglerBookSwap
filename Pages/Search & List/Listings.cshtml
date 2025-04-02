@@ -7,12 +7,24 @@
     <div class="text-center">
         <h1>@ViewData["Title"]</h1>
     </div>
-
+    <select name="selectedSubject" class="form-control">
+        <option value="10">---Please select a subject---</option>
+        <option value="1">ACC</option>
+        <option value="2">BUS</option>
+        <option value="3">CIS</option>
+        <option value="4">FIN</option>
+        <option value="5">HIS</option>
+        <option value="6">EDU</option>
+        <option value="7">PSY</option>
+        <option value="8">HTM</option>
+        <option value="9">BIO</option>
+        </select>
     <input type="submit" value="Find Textbook" class="btn btn-success w-100 p-2" />
-    <p class="text-center mt-2">Can’t find the textbook(s) you’re looking for? click here to enter the info manually! 
-    <a class="text-decoration-none mt-3" asp-page="/Search & List/ManualList">
-        Manually list textbook
-    </a>
+    <p class="text-center mt-2">
+        Can’t find the textbook(s) you’re looking for? click here to enter the info manually!
+        <a class="text-decoration-none mt-3" asp-page="/Search & List/ManualList">
+            Manually list textbook
+        </a>
     </p>
 </body>
 
