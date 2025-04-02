@@ -42,6 +42,7 @@ namespace FlaglerBookSwap.Pages.Account
             {
                 return NotFound("User not found.");
             }
+
             CreateProfileViewModel = new CreateProfileViewModel
             {
                 Major = new List<CreateMajorViewModel>
@@ -125,16 +126,23 @@ namespace FlaglerBookSwap.Pages.Account
                     }
                 }
 
-                var result = await userManager.AddPasswordAsync(user, CreateProfileViewModel.Password);
+                /* Update user profile with additional information
+                user.Major = CreateProfileViewModel.Major.FirstOrDefault(m => m.Selected)?.Value;
+                user.ExpectedGradYear = CreateProfileViewModel.GradYear;
+                user.PhoneNumber = CreateProfileViewModel.PhoneNumber;
+                user.Gender = CreateProfileViewModel.Gender;
+                user.ProfilePic = CreateProfileViewModel.ProfilePic;
+                */
+                var updateResult = await userManager.UpdateAsync(user);
 
-                if (result.Succeeded)
+                if (updateResult.Succeeded)
                 {
-                    logger.LogInformation("User created a new profile with password.");
+                    logger.LogInformation("User profile updated successfully.");
                     return RedirectToPage("/Index");
                 }
                 else
                 {
-                    foreach (var error in result.Errors)
+                    foreach (var error in updateResult.Errors)
                     {
                         ModelState.AddModelError(string.Empty, error.Description);
                     }

@@ -13,14 +13,14 @@ namespace FlaglerBookSwap.Pages.Account
 {
     public class RegisterModel : PageModel
     {
-        //private readonly SignInManager<Users> signInManager; used to store password
+        private readonly SignInManager<Users> signInManager;
         private readonly UserManager<Users> userManager;
         private readonly ILogger<RegisterModel> logger;
 
-        public RegisterModel(UserManager<Users> userManager, ILogger<RegisterModel> logger)
+        public RegisterModel(UserManager<Users> userManager, SignInManager<Users> signInManager, ILogger<RegisterModel> logger)
         {
             this.userManager = userManager;
-            //this.signInManager = signInManager;
+            this.signInManager = signInManager;
             this.logger = logger;
         }
 
@@ -40,21 +40,22 @@ namespace FlaglerBookSwap.Pages.Account
                 {
                     FullName = RegisterViewModel.Name,
                     Email = RegisterViewModel.Email,
-                    UserName = RegisterViewModel.Email,
+                    UserName = RegisterViewModel.Email,                   
                 };
 
-                var result = await userManager.CreateAsync(user);
+                var result = await userManager.CreateAsync(user, RegisterViewModel.Password);
 
                 if (result.Succeeded)
                 {
-                    logger.LogInformation("User created a new account");
-                    
-                    // Send email to the user
+                    logger.LogInformation("User created a new account with password.");
+                    await signInManager.SignInAsync(user, isPersistent: false);
+
+                    //code to send email to user
                     string createProfileLink = Url.Page("/Account/CreateProfile", pageHandler: null, values: new { area = "Identity" }, protocol: Request.Scheme);
                     string resultMsg = $@"
-                            <p>Welcome to Flagler Book Swap website! Your account has been created successfully.<p>
-                            <p> Please <a href='{createProfileLink}'> click here </a> to create your profile <p>";
-                    //We'll add more things to the message like font, pictures, etc ...
+                    <p>Welcome to Flagler Book Swap website! Your account has been created successfully.</p>
+                    <p>Please <a href='{createProfileLink}'>click here</a> to create your profile.</p>";
+
                     bool emailSent = SendStudentEmail(user.Email, user.FullName, resultMsg);
 
                     if (emailSent)
@@ -63,10 +64,9 @@ namespace FlaglerBookSwap.Pages.Account
                     }
                     else
                     {
-                        logger.LogWarning("Email failed to send.");
+                        logger.LogInformation("Email failed to send.");
                     }
-
-                    return RedirectToPage("/Index", new {userid = user.Id});
+                    return RedirectToPage("/Account/Login"); //should bring the user to the login page but it doesn't and i need to                 
                 }
                 else
                 {
@@ -74,10 +74,13 @@ namespace FlaglerBookSwap.Pages.Account
                     {
                         ModelState.AddModelError(string.Empty, error.Description);
                     }
+
                 }
+
             }
             return Page();
         }
+
 
         public bool SendStudentEmail(string sendStudentEmail, string sendStudentName, string resultMsg)
         {

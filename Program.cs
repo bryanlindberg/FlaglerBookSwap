@@ -19,8 +19,9 @@ namespace FlaglerBookSwap
             builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
             // or i put in qoutes DefaultConnection
-            builder.Services.AddDbContext<AppDbContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            //builder.Services.AddDbContext<AppDbContext>(options =>
+           // options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+         
 
             builder.Services.AddIdentity<Users, IdentityRole>(options =>
             {
