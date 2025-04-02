@@ -8,6 +8,8 @@ namespace FlaglerBookSwap.Pages
         [BindProperty]
         public string ClassNumber { get; set; }
         [BindProperty]
+        public string Subject { get; set; }
+        [BindProperty]
         public string Section { get; set; }
         [BindProperty]
         public string Term { get; set; }
@@ -32,10 +34,20 @@ namespace FlaglerBookSwap.Pages
             {
                 Message = "Please enter a section.";
                 return;
-            }  
+            }
+
+            /*
+             * alternative way to search for course, could be a bit cleaner/easier to debug
+            string courseSubject = Subject;
+            string courseNumber = ClassNumber;
+            string courseLookup = courseSubject + " " + courseNumber;
+            var course = _context.Courses
+                .Where(c => c.course_code == courseLookup && c.section == Section && c.term == Term)
+                .FirstOrDefault();
+            */
 
             var course = _context.Courses
-                .Where(c => c.course_code == ClassNumber && c.section == Section && c.term == Term)
+                .Where(c => c.course_code == Subject + " " + ClassNumber && c.section == Section && c.term == Term)
                 .FirstOrDefault();
 
             if (course == null)

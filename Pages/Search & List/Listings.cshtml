@@ -7,22 +7,21 @@
     <div class="text-center">
         <h1>@ViewData["Title"]</h1>
     </div>
-    <!--
-    <select name="selectedSubject" class="form-control">
-        <option value="10">---Please select a subject---</option>
-        <option value="1">ACC</option>
-        <option value="2">BUS</option>
-        <option value="3">CIS</option>
-        <option value="4">FIN</option>
-        <option value="5">HIS</option>
-        <option value="6">EDU</option>
-        <option value="7">PSY</option>
-        <option value="8">HTM</option>
-        <option value="9">BIO</option>
-        </select>
-          --->
-
     <div class="row">
+        <div class="col-md-6">
+            <select asp-for="Subject" class="form-control">
+                <option value="1">Please select a subject</option>
+                <option value="ACC">ACC</option>
+                <option value="BUS">BUS</option>
+                <option value="CIS">CIS</option>
+                <option value="FIN">FIN</option>
+                <option value="HIS">HIS</option>
+                <option value="EDU">EDU</option>
+                <option value="PSY">PSY</option>
+                <option value="HTM">HTM</option>
+                <option value="BIO">BIO</option>
+            </select>
+        </div>
         <div class="col-md-6">
             <input type="text" asp-for="ClassNumber" class="form-control" placeholder="Course Number" />
         </div>
