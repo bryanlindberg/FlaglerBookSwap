@@ -1,3 +1,4 @@
+using FlaglerBookSwap.Data;
 using FlaglerBookSwap.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -13,31 +14,17 @@ namespace FlaglerBookSwap
             var builder = WebApplication.CreateBuilder(args);
 
 
-            builder.Services.AddRazorPages();
             
             //configure dbContext
             builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
             // or i put in qoutes DefaultConnection
-            //builder.Services.AddDbContext<AppDbContext>(options =>
+           // builder.Services.AddDbContext<AppDbContext>(options =>
            // options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-         
 
-            builder.Services.AddIdentity<Users, IdentityRole>(options =>
-            {
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequiredLength = 8;
-                options.Password.RequireUppercase = false;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireDigit = false;
-                options.SignIn.RequireConfirmedEmail = true;
-                options.SignIn.RequireConfirmedAccount = true;
-                options.User.RequireUniqueEmail = true;
-                options.SignIn.RequireConfirmedPhoneNumber = false;
-                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-            })
-                .AddEntityFrameworkStores<AppDbContext>()
-                .AddDefaultTokenProviders();
+            builder.Services.AddRazorPages();
+
+            builder.Services.AddHttpContextAccessor(); 
 
             var app = builder.Build();
 

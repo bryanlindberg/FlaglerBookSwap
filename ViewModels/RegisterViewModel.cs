@@ -10,7 +10,7 @@ namespace FlaglerBookSwap.ViewModels
 
         [Required(ErrorMessage ="Flagler Email is required")]
         [EmailAddress]
-        public string Email { get; set; }
+        public string flagler_email { get; set; }
 
         [Required(ErrorMessage = "Password is required")]
         [StringLength(40, MinimumLength = 8, ErrorMessage = "Password must be at least 8 characters long")]
@@ -30,7 +30,7 @@ namespace FlaglerBookSwap.ViewModels
     
     }
 
-    public class MinimumAgeAttribute : ValidationAttribute
+   public class MinimumAgeAttribute : ValidationAttribute
     {
         private readonly int _minimumAge;
         public MinimumAgeAttribute(int minimumAge)
@@ -53,5 +53,5 @@ namespace FlaglerBookSwap.ViewModels
             }
             return new ValidationResult("Invalid birth year");
         }
-    }       
+    }      
 }

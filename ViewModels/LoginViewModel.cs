@@ -6,7 +6,7 @@ namespace FlaglerBookSwap.ViewModels
     {
         [Required(ErrorMessage ="Flagler Email is required")]
         [EmailAddress]
-        public string Email { get; set; }
+        public string flagler_email { get; set; }
 
         [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]

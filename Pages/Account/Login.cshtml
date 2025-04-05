@@ -13,14 +13,14 @@
         <form asp-page="Login" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="mb-3">
-                <label asp-for="LoginViewModel.Email" class="form-label">Email</label>
-                <input asp-for="LoginViewModel.Email" class="form-control" />
-                <span asp-validation-for="LoginViewModel.Email" class="text-danger"></span>
+                    <label asp-for="LoginView.flagler_email" class="form-label">Email</label>
+                    <input asp-for="LoginView.flagler_email" class="form-control" />
+                    <span asp-validation-for="LoginView.flagler_email" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="LoginViewModel.Password" class="form-label">Password</label>
-                <input asp-for="LoginViewModel.Password" class="form-control" />
-                <span asp-validation-for="LoginViewModel.Password" class="text-danger"></span>
+                    <label asp-for="LoginView.Password" class="form-label">Password</label>
+                    <input asp-for="LoginView.Password" class="form-control" />
+                    <span asp-validation-for="LoginView.Password" class="text-danger"></span>
             </div>
             <!--<div class="float-end">
             <a class="text-decoration-none mt-3" asp-page="Register">
@@ -28,9 +28,9 @@
             </a> 
             </div>  I don't know if u want a forget password button we do have the code for it atlesat-->
             <div class="form-check mb-3">                
-                    <input asp-for="LoginViewModel.RememberMe" class="form-check-input" />
-                    <label asp-for="LoginViewModel.RememberMe" class="form-check-label">Remember Me</label>          
-            </div>
+                    <input asp-for="LoginView.RememberMe" class="form-check-input" />
+                    <label asp-for="LoginView.RememberMe" class="form-check-label">Remember Me</label>
+                </div>
             <input type="submit" value="Login" class="btn btn-success w-100 p-2" />
             <p class="text-center mt-2">
                 Don't have an account? <a class="text-decoration-none mt-3" asp-page="Register">

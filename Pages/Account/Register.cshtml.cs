@@ -1,8 +1,10 @@
+using FlaglerBookSwap.Data;
 using FlaglerBookSwap.Models;
 using FlaglerBookSwap.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,15 +15,13 @@ namespace FlaglerBookSwap.Pages.Account
 {
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<Users> signInManager;
-        private readonly UserManager<Users> userManager;
-        private readonly ILogger<RegisterModel> logger;
+        private readonly AppDbContext _context;
+        private readonly ILogger<RegisterModel> _logger;
 
-        public RegisterModel(UserManager<Users> userManager, SignInManager<Users> signInManager, ILogger<RegisterModel> logger)
+        public RegisterModel(AppDbContext context, ILogger<RegisterModel> logger)
         {
-            this.userManager = userManager;
-            this.signInManager = signInManager;
-            this.logger = logger;
+            _context = context;
+            _logger = logger;
         }
 
         [BindProperty]
@@ -34,52 +34,62 @@ namespace FlaglerBookSwap.Pages.Account
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+                return Page();
+            // set above code to show error messages if the model state is invalid
+
+            if (await _context.Users.AnyAsync(u => u.flagler_email == RegisterViewModel.flagler_email))
             {
-                Users user = new Users
-                {
-                    FullName = RegisterViewModel.Name,
-                    Email = RegisterViewModel.Email,
-                    UserName = RegisterViewModel.Email,                   
-                };
+                ModelState.AddModelError("RegisterViewModel.Email", "Email is already registered.");
+                return Page();
+            }
 
-                var result = await userManager.CreateAsync(user, RegisterViewModel.Password);
+            var user = new Users
+            {
+                UserID = GetNextAvailableId(),
+                first_name = RegisterViewModel.Name.Split(' ')[0],
+                last_name = RegisterViewModel.Name.Contains(" ") ?
+                RegisterViewModel.Name.Substring(RegisterViewModel.Name.IndexOf(' ') + 1) :
+                string.Empty,
+                flagler_email = RegisterViewModel.flagler_email,
+                date_created = DateTime.Now.ToString("yyyy-MM-dd"),
+                //birth_year = RegisterViewModel.BirthYear.ToString()
+            };
 
-                if (result.Succeeded)
-                {
-                    logger.LogInformation("User created a new account with password.");
-                    await signInManager.SignInAsync(user, isPersistent: false);
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
 
-                    //code to send email to user
-                    string createProfileLink = Url.Page("/Account/CreateProfile", pageHandler: null, values: new { area = "Identity" }, protocol: Request.Scheme);
-                    string resultMsg = $@"
+
+            _logger.LogInformation("User created a new account.");
+
+            //code to send email to user
+            string createProfileLink = Url.Page("/Account/CreateProfile", pageHandler: null, values: new { area = "Identity" }, protocol: Request.Scheme);
+            string resultMsg = $@"
                     <p>Welcome to Flagler Book Swap website! Your account has been created successfully.</p>
                     <p>Please <a href='{createProfileLink}'>click here</a> to create your profile.</p>";
 
-                    bool emailSent = SendStudentEmail(user.Email, user.FullName, resultMsg);
+            bool emailSent = SendStudentEmail(user.flagler_email, user.FullName, resultMsg);
 
-                    if (emailSent)
-                    {
-                        logger.LogInformation("Email sent successfully.");
-                    }
-                    else
-                    {
-                        logger.LogInformation("Email failed to send.");
-                    }
-                    return RedirectToPage("/Account/Login"); //should bring the user to the login page but it doesn't and i need to                 
-                }
-                else
-                {
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
-
-                }
-
+            if (emailSent)
+            {
+                _logger.LogInformation("Email sent successfully.");
             }
-            return Page();
+            else
+            {
+                _logger.LogInformation("Email failed to send.");
+            }
+
+            TempData["SuccessMessage"] = "Your account has been created successfully. Please log in.";
+
+            return RedirectToPage("/Account/Login"); //should bring the user to the login page but it doesn't and i need to                 
+
         }
+        private short GetNextAvailableId()
+        {
+            var maxId = _context.Users.Any() ? _context.Users.Max(u => u.UserID) : (short)0;
+            return (short)(maxId + 1);
+        }
+        //put code for hashing from the video here if you want for later implementation
 
 
         public bool SendStudentEmail(string sendStudentEmail, string sendStudentName, string resultMsg)
@@ -116,7 +126,7 @@ namespace FlaglerBookSwap.Pages.Account
             }
             catch (Exception ex)
             {
-                logger.LogError($"An error occurred while sending email: {ex.Message}");
+                _logger.LogError($"An error occurred while sending email: {ex.Message}");
                 return false;
             }
         }

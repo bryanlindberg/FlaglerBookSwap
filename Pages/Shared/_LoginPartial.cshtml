@@ -1,8 +1,8 @@
-﻿@using FlaglerBookSwap.Models
-@using Microsoft.AspNetCore.Identity;
-@inject SignInManager<Users> SignInManager;
+﻿@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
 <ul class="navbar-nav ms-auto">
-    @if (SignInManager.IsSignedIn(User))
+    @if (HttpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
     {
         <li class="nav-item">
             <form method="post" asp-page="/Account/Logout" class="form-inline">
