@@ -1,4 +1,4 @@
-using FlaglerBookSwap.Data;
+﻿using FlaglerBookSwap.Data;
 using FlaglerBookSwap.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -13,18 +13,23 @@ namespace FlaglerBookSwap
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddAuthentication("Cookies")
+    .AddCookie("Cookies", options =>
+    {
+        options.LoginPath = "/Account/Login"; 
+        options.AccessDeniedPath = "/Account/AccessDenied";
+    });
 
-            
             //configure dbContext
             builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
             // or i put in qoutes DefaultConnection
-           // builder.Services.AddDbContext<AppDbContext>(options =>
-           // options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            // builder.Services.AddDbContext<AppDbContext>(options =>
+            // options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddRazorPages();
 
-            builder.Services.AddHttpContextAccessor(); 
+            builder.Services.AddHttpContextAccessor();
 
             var app = builder.Build();
 

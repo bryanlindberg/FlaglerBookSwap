@@ -52,7 +52,7 @@ namespace FlaglerBookSwap.Pages.Account
                 RegisterViewModel.Name.Substring(RegisterViewModel.Name.IndexOf(' ') + 1) :
                 string.Empty,
                 flagler_email = RegisterViewModel.flagler_email,
-                date_created = DateTime.Now.ToString("yyyy-MM-dd"),
+                date_created = DateTime.Now,
                 //birth_year = RegisterViewModel.BirthYear.ToString()
             };
 
@@ -86,7 +86,7 @@ namespace FlaglerBookSwap.Pages.Account
         }
         private short GetNextAvailableId()
         {
-            var maxId = _context.Users.Any() ? _context.Users.Max(u => u.UserID) : (short)0;
+            short maxId = (short)(_context.Users.Any() ? _context.Users.Max(u => u.UserID) : (short)0);
             return (short)(maxId + 1);
         }
         //put code for hashing from the video here if you want for later implementation
