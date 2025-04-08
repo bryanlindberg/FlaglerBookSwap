@@ -13,5 +13,6 @@ namespace FlaglerBookSwap.Models
         public short? Publication_Year { get; set; }
         public string? Edition { get; set; }
         public string? Publisher { get; set; }
+
     }
 }

@@ -1,0 +1,19 @@
+﻿@page
+@model ListingDisplayModel
+@{
+    ViewData["Title"] = "Listing Display";
+}
+
+@foreach (var listing in Model.ListingDisplay)
+{
+    <li class="list-group-item">
+        @listing.Users.first_name @listing.Users.last_name
+        @listing.Textbooks.Book_Title
+        @listing.condition
+        @listing.price
+        @listing.is_willing_to_trade
+        @listing.Users.flagler_email
+        @listing.Users.phone_number
+    </li>
+
+}

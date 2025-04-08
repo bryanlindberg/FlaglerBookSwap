@@ -59,7 +59,7 @@
             @foreach (var textbook in Model.TextbookList)
             {
                 <li class="list-group-item">
-                    <a asp-page="/Search & List/Details" asp-route-textbookId="@textbook.textbook_id">
+                    <a asp-page="/Search & List/ListingDisplay" asp-route-textbookId="@textbook.textbook_id">
                         @textbook.Book_Title
                     </a>
                 </li>

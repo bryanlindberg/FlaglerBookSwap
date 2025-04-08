@@ -77,7 +77,7 @@ namespace FlaglerBookSwap.Pages.Search___List
             _context.Listings.Add(newTextbookListing);
             _context.SaveChanges();
             // Redirect to a confirmation page or another action
-            return RedirectToPage("/Confirmation");
+            return RedirectToPage("/Account/ProfileListing");
 
         }
 
