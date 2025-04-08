@@ -10,7 +10,7 @@ namespace FlaglerBookSwap.Models
         public string condition { get; set; }
         public string edition { get; set; } 
         public decimal price { get; set; }
-        public string photo { get; set; }
+        public byte[] photo { get; set; }
         public bool list_status { get; set; }
         public bool is_willing_to_trade { get; set; } 
         public short userID { get; set; }
