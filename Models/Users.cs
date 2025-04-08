@@ -16,7 +16,10 @@ namespace FlaglerBookSwap.Models
         public string expected_grad_year { get; set; }
         public string phone_number { get; set; }
         public string date_created { get; set; }
-       // public string birth_year { get; set; }
+        public string? profile_picture { get; set; }
+        public string gender { get; set; } 
+                                          //need to add it to the db before we declare it or there's an error during registration
+                                          // public string birth_year { get; set; }
 
         //makes a full name from first and last name
         [NotMapped]

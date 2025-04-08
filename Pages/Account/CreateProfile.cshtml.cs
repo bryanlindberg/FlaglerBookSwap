@@ -10,6 +10,8 @@ using Microsoft.IdentityModel.Logging;
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
+using FlaglerBookSwap.Data;
+using Microsoft.EntityFrameworkCore;
 
 
 
@@ -17,32 +19,21 @@ namespace FlaglerBookSwap.Pages.Account
 {
     public class CreateProfileModel : PageModel
     {
-        private readonly UserManager<Users> userManager;
-        private readonly ILogger<CreateProfileModel> logger;
+        private readonly AppDbContext _context;
+        private readonly ILogger<CreateProfileModel> _logger;
 
-        public CreateProfileModel(UserManager<Users> userManager, ILogger<CreateProfileModel> logger)
+        public CreateProfileModel(AppDbContext context, ILogger<CreateProfileModel> logger)
         {
-            this.userManager = userManager;
-            this.logger = logger;
+            _context = context;
+            _logger = logger;
         }
 
         [BindProperty]
         public CreateProfileViewModel CreateProfileViewModel { get; set; }
         public List<SelectListItem> GraduationYears { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string userId)
-        {
-            if (string.IsNullOrEmpty(userId))
-            {
-                return NotFound("User ID not provided.");
-            }
-
-            var user = await userManager.FindByIdAsync(userId);
-            if (user == null)
-            {
-                return NotFound("User not found.");
-            }
-
+        public async Task<IActionResult> OnGetAsync()
+        {               
             CreateProfileViewModel = new CreateProfileViewModel
             {
                 Major = new List<CreateMajorViewModel>
@@ -101,17 +92,26 @@ namespace FlaglerBookSwap.Pages.Account
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(string userId)
+        public async Task<IActionResult> OnPostAsync()
         {
             if (ModelState.IsValid)
             {
-                var user = await userManager.FindByIdAsync(userId);
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.flagler_email == User.Identity.Name);
                 if (user == null)
                 {
                     return NotFound("User not found.");
+                    
                 }
 
-                // Handle file upload
+                //*this is for me for future projects
+                //Since i'm not using the identity framework then i have to instatiate the user manager below everytime
+                //a user needs to save data to the account
+                user.major = CreateProfileViewModel.Major.FirstOrDefault(m => m.Selected)?.Value;
+                user.expected_grad_year = CreateProfileViewModel.GradYear;
+                user.phone_number = CreateProfileViewModel.PhoneNumber;
+                user.gender = CreateProfileViewModel.gender;
+
+
                 if (Request.Form.Files.Count > 0)
                 {
                     var file = Request.Form.Files[0];
@@ -122,31 +122,23 @@ namespace FlaglerBookSwap.Pages.Account
                         {
                             await file.CopyToAsync(stream);
                         }
-                        CreateProfileViewModel.ProfilePic = filePath;
+                        CreateProfileViewModel.profilepicturepath = filePath;
+
+                        user.profile_picture = filePath;
+
                     }
                 }
 
-                /* Update user profile with additional information
-                user.Major = CreateProfileViewModel.Major.FirstOrDefault(m => m.Selected)?.Value;
-                user.ExpectedGradYear = CreateProfileViewModel.GradYear;
-                user.PhoneNumber = CreateProfileViewModel.PhoneNumber;
-                user.Gender = CreateProfileViewModel.Gender;
-                user.ProfilePic = CreateProfileViewModel.ProfilePic;
-                */
-                var updateResult = await userManager.UpdateAsync(user);
+                _context.Users.Update(user);
+                await _context.SaveChangesAsync();
 
-                if (updateResult.Succeeded)
-                {
-                    logger.LogInformation("User profile updated successfully.");
-                    return RedirectToPage("/Index");
-                }
-                else
-                {
-                    foreach (var error in updateResult.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
-                }
+                _logger.LogInformation("User profile created.");
+
+                TempData["SuccessMessage"] = "Your profile has been created successfully.";
+
+                return RedirectToPage("/Index");
+                           
+                
             }
             return Page();
         }

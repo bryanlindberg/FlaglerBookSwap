@@ -10,7 +10,7 @@
     </div>
     <div class="account-content">
         <div class="account-box">
-            <form asp-page="CreateProfile" method="post">
+            <form asp-page="CreateProfile" method="post" enctype="multipart/form-data">
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="mb-3">
                     <label asp-for="CreateProfileViewModel.Major" class="form-label">Major</label>
@@ -37,14 +37,24 @@
                     <span asp-validation-for="CreateProfileViewModel.PhoneNumber" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label asp-for="CreateProfileViewModel.Gender" class="form-label">Gender</label>
-                    <input asp-for="CreateProfileViewModel.Gender" class="form-control" />
-                    <span asp-validation-for="CreateProfileViewModel.Gender" class="text-danger"></span>
+                    <label asp-for="CreateProfileViewModel.Password" class="form-label">Phone Number</label>
+                    <input asp-for="CreateProfileViewModel.Password" class="form-control" />
+                    <span asp-validation-for="CreateProfileViewModel.Password" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label asp-for="CreateProfileViewModel.ProfilePic" class="form-label">Profile Picture</label>
-                    <input asp-for="CreateProfileViewModel.ProfilePic" type="file" class="form-control" />
-                    <span asp-validation-for="CreateProfileViewModel.ProfilePic" class="text-danger"></span>
+                    <label asp-for="CreateProfileViewModel.ConfirmPassword" class="form-label">Phone Number</label>
+                    <input asp-for="CreateProfileViewModel.ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="CreateProfileViewModel.ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="CreateProfileViewModel.gender" class="form-label">Gender</label>
+                    <input asp-for="CreateProfileViewModel.gender" class="form-control" />
+                    <span asp-validation-for="CreateProfileViewModel.gender" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="CreateProfileViewModel.profile_picture" class="form-label">Profile Picture</label>
+                    <input asp-for="CreateProfileViewModel.profile_picture" type="file" class="form-control" />
+                    <span asp-validation-for="CreateProfileViewModel.profile_picture" class="text-danger"></span>
                 </div>
                 <input type="submit" value="Create Profile" class="btn btn-success w-100 p-2" />
             </form>
@@ -52,6 +62,7 @@
     </div>
 </body>
 
+               
 
 @section Scripts
 {
