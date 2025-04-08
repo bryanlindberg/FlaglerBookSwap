@@ -1,19 +1,57 @@
 ﻿@page
-@model FlaglerBookSwap.Pages.SearchingModel
+@model ListingsModel
 @{
-    ViewData["Title"] = "Search for a textbook";
+    ViewData["Title"] = "Search for a textbook!";
 }
-
-<h1>@ViewData["Title"]</h1>
-
-<body>
+<form method="post">
     <div class="text-center">
-       
-        <p>Can’t find the textbook(s) you’re looking for? click here to enter info manually!
-            <a class="text-decoration-none mt-3" asp-page="/Search & List/ManualSearch">
-                Search up a textbook
-            </a>
-        </p>
+        <h1>@ViewData["Title"]</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <select asp-for="Subject" class="form-control">
+                <option value="">Please select a subject</option>
+                <option value="ACC">ACC</option>
+                <option value="BUS">BUS</option>
+                <option value="CIS">CIS</option>
+                <option value="FIN">FIN</option>
+                <option value="HIS">HIS</option>
+                <option value="EDU">EDU</option>
+                <option value="PSY">PSY</option>
+                <option value="HTM">HTM</option>
+                <option value="BIO">BIO</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <input type="text" asp-for="ClassNumber" class="form-control" placeholder="Course Number" />
+        </div>
+        <div class="col-md-6">
+            <select asp-for="Term" class="form-control">
+                <option value="">Please select a term</option>
+                <option value="Spring 2025">Spring 2025</option>
+                <option value="Fall 2025">Fall 2025</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <select asp-for="Section" class="form-control">
+                <option value="">Please select a section</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+            </select>
+        </div>
 
     </div>
-</body>
+    <br />
+    <input type="submit" value="Find Textbook" class="btn btn-success w-100 p-2" />
+    <p class="text-center mt-2">
+        Can’t find the textbook(s) you’re looking for? click here to enter the info manually!
+        <a class="text-decoration-none mt-3" asp-page="/Search & List/ManualSearch">
+            Manually search textbook
+        </a>
+    </p>
+</form>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <pre>@Model.Message</pre>
+}

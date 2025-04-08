@@ -16,7 +16,7 @@ namespace FlaglerBookSwap.Data
         public DbSet<Courses> Courses { get; set; }
 
         public DbSet<Users> Users { get; set; }
-
+        public DbSet<Listings> Listings { get; set; }
     }
 
 }

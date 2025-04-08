@@ -1,28 +1,18 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace FlaglerBookSwap.Models
 {
-    public class Users 
+    public class Users
     {
-        [Key]
-        public short UserID { get; set; }
-        public string first_name { get; set; }
-        public string last_name { get; set; }
-        [EmailAddress]
         public string flagler_email { get; set; }
         public string password { get; set; }
         public string major { get; set; }
         public string expected_grad_year { get; set; }
         public string phone_number { get; set; }
         public string date_created { get; set; }
-        public string? profile_picture { get; set; }
-        public string gender { get; set; } 
-                                          //need to add it to the db before we declare it or there's an error during registration
-                                          // public string birth_year { get; set; }
+       // public string birth_year { get; set; }
 
-        //makes a full name from first and last name
-        [NotMapped]
         public string FullName
         {
             get { return $"{first_name} {last_name}"; }
@@ -35,8 +25,13 @@ namespace FlaglerBookSwap.Models
                     last_name = names[1];
             }
         }
-        //public string? profile_picture { get; set; } NEED TO ADD THIS TO DATABASE
-        //public string? gender { get; set; } NEED TO ADD THIS TO DATABASE
-
+        [Key]
+        public short UserID { get; internal set; }
+        public string first_name { get; set; }
+        public string last_name { get; set; }
+        public string? gender { get; set; }
+        public string phone_number { get; set; }
+        public DateTime? date_created { get; set; }
+        public string? birth_year { get; set; } // will be a required field later but i set it to optional for testing purposes for now
     }
 }

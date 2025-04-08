@@ -1,0 +1,49 @@
+﻿@page "/Search & List/Details/{textbookId:int}"
+@model DetailsModel
+@{
+    ViewData["Title"] = "Textbook Details";
+}
+
+
+<form method="post">
+    <div class="col-md-6">
+        <label>How much do you want to sell this textbook for?</label>
+        <input type="text" asp-for="Price" class="form-control" placeholder="" />
+    </div>
+
+    <div class="col-md-6">
+        <label>What is the edition of this textbook?</label>
+        <input type="text" asp-for="textbookEdition" class="form-control" placeholder="" />
+    </div>
+
+    <div class="form-group">
+        <label>Are you willing to swap your textbook for another textbook?</label>
+        <div>
+            <input type="radio" asp-for="isSwapping" value="Yes" /> Yes
+            <input type="radio" asp-for="isSwapping" value="No" /> No
+        </div>
+
+    </div>
+    <div class="form-group">
+        <label>Would you like to be contacted by phone or email?</label>
+        <div>
+            <input type="radio" asp-for="contactPref" value="Email" /> Email
+            <input type="radio" asp-for="contactPref" value="Phone" /> Phone
+            <input type="radio" asp-for="contactPref" value="Either" /> Either
+        </div>
+
+    </div>
+
+
+    <div class="col-md-6">
+        <label>What is the condition of this textbook?</label>
+        <select asp-for="textbookCondition" class="form-control">
+            <option value="Please select an option"></option>
+            <option value="1">Pristine</option>
+            <option value="2">Lightly Used</option>
+            <option value="3">Worn in</option>
+            <option value="4">Dreadful</option>
+        </select>
+    </div>
+    <input type="submit" value="List Textbook" class="btn btn-success w-100 p-2" />
+</form>

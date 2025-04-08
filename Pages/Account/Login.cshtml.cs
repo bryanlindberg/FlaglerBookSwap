@@ -70,7 +70,7 @@ namespace FlaglerBookSwap.Pages.Account
                 }
 
                 // Verify password
-               bool isPasswordValid = VerifyPassword(LoginView.Password, user.password);
+               bool isPasswordValid = VerifyPassword(LoginView.Password, user.Password);
 
                 if (isPasswordValid)
                 {
@@ -107,6 +107,11 @@ namespace FlaglerBookSwap.Pages.Account
             }
 
             return Page();
+        }
+
+        private bool VerifyPassword(string password1, object password2)
+        {
+            throw new NotImplementedException();
         }
 
         // Verify password by hashing the input and comparing to stored hash

@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-md-6">
             <select asp-for="Subject" class="form-control">
-                <option value="1">Please select a subject</option>
+                <option value="">Please select a subject</option>
                 <option value="ACC">ACC</option>
                 <option value="BUS">BUS</option>
                 <option value="CIS">CIS</option>
@@ -51,7 +51,22 @@
     </p>
 </form>
 
-@if (!string.IsNullOrEmpty(Model.Message))
+@if (Model.TextbookList != null && Model.TextbookList.Any())
 {
-    <pre>@Model.Message</pre>
+    <div class="mt-4">
+        <h3>Matching Textbooks</h3>
+        <ul class="list-group">
+            @foreach (var textbook in Model.TextbookList)
+            {
+                <li class="list-group-item">
+                    <a asp-page="/Search & List/Details" asp-route-textbookId="@textbook.textbook_id">
+                        @textbook.Book_Title
+                    </a>
+                </li>
+
+            }
+        </ul>
+    </div>
 }
+
+

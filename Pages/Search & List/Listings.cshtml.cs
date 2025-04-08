@@ -1,4 +1,5 @@
 using FlaglerBookSwap.Data;
+using FlaglerBookSwap.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -15,6 +16,9 @@ namespace FlaglerBookSwap.Pages
         [BindProperty]
         public string Term { get; set; }
         public string Message { get; set; }
+        public List<Textbooks> TextbookList { get; set; } = new List<Textbooks>();
+
+
 
         private readonly AppDbContext _context;
 
@@ -71,7 +75,10 @@ namespace FlaglerBookSwap.Pages
 
             var textbooks = _context.Textbooks
                 .Where(t => textbookIds.Contains(t.textbook_id))
-                .ToList(); 
+                .ToList();
+
+            TextbookList = textbooks; 
+
 
             if (!textbooks.Any())
             {
@@ -93,6 +100,7 @@ namespace FlaglerBookSwap.Pages
 
         public void OnGet()
         {
+
         }
     }
 }

@@ -10,6 +10,6 @@ namespace FlaglerBookSwap.Models
         public bool wishlist_status { get; set; }
         public short userID { get; set; }
         public short textbook_id { get; set; }
-        //public string image { get; set; } NEED TO ADD THIS TO DB
+        
     }
 }
