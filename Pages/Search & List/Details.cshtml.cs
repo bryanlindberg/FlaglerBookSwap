@@ -20,7 +20,9 @@ namespace FlaglerBookSwap.Pages.Search___List
         public string textbookEdition { get; set; }
         [BindProperty(SupportsGet = true)]
         public short TextbookId { get; set; }
-        public byte[] textbookImage { get; set; }
+        [BindProperty]
+        public IFormFile textbookImage { get; set; }
+
 
         private readonly AppDbContext _context;
 
@@ -57,7 +59,14 @@ namespace FlaglerBookSwap.Pages.Search___List
 
             short userId = short.Parse(userIdString);
 
+            byte[] imageBytes = null;
 
+            if (textbookImage != null && textbookImage.Length > 0)
+            {
+                using var memoryStream = new MemoryStream();
+                textbookImage.CopyTo(memoryStream);
+                imageBytes = memoryStream.ToArray();
+            }
 
             var newTextbookListing = new Listings
             {
@@ -65,19 +74,20 @@ namespace FlaglerBookSwap.Pages.Search___List
                 date_listed = DateTime.Now,
                 price = Price,
                 is_willing_to_trade = isSwapping,
-                //contact_pref = contactPref,
+                list_status = true,
                 condition = textbookCondition,
                 edition = textbookEdition,
-                //photo = textbookImage
+                photo = imageBytes,
                 textbook_id = TextbookId,
-                userID = userId
+                userID = userId,
+                contact_preference = contactPref,
             };
 
             // Save the new textbook listing to the database or perform any other necessary actions
             _context.Listings.Add(newTextbookListing);
             _context.SaveChanges();
             // Redirect to a confirmation page or another action
-            return RedirectToPage("/Confirmation");
+            return RedirectToPage("/Account/ProfileListing");
 
         }
 

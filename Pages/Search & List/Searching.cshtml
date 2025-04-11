@@ -51,7 +51,20 @@
     </p>
 </form>
 
-@if (!string.IsNullOrEmpty(Model.Message))
+@if (Model.TextbookList != null && Model.TextbookList.Any())
 {
-    <pre>@Model.Message</pre>
+    <div class="mt-4">
+        <h3>Matching Textbooks</h3>
+        <ul class="list-group">
+            @foreach (var textbook in Model.TextbookList)
+            {
+                <li class="list-group-item">
+                    <a asp-page="/Search & List/ListingDisplay" asp-route-textbookId="@textbook.textbook_id">
+                        @textbook.Book_Title
+                    </a>
+                </li>
+
+            }
+        </ul>
+    </div>
 }

@@ -16,11 +16,23 @@
                 <tr>
                     <th>Book Title</th>
                     <th>Edition</th>
-                    <th>Date Published</th>
                     <th>Asking price</th>
+                    <th>Date Listed</th>
                 </tr>
             </thead>
             <!--  <input type="submit" value="Hide Listing" class="btn btn-outline-dark" /> -->
         </table>
+
+
+        @foreach (var listing in Model.ListingInfo)
+        {
+            <li class="list-group-item">
+                @listing.Textbooks.Book_Title
+                @listing.edition
+                @listing.price
+                @listing.date_listed
+            </li>
+
+        }
     </div>
 </body>
