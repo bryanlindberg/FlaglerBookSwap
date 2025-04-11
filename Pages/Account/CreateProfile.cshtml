@@ -11,38 +11,41 @@
     <div class="account-content">
         <div class="account-box">
             <form asp-page="CreateProfile" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>The Email associated with this is: @ViewData["Email"]</label>
+                </div>
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="mb-3">
-                    <label asp-for="CreateProfileViewModel.Major" class="form-label">Major</label>
+                    <label asp-for="CreateProfileViewModel.major" class="form-label">Major</label>
                     <div class="form-check-inline">
-                        @for (var i = 0; i < Model.CreateProfileViewModel.Major.Count(); i++)
+                        @for (var i = 0; i < Model.CreateProfileViewModel.major.Count(); i++)
                         {
                             <div class="form-check">
-                                <input asp-for="@Model.CreateProfileViewModel.Major[i].Selected" class="form-check-input" />
-                                <label asp-for="@Model.CreateProfileViewModel.Major[i].Selected">@Model.CreateProfileViewModel.Major[i].Text</label>
-                                <input type="hidden" asp-for="@Model.CreateProfileViewModel.Major[i].Value" />
-                                <input type="hidden" asp-for="@Model.CreateProfileViewModel.Major[i].Text" />
+                                <input asp-for="@Model.CreateProfileViewModel.major[i].Selected" class="form-check-input" />
+                                <label asp-for="@Model.CreateProfileViewModel.major[i].Selected">@Model.CreateProfileViewModel.major[i].Text</label>
+                                <input type="hidden" asp-for="@Model.CreateProfileViewModel.major[i].Value" />
+                                <input type="hidden" asp-for="@Model.CreateProfileViewModel.major[i].Text" />
                             </div>
                         }
                     </div>
-                    <span asp-validation-for="CreateProfileViewModel.Major" class="text-danger"></span>
+                    <span asp-validation-for="CreateProfileViewModel.major" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label asp-for="CreateProfileViewModel.GradYear" class="form-label">Graduation Year</label>
-                    <select asp-for="CreateProfileViewModel.GradYear" asp-items="Model.GraduationYears" class="form-control"></select>
+                    <label asp-for="CreateProfileViewModel.expected_grad_year" class="form-label">Graduation Year</label>
+                    <select asp-for="CreateProfileViewModel.expected_grad_year" asp-items="Model.GraduationYears" class="form-control"></select>
                 </div>
                 <div class="mb-3">
-                    <label asp-for="CreateProfileViewModel.PhoneNumber" class="form-label">Phone Number</label>
-                    <input asp-for="CreateProfileViewModel.PhoneNumber" class="form-control" />
-                    <span asp-validation-for="CreateProfileViewModel.PhoneNumber" class="text-danger"></span>
+                    <label asp-for="CreateProfileViewModel.Phone_number" class="form-label">Phone Number</label>
+                    <input asp-for="CreateProfileViewModel.Phone_number" class="form-control" />
+                    <span asp-validation-for="CreateProfileViewModel.Phone_number" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label asp-for="CreateProfileViewModel.Password" class="form-label">Phone Number</label>
+                    <label asp-for="CreateProfileViewModel.Password" class="form-label">Password</label>
                     <input asp-for="CreateProfileViewModel.Password" class="form-control" />
                     <span asp-validation-for="CreateProfileViewModel.Password" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label asp-for="CreateProfileViewModel.ConfirmPassword" class="form-label">Phone Number</label>
+                    <label asp-for="CreateProfileViewModel.ConfirmPassword" class="form-label">Confirm Password</label>
                     <input asp-for="CreateProfileViewModel.ConfirmPassword" class="form-control" />
                     <span asp-validation-for="CreateProfileViewModel.ConfirmPassword" class="text-danger"></span>
                 </div>

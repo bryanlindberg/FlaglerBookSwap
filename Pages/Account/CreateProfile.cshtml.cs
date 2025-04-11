@@ -32,11 +32,28 @@ namespace FlaglerBookSwap.Pages.Account
         public CreateProfileViewModel CreateProfileViewModel { get; set; }
         public List<SelectListItem> GraduationYears { get; set; }
 
-        public async Task<IActionResult> OnGetAsync()
-        {               
+        [BindProperty(SupportsGet = true)]
+        public string Email { get; set; }
+
+
+
+        public async Task<IActionResult> OnGetAsync(string email)
+        {
+            Email = email;
+
+            if (!string.IsNullOrEmpty(email))
+            {
+                // Verify the email exists in the database
+                var userExists = await _context.Users.AnyAsync(u => u.flagler_email == email);
+                if (!userExists)
+                {
+                    return NotFound("User not found with this email.");
+                }
+            }
+
             CreateProfileViewModel = new CreateProfileViewModel
             {
-                Major = new List<CreateMajorViewModel>
+                major = new List<CreateMajorViewModel>
                     {
                         new CreateMajorViewModel { Value = "Computer Information Systems", Text = "CIS" },
                         new CreateMajorViewModel { Value = "Business Administration", Text = "BUS ADMIN" },
@@ -96,36 +113,32 @@ namespace FlaglerBookSwap.Pages.Account
         {
             if (ModelState.IsValid)
             {
-                var user = await _context.Users.FirstOrDefaultAsync(u => u.flagler_email == User.Identity.Name);
+
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.flagler_email == Email);
                 if (user == null)
                 {
                     return NotFound("User not found.");
                     
                 }
 
-                //*this is for me for future projects
-                //Since i'm not using the identity framework then i have to instatiate the user manager below everytime
-                //a user needs to save data to the account
-                user.major = CreateProfileViewModel.Major.FirstOrDefault(m => m.Selected)?.Value;
-                user.expected_grad_year = CreateProfileViewModel.GradYear;
-                user.phone_number = CreateProfileViewModel.PhoneNumber;
+                //this is for me for future projects Since i'm not using the identity framework
+                //then i have to instatiate the user manager below everytime a user needs to save data to the account
+                user.major = CreateProfileViewModel.major.FirstOrDefault(m => m.Selected)?.Value;
+                user.expected_grad_year = CreateProfileViewModel.expected_grad_year;
+                user.phone_number = CreateProfileViewModel.Phone_number;
                 user.gender = CreateProfileViewModel.gender;
-
+                
 
                 if (Request.Form.Files.Count > 0)
                 {
                     var file = Request.Form.Files[0];
                     if (file.Length > 0)
                     {
-                        var filePath = Path.Combine("wwwroot/uploads", file.FileName);
-                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        using (var memoryStream = new MemoryStream())
                         {
-                            await file.CopyToAsync(stream);
+                            await file.CopyToAsync(memoryStream);
+                            user.profile_picture = Convert.ToString(memoryStream.ToArray()); 
                         }
-                        CreateProfileViewModel.profilepicturepath = filePath;
-
-                        user.profile_picture = filePath;
-
                     }
                 }
 

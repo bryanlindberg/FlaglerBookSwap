@@ -107,18 +107,11 @@ namespace FlaglerBookSwap.Pages.Account
             }
 
             return Page();
-        }
-
-        private bool VerifyPassword(string password1, object password2)
-        {
-            throw new NotImplementedException();
-        }
+        }     
 
         // Verify password by hashing the input and comparing to stored hash
         private bool VerifyPassword(string inputPassword, string storedPasswordHash)
-        {
-            // If you haven't implemented hashing yet, use this simple comparison
-            // WARNING: This is only for development and should be replaced with proper hashing
+        {      
             return inputPassword == storedPasswordHash;
         }
 

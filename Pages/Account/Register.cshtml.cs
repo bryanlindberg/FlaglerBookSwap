@@ -63,7 +63,8 @@ namespace FlaglerBookSwap.Pages.Account
             _logger.LogInformation("User created a new account.");
 
             //code to send email to user
-            string createProfileLink = Url.Page("/Account/CreateProfile", pageHandler: null, values: new { area = "Identity" }, protocol: Request.Scheme);
+            string createProfileLink = Url.Page("/Account/CreateProfile", pageHandler: null, 
+                values: new { area = "Identity", email = user.flagler_email }, protocol: Request.Scheme);
             string resultMsg = $@"
                     <p>Welcome to Flagler Book Swap website! Your account has been created successfully.</p>
                     <p>Please <a href='{createProfileLink}'>click here</a> to create your profile.</p>";

@@ -6,14 +6,14 @@ namespace FlaglerBookSwap.ViewModels
     public class CreateProfileViewModel
     {
         [Required(ErrorMessage = "Please check off your major")]
-        public List<CreateMajorViewModel> Major { get; set; }
+        public List<CreateMajorViewModel> major { get; set; }
 
         [Required(ErrorMessage = "Please pick your graduation year")]
-        public string GradYear { get; set; }
+        public string expected_grad_year { get; set; }
 
         [StringLength(40, MinimumLength = 10)]
         [Required(ErrorMessage = "Please enter your phone number")]
-        public string PhoneNumber { get; set; }
+        public string Phone_number { get; set; }
 
         [Required(ErrorMessage = "Password is required")]
         [StringLength(40, MinimumLength = 8, ErrorMessage = "Password must be at least 8 characters long")]
@@ -26,12 +26,9 @@ namespace FlaglerBookSwap.ViewModels
         [Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; }
 
-        public string gender { get; set; } // Not required
+        public string? gender { get; set; } // Not required
 
-        public byte [] profile_picture { get; set; } // Not required
-
-        public string profilepicturepath { get; set; } // I was getting errors when i was making the profile picture upload code so i added this as a middle man to hold the file path but there's prob better code but my friend helped me out with it  
-        
+        public byte? [] profile_picture { get; set; } // Not required        
 
     }
 
