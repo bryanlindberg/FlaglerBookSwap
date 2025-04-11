@@ -4,3 +4,13 @@
     ViewData["Title"] = "Your Wishlist";
 }
 
+
+@foreach (var listing in Model.WishlistInfo)
+{
+    <li class="list-group-item">
+        @listing.Textbooks.Book_Title
+        @listing.Textbooks.Authors
+        @listing.Textbooks.ISBN
+    </li>
+
+}

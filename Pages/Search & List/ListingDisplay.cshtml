@@ -4,16 +4,143 @@
     ViewData["Title"] = "Listing Display";
 }
 
-@foreach (var listing in Model.ListingDisplay)
-{
-    <li class="list-group-item">
-        @listing.Users.first_name @listing.Users.last_name
-        @listing.Textbooks.Book_Title
-        @listing.condition
-        @listing.price
-        @listing.is_willing_to_trade
-        @listing.Users.flagler_email
-        @listing.Users.phone_number
-    </li>
+
+<style>
+    .page-wrapper {
+        display: flex;
+        min-height: 100vh;
+        gap: 20px;
+    }
+
+    .left-side {
+        flex: 1;
+    }
+
+    .right-side {
+        width: 35%;
+        padding: 20px;
+    }
+
+    .listing-card {
+        list-style: none; 
+        border: 1px solid #ddd;
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 20px;
+        background-color: #f9f9f9;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        transition: transform 0.2s ease-in-out;
+    }
+
+        .listing-card:hover {
+            transform: scale(1.01);
+        }
+
+    .listing-title {
+        font-size: 1.3rem;
+        color: #2c3e50;
+        margin-bottom: 10px;
+    }
+
+    .listing-detail {
+        font-size: 0.95rem;
+        color: #333;
+        margin-bottom: 6px;
+    }
+
+    .listing-contact {
+        margin-top: 10px;
+        font-style: italic;
+        color: #555;
+    }
+
+    .listing-image {
+        margin-top: 15px;
+        max-height: 200px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+    }
+
+    .no-image {
+        font-size: 0.9rem;
+        color: #888;
+        margin-top: 10px;
+    }
+</style>
+
+
+<div class="page-wrapper">
+    <div class="left-side">
+    </div>
+
+    <div class="right-side">
+        @if (Model.ListingDisplay.Count == 0)
+        {
+            <p>Sorry, there are not any listings currently available for this textbook. Please click <a asp-page="/Account/ProfileWishlist" asp-page-handler="AddToWishlist" asp-route-textbookID="@Model.TextbookId">here</a> if you'd like to add this textbook to your wishlist and be notified if it becomes available.</p>
+        }
+        else
+        {
+            <p>Here are the listings for this textbook:</p>
+
+    int listingNumber = 1;
+
+
+            @foreach (var listing in Model.ListingDisplay)
+            {
+                <li class="listing-card">
+                    <div class="listing-title">Listing #@listingNumber</div>
+
+                    <div class="listing-detail">Name of seller: @listing.Users.FullName</div>
+                    <div class="listing-detail">Textbook title: @listing.Textbooks.Book_Title, Edition @listing.edition</div>
+                    <div class="listing-detail">Textbook condition: @listing.condition</div>
+                    <div class="listing-detail">Asking price: @String.Format("{0:C}", listing.price)</div>
+                    <div class="listing-detail">Seller willing to trade: @(listing.is_willing_to_trade == false ? "Yes" : "No")</div>
+
+                    <div class="listing-contact">
+                        @if (listing.contact_preference == "Email")
+                        {
+                            <div>
+                                Contact Preference: Email <br />
+                                Email: @listing.Users.flagler_email</div>
+                        }
+                        else if (listing.contact_preference == "Phone")
+                        {
+                            <div>  
+                               Contact Preference: Phone <br />  
+                               Phone Number: @String.Format("{0:(###) ###-####}", Convert.ToInt64(listing.Users.phone_number))  
+                            </div>
+                        }
+                        else
+                        {
+                            <div>
+                                Contact preference: Either<br />
+                                Email: @listing.Users.flagler_email<br />
+                                Phone: @listing.Users.phone_number
+                            </div>
+                        }
+                    </div>
+
+                    @if (listing.photo != null)
+                    {
+                        var base64 = Convert.ToBase64String(listing.photo);
+                        var imageSrc = $"data:image/jpeg;base64,{base64}";
+                        <img src="@imageSrc" alt="Textbook Image" class="listing-image" />
+                    }
+                    else
+                    {
+                        <div class="no-image">No image available.</div>
+                    }
+
+                    @{
+                        listingNumber++;
+                    }
+                </li>
+            }
+        }
+    </div>
+</div>
+
+    }
+
 
 }

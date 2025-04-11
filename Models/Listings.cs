@@ -15,6 +15,7 @@ namespace FlaglerBookSwap.Models
         public bool list_status { get; set; }
         public bool is_willing_to_trade { get; set; } 
         public short userID { get; set; }
+        public string? contact_preference { get; set; } 
         public short textbook_id { get; set; }
         [ForeignKey("textbook_id")]
         public Textbooks Textbooks { get; set; } // Navigation property to the Textbooks table
