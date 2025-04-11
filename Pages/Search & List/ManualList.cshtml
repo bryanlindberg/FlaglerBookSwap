@@ -3,9 +3,41 @@
 @{
     ViewData["Title"] = "Please input the necessary information to find the book you want to list (1 of 3 required)";
 }
+<form method="post">
+    <body>
+        <div class="text-center">
+            <h2>@ViewData["Title"]</h2>
+        </div>
+        <div class="col-md-6">
+            <select asp-for="SearchOption" class="form-control">
+                <option value="ISBN">ISBN</option>
+                <option value="Textbook Title">Textbook Title</option>
+                <option value="Author">Author</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <input type="text" asp-for="SearchObject" class="form-control" placeholder="" />
+        </div>
 
-<body>
-    <div class="text-center">
-        <h2>@ViewData["Title"]</h2>
+        <input type="submit" value="Find Textbook" class="btn btn-success w-100 p-2" />
+
+    </body>
+</form>
+
+@if (Model.TextbookList != null && Model.TextbookList.Any())
+{
+    <div class="mt-4">
+        <h3>Matching Textbooks</h3>
+        <ul class="list-group">
+            @foreach (var textbook in Model.TextbookList)
+            {
+                <li class="list-group-item">
+                    <a asp-page="/Search & List/Details" asp-route-textbookId="@textbook.textbook_id">
+                        @textbook.Book_Title
+                    </a>
+                </li>
+
+            }
+        </ul>
     </div>
-</body>
+}
