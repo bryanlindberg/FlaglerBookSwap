@@ -149,3 +149,11 @@ body {
     color: #333;
 }
 
+.display-container {
+    background-color: #FAF9F6; 
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 30px;
+    margin-top: 25px;
+}
+

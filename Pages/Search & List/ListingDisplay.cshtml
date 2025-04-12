@@ -70,6 +70,35 @@
 
 
 <div class="page-wrapper">
+    <div class="right-side">
+        <div class="container display-container">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="profile-detail">
+                        <div class="row">
+                            <div class="col-5 profile-label">Name of textbook:</div>
+                            <div class="col-7 profile-value">@Model.Book_Title</div>
+                        </div>
+                    </div>
+                    <div class="profile-detail">
+                        <div class="row">
+                            <div class="col-5 profile-label">Author:</div>
+                            <div class="col-7 profile-value">@Model.Authors</div>
+                        </div>
+                    </div>
+                    <div class="profile-detail">
+                        <div class="row">
+                            <div class="col-5 profile-label">ISBN:</div>
+                            <div class="col-7 profile-value">@Model.ISBN</div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
     <div class="left-side">
     </div>
 
@@ -80,11 +109,10 @@
         }
         else
         {
-            <p>Here are the listings for this textbook:</p>
+            <h1>Here are the listings for this textbook:</h1>
 
-    int listingNumber = 1;
-
-
+    int listingNumber = 1;        
+            
             @foreach (var listing in Model.ListingDisplay)
             {
                 <li class="listing-card">
