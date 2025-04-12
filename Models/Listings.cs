@@ -21,5 +21,6 @@ namespace FlaglerBookSwap.Models
         public Textbooks Textbooks { get; set; } // Navigation property to the Textbooks table
         [ForeignKey("userID")]
         public Users Users { get; set; } // Navigation property to the Users table
+
     }
 }
