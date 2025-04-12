@@ -53,7 +53,7 @@ namespace FlaglerBookSwap.Pages.Account
                 string.Empty,
                 flagler_email = RegisterViewModel.flagler_email,
                 date_created = DateTime.Now,
-                //birth_year = RegisterViewModel.BirthYear.ToString()
+                birth_year = RegisterViewModel.BirthYear.ToString()
             };
 
             _context.Users.Add(user);

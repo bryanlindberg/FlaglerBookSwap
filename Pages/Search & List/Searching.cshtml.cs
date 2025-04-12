@@ -1,9 +1,12 @@
 using FlaglerBookSwap.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace FlaglerBookSwap.Pages
 {
+    //[Authorize]
+
     public class SearchingModel : PageModel
     {
 

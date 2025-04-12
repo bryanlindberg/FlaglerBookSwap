@@ -10,10 +10,8 @@
     </div>
     <div class="account-content">
         <div class="account-box">
-            <form asp-page="CreateProfile" method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label>The Email associated with this is: @ViewData["Email"]</label>
-                </div>
+            <form asp-page="CreateProfile" method="post" enctype="multipart/form-data">   
+                <input type="hidden" asp-for="Email" />
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="mb-3">
                     <label asp-for="CreateProfileViewModel.major" class="form-label">Major</label>

@@ -106,3 +106,46 @@ body {
 .form-control {
     width: 50%
 }
+/*below is the style for the profile page*/
+
+.profile-container {
+    background-color: #f5f1e5; /* Light beige color */
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 30px;
+    margin-top: 25px;
+}
+
+.profile-header {
+    border-bottom: 2px solid #e6dfc8;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+}
+
+.profile-image-container {
+    padding: 5px;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+}
+
+.profile-detail {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e6dfc8;
+}
+
+    .profile-detail:last-child {
+        border-bottom: none;
+    }
+
+.profile-label {
+    font-weight: 600;
+    color: #7d7056; 
+}
+
+.profile-value {
+    color: #333;
+}
+

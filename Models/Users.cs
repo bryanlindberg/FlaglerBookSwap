@@ -5,11 +5,11 @@ namespace FlaglerBookSwap.Models
 {
     public class Users
     {
-        public string flagler_email { get; set; }
+        public string? flagler_email { get; set; }
         public string Password { get; set; }
         public string major { get; set; }
         public string expected_grad_year { get; set; }
-        public string? profile_picture { get; set; } // i got an error in the create profile page so changing it from byte to string fixed it
+        public byte[]? profile_picture { get; set; } // i got an error in the create profile page so changing it from byte to string fixed it
 
 
 

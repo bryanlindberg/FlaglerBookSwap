@@ -28,7 +28,8 @@ namespace FlaglerBookSwap.ViewModels
 
         public string? gender { get; set; } // Not required
 
-        public byte? [] profile_picture { get; set; } // Not required        
+        public byte[]? profile_picture { get; set; } // Not required        
+        public string? flagler_email { get; set; }
 
     }
 

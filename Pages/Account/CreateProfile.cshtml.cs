@@ -33,8 +33,7 @@ namespace FlaglerBookSwap.Pages.Account
         public List<SelectListItem> GraduationYears { get; set; }
 
         [BindProperty(SupportsGet = true)]
-        public string Email { get; set; }
-
+        public string? Email { get; set; }
 
 
         public async Task<IActionResult> OnGetAsync(string email)
@@ -127,7 +126,6 @@ namespace FlaglerBookSwap.Pages.Account
                 user.expected_grad_year = CreateProfileViewModel.expected_grad_year;
                 user.phone_number = CreateProfileViewModel.Phone_number;
                 user.gender = CreateProfileViewModel.gender;
-                
 
                 if (Request.Form.Files.Count > 0)
                 {
@@ -137,9 +135,13 @@ namespace FlaglerBookSwap.Pages.Account
                         using (var memoryStream = new MemoryStream())
                         {
                             await file.CopyToAsync(memoryStream);
-                            user.profile_picture = Convert.ToString(memoryStream.ToArray()); 
+                            user.profile_picture = memoryStream.ToArray(); 
                         }
                     }
+                }
+                else
+                {
+                    user.profile_picture = null; 
                 }
 
                 _context.Users.Update(user);

@@ -1,10 +1,13 @@
 using FlaglerBookSwap.Data;
 using FlaglerBookSwap.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace FlaglerBookSwap.Pages
 {
+    //[Authorize]
+
     public class ListingsModel : PageModel
     {
         [BindProperty]

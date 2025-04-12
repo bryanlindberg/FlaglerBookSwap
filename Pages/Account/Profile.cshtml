@@ -8,19 +8,74 @@
         <h1 class="display-4 header-font">@ViewData["Title"]</h1>
         <h4>Welcome to your profile</h4>
     </div>
-    
 </body>
 <div class="side-by-side">
     <div class="text-right">
         <div accesskey="">
-            <a class="nav-link text-decoration-underline btn btn-primary btn-font" asp-page="/Account/ProfileListing">Your Listings</a>
-            <a class="nav-link text-decoration-underline btn btn-primary btn-font" asp-page="/Account/ProfileWishlist">Your Wishlist</a>
+            <a class="nav-linkbtn btn btn-outline-dark" asp-page="/Account/ProfileListing">Your Listings</a>
         </div>
     </div>
-
+    <div class="text-center">
+        <a class="nav-linkbtn btn btn-outline-dark" asp-page="/Account/ProfileWishlist">Your Wishlist</a>
+    </div>
     <div class="text-left">
         <div accesskey="">
-            <a class="nav-link text-decoration-underline btn btn-primary btn-font" asp-page="/Account/EditProfile">Edit Your Profile Info!</a>
+            <a class="nav-linkbtn btn btn-outline-secondary" asp-page="/Account/EditProfile">Edit Your Profile Info!</a>
         </div>
     </div>
 </div>
+<body>
+    <div class="container profile-container">
+        <div class="row profile-header">
+            <div class="col-12 text-center">
+                @if (Model.profile_picture != null && Model.profile_picture.Length > 0)
+                {
+                    <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.profile_picture)" alt="Profile Image" class="img-fluid rounded-circle mb-3" style="max-width: 200px;" />
+                }
+                else
+                {
+                    <img src="/images/DSC00132-XL.jpg" alt="Default Profile" class="img-fluid rounded-circle mb-3" style="max-width: 200px;" /> //a pic will show up even if they don't upload one themselves so i have this as default
+                }
+                <h3 class="mt-3">@Model.first_name</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="profile-detail">
+                    <div class="row">
+                        <div class="col-5 profile-label">Email:</div>
+                        <div class="col-7 profile-value">@Model.flagler_email</div>
+                    </div>
+                </div>
+
+                <div class="profile-detail">
+                    <div class="row">
+                        <div class="col-5 profile-label">Major:</div>
+                        <div class="col-7 profile-value">@Model.major</div>
+                    </div>
+                </div>
+
+                <div class="profile-detail">
+                    <div class="row">
+                        <div class="col-5 profile-label">Expected Graduation:</div>
+                        <div class="col-7 profile-value">@Model.expected_grad_year</div>
+                    </div>
+                </div>
+
+                <div class="profile-detail">
+                    <div class="row">
+                        <div class="col-5 profile-label">Phone Number:</div>
+                        <div class="col-7 profile-value">@Model.phone_number</div>
+                    </div>
+                </div>
+
+                <div class="profile-detail">
+                    <div class="row">
+                        <div class="col-5 profile-label">Gender:</div>
+                        <div class="col-7 profile-value">@Model.gender</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
