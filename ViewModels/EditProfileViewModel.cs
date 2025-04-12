@@ -6,17 +6,17 @@ namespace FlaglerBookSwap.ViewModels
     {
    
         [Required(ErrorMessage = "Please check off your major")]
-        public List<EditMajorViewModel> Major { get; set; }
+        public List<EditMajorViewModel> major { get; set; }
 
         [Required(ErrorMessage = "Please pick your graduation year")]
-        public string GradYear { get; set; }
+        public string? expected_grad_year { get; set; }
 
+        [StringLength(40, MinimumLength = 10)]
         [Required(ErrorMessage = "Please enter your phone number")]
-        public string PhoneNumber { get; set; }
+        public string? Phone_number { get; set; }
 
-        public string Gender { get; set; }
-
-        public string ProfilePic { get; set; }
+        public string? gender { get; set; } 
+        public byte[]? profile_picture { get; set; }
     }
 
     public class EditMajorViewModel

@@ -113,7 +113,9 @@ namespace FlaglerBookSwap.Pages.Account
             if (ModelState.IsValid)
             {
 
-                var user = await _context.Users.FirstOrDefaultAsync(u => u.flagler_email == Email);
+                var user = await _context.Users.FirstOrDefaultAsync(u =>
+                (Email == null && u.flagler_email == null) ||
+                (Email != null && u.flagler_email == Email));
                 if (user == null)
                 {
                     return NotFound("User not found.");
@@ -126,6 +128,7 @@ namespace FlaglerBookSwap.Pages.Account
                 user.expected_grad_year = CreateProfileViewModel.expected_grad_year;
                 user.phone_number = CreateProfileViewModel.Phone_number;
                 user.gender = CreateProfileViewModel.gender;
+                user.Password = CreateProfileViewModel.Password;
 
                 if (Request.Form.Files.Count > 0)
                 {

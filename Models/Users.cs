@@ -6,9 +6,9 @@ namespace FlaglerBookSwap.Models
     public class Users
     {
         public string? flagler_email { get; set; }
-        public string Password { get; set; }
-        public string major { get; set; }
-        public string expected_grad_year { get; set; }
+        public string? Password { get; set; }
+        public string? major { get; set; }
+        public string? expected_grad_year { get; set; }
         public byte[]? profile_picture { get; set; } // i got an error in the create profile page so changing it from byte to string fixed it
 
 
@@ -27,10 +27,10 @@ namespace FlaglerBookSwap.Models
         }
         [Key]
         public short UserID { get; internal set; }
-        public string first_name { get; set; }
-        public string last_name { get; set; }
+        public string? first_name { get; set; }
+        public string? last_name { get; set; }
         public string? gender { get; set; }
-        public string phone_number { get; set; }
+        public string? phone_number { get; set; }
         public DateTime? date_created { get; set; }
         public string? birth_year { get; set; } // will be a required field later but i set it to optional for testing purposes for now
     }
