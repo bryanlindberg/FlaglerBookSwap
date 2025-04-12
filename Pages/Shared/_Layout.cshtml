@@ -1,5 +1,13 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+<!DOCTYPE html>
 <html lang="en">
+
+    @{
+    var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
+}
+    
+
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -27,7 +35,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/AboutUs">About Us</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Account/Profile">Profile</a>
+                            <a class="nav-link text-dark" asp-area="" asp-route-userId="@user" asp-page="/Account/Profile">Profile</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/FaQ">FAQ</a>
