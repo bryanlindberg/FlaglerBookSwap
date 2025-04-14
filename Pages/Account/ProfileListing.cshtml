@@ -23,13 +23,18 @@
 
         @foreach (var listing in Model.ListingInfo)
         {
+            if (listing.list_status == true)
+            {
             <li class="list-group-item">
                 @listing.Textbooks.Book_Title
                 @listing.edition
                 @listing.price
                 @listing.date_listed
+                <form method="post" asp-page-handler="DeleteListing" asp-route-ListingID="@listing.ListingID">
+                    <input type="submit" value="Hide Listing" class="btn btn-outline-dark" />
+                </form>
             </li>
-
+            }
         }
     </div>
 </body>
