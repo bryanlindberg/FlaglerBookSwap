@@ -10,7 +10,7 @@ namespace FlaglerBookSwap.ViewModels
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Password is required")]
-        [StringLength(40, MinimumLength = 8, ErrorMessage = "Password must be at least 8 characters long")] //the video has "The  {0}must be at least {2} and at max {1} characters long." 
+        [StringLength(40, MinimumLength = 8, ErrorMessage = "Password must be at least 8 characters long")] 
         [DataType(DataType.Password)]
         [Display(Name = "New Password")]
         [Compare("ConfirmPassword", ErrorMessage = "Password and Confirm Password must match")]

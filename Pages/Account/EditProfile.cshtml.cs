@@ -1,23 +1,46 @@
+using FlaglerBookSwap.Data;
 using FlaglerBookSwap.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace FlaglerBookSwap.Pages.Account
 {
     public class EditProfileModel : PageModel
     {
+        private readonly AppDbContext _context;
+
+        public EditProfileModel(AppDbContext context)
+        {
+            _context = context;
+        }
+
+        [BindProperty(SupportsGet = true)]
+        public string? Email { get; set; }
+
         [BindProperty]
         public EditProfileViewModel EditProfileViewModel { get; set; }
         public List<SelectListItem> GraduationYears { get; set; }
-        public void OnGet()
+
+
+        public async Task<IActionResult>OnGetAsync(string email)
         {
+            Email = email;
+                      
+            // Fetch the user from the database
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.flagler_email == email);
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+
             EditProfileViewModel = new EditProfileViewModel
             {
                 //Idk how to abbrevaite half these majors
-                Major = new List<EditMajorViewModel>
+                major = new List<EditMajorViewModel>
                 {
-                    new EditMajorViewModel { Value = "Computer Information Systems", Text = "CIS" }, //computer information systems
+                    new EditMajorViewModel { Value = "Computer Information Systems", Text = "CIS",Selected = user.major == "Computer Information Systems"}, //computer information systems
                     new EditMajorViewModel { Value = "Business Administration", Text = "BUS ADMIN" }, //business
                     new EditMajorViewModel { Value = "Psychology", Text = "PSY" }, //psychology
                     new EditMajorViewModel { Value = "Coastal Enviormental Science", Text = "ENV SCI" }, //Coastal Enviormental Science
@@ -62,20 +85,56 @@ namespace FlaglerBookSwap.Pages.Account
                     new EditMajorViewModel { Value = "Social Entrpreneurship", Text = "SOC ENT" }, //Biology
                     new EditMajorViewModel { Value = "Secondary Education Math", Text = "SEC MAT" }, //Secondary Education Math
                     new EditMajorViewModel { Value = "Secondary Education English", Text = "SEC ENG" } //Secondary Education English
-                }
+                },
+                expected_grad_year = user.expected_grad_year,
+                Phone_number = user.phone_number,
+                gender = user.gender,
+                profile_picture = user.profile_picture
             };
             GraduationYears = new List<string> { "2025", "2026", "2027", "2028", "2029", "2030", "2031" }
-               .Select(x => new SelectListItem { Text = x, Value = x })
+               .Select(x => new SelectListItem { Text = x, Value = x, Selected = x == user.expected_grad_year })
                .ToList();
+
+            return Page();
         }
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return Page();
             }
-            // Handle the form submission logic here
 
+            // Fetch the user from the database
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.flagler_email == Email);
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            // Update the user with new inputs
+            user.major = EditProfileViewModel.major.FirstOrDefault(m => m.Selected)?.Value;
+            user.expected_grad_year = EditProfileViewModel.expected_grad_year;
+            user.phone_number = EditProfileViewModel.Phone_number;
+            user.gender = EditProfileViewModel.gender;
+
+            if (Request.Form.Files.Count > 0)
+            {
+                var file = Request.Form.Files[0];
+                if (file.Length > 0)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await file.CopyToAsync(memoryStream);
+                        user.profile_picture = memoryStream.ToArray();
+                    }
+                }
+            }
+
+            // Save changes to the database
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Your profile has been updated successfully.";
             return RedirectToPage("Profile");
         }
     }

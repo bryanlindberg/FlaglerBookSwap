@@ -14,7 +14,7 @@ namespace FlaglerBookSwap.ViewModels
         [StringLength(40, MinimumLength = 10)]
         [Required(ErrorMessage = "Please enter your phone number")]
         public string? Phone_number { get; set; }
-
+        public string? Email { get; set; }
         public string? gender { get; set; } 
         public byte[]? profile_picture { get; set; }
     }

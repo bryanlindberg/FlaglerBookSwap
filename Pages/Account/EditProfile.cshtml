@@ -13,35 +13,38 @@
             <form asp-page="EditProfile" method="post">
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="mb-3">
-                    <label asp-for="EditProfileViewModel.Major" class="form-label">Major</label>
+                    <label asp-for="EditProfileViewModel.major" class="form-label">Major</label>
                     <div class="form-check-inline">
-                        @for (var i = 0; i < Model.EditProfileViewModel.Major.Count(); i++)
+                        @for (var i = 0; i < Model.EditProfileViewModel.major.Count(); i++)
                         {
                             <div class="form-check">
-                                <input asp-for="@Model.EditProfileViewModel.Major[i].Selected" class="form-check-input" />
-                                <label asp-for="@Model.EditProfileViewModel.Major[i].Selected">@Model.EditProfileViewModel.Major[i].Text</label>
-                                <input type="hidden" asp-for="@Model.EditProfileViewModel.Major[i].Value" />
-                                <input type="hidden" asp-for="@Model.EditProfileViewModel.Major[i].Text" />
+                                <input asp-for="@Model.EditProfileViewModel.major[i].Selected" class="form-check-input" />
+                                <label asp-for="@Model.EditProfileViewModel.major[i].Selected">@Model.EditProfileViewModel.major[i].Text</label>
+                                <input type="hidden" asp-for="@Model.EditProfileViewModel.major[i].Value" />
+                                <input type="hidden" asp-for="@Model.EditProfileViewModel.major[i].Text" />
                             </div>
                         }
                     </div>
-                    <span asp-validation-for="EditProfileViewModel.Major" class="text-danger"></span>
+                    <span asp-validation-for="EditProfileViewModel.major" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label asp-for="EditProfileViewModel.GradYear" class="form-label">Graduation Year</label>
-                    <select asp-for="EditProfileViewModel.GradYear" asp-items="Model.GraduationYears" class="form-control"></select>
+                    <label asp-for="EditProfileViewModel.expected_grad_year" class="form-label">Graduation Year</label>
+                    <select asp-for="EditProfileViewModel.expected_grad_year" asp-items="Model.GraduationYears" class="form-control"></select>
                 </div>
                 <div class="mb-3">
-                    <label asp-for="EditProfileViewModel.PhoneNumber" class="form-label">Phone Number</label>
-                    <input asp-for="EditProfileViewModel.PhoneNumber" class="form-control" />
-                    <span asp-validation-for="EditProfileViewModel.PhoneNumber" class="text-danger"></span>
+                    <label asp-for="EditProfileViewModel.Phone_number" class="form-label">Phone Number</label>
+                    <input asp-for="EditProfileViewModel.Phone_number" class="form-control" />
+                    <span asp-validation-for="EditProfileViewModel.Phone_number" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label asp-for="EditProfileViewModel.Gender" class="form-label">Gender</label>
-                    <input asp-for="EditProfileViewModel.Gender" class="form-control" />
-                    <span asp-validation-for="EditProfileViewModel.Gender" class="text-danger"></span>
+                    <label asp-for="EditProfileViewModel.gender" class="form-label">Gender</label>
+                    <input asp-for="EditProfileViewModel.gender" class="form-control" />
+                    <span asp-validation-for="EditProfileViewModel.gender" class="text-danger"></span>
                 </div>
-                <input type="submit" value="Update   Profile" class="btn btn-success w-100 p-2" />
+                <div class="mb-3">
+                    <!--This will be for pfp-->
+                </div> 
+                <input type="submit" value="Update Profile" class="btn btn-success w-100 p-2" />
             </form>
         </div>
     </div>

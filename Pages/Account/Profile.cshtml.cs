@@ -21,8 +21,7 @@ namespace FlaglerBookSwap.Pages.Account
         public string first_name { get; set; }
 
 
-        //  public short UserID { get; internal set; }
-
+        //  public short UserID { get; internal set; }     
 
         private readonly AppDbContext _context;
         public ProfileModel(AppDbContext context)
