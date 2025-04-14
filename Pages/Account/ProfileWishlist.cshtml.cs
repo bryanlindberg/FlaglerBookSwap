@@ -17,6 +17,18 @@ namespace FlaglerBookSwap.Pages.Account
             _context = context;
         }
 
+        public IActionResult OnPostDeleteListing(int wishlistId)
+        {
+            var wishlistItem = _context.Wishlist.Find(wishlistId);
+            if (wishlistItem != null)
+            {
+                wishlistItem.wishlist_status = false;
+                _context.SaveChanges();
+            }
+            return RedirectToPage("/Account/ProfileWishlist");
+        }
+
+        
         private short GetNextAvailableWishlistId()
         {
             short maxId = (short)(_context.Wishlist.Any() ? _context.Wishlist.Max(w => w.WishlistID) : (short)0);
@@ -36,10 +48,16 @@ namespace FlaglerBookSwap.Pages.Account
 
             short userId = short.Parse(userIdString);
 
-            //Checks if the textbook is already in the wishlist
-            bool isAlreadyInWishlist = _context.Wishlist.Any(w => w.userID == userId && w.textbook_id == textbookId);
-            if (isAlreadyInWishlist)
+            // Check if the textbook is already in the wishlist
+            var existingWishlistItem = _context.Wishlist.FirstOrDefault(w => w.userID == userId && w.textbook_id == textbookId);
+            if (existingWishlistItem != null)
             {
+                // If the textbook has been wishlisted by this user previously, reactivate the textbook and update the date
+                existingWishlistItem.wishlist_status = true;
+                existingWishlistItem.date_wishlisted = DateTime.Now;
+                _context.Wishlist.Update(existingWishlistItem);
+                await _context.SaveChangesAsync();
+
                 return RedirectToPage("/Account/ProfileWishlist");
             }
             else
@@ -56,9 +74,9 @@ namespace FlaglerBookSwap.Pages.Account
                 _context.Wishlist.Add(wishlistItem);
                 await _context.SaveChangesAsync();
 
-                // Redirect to wishlist page (without query param)
                 return RedirectToPage("/Account/ProfileWishlist");
             }
+
         }
 
 
