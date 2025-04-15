@@ -33,6 +33,9 @@
                 <form method="post" asp-page-handler="DeleteListing" asp-route-ListingID="@listing.ListingID">
                     <input type="submit" value="Hide Listing" class="btn btn-outline-dark" />
                 </form>
+                    <a asp-page="/Search & List/EditListing" asp-route-ListingId="@listing.ListingID">
+                        Edit Listing
+                    </a>
             </li>
             }
         }

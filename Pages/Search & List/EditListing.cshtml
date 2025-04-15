@@ -1,0 +1,51 @@
+﻿@page "/Search & List/EditListing/{listingId:int}"
+@model DetailsModel
+@{
+    ViewData["Title"] = "Edit Textbook";
+}
+
+<form method="post" enctype="multipart/form-data" asp-page-handler="Edit">
+    <div class="col-md-6">
+        <label>How much do you want to sell this textbook for?</label>
+        <input type="text" asp-for="Price" class="form-control" placeholder="" />
+    </div>
+
+    <div class="col-md-6">
+        <label>What is the edition of this textbook?</label>
+        <input type="text" asp-for="textbookEdition" class="form-control" placeholder="" />
+    </div>
+
+    <div class="form-group">
+        <label>Are you willing to swap your textbook for another textbook?</label>
+        <div>
+            <input type="radio" asp-for="isSwapping" value="true" /> Yes
+            <input type="radio" asp-for="isSwapping" value="false" /> No
+
+        </div>
+
+    </div>
+    <div class="form-group">
+        <label>Would you like to be contacted by phone or email?</label>
+        <div>
+            <input type="radio" asp-for="contactPref" value="Email" /> Email
+            <input type="radio" asp-for="contactPref" value="Phone" /> Phone
+            <input type="radio" asp-for="contactPref" value="Either" /> Either
+        </div>
+
+    </div>
+
+
+    <div class="col-md-6">
+        <label>What is the condition of this textbook?</label>
+        <select asp-for="textbookCondition" class="form-control">
+            <option value="Please select an option"></option>
+            <option value="Pristine">Pristine</option>
+            <option value="Lightly Used">Lightly Used</option>
+            <option value="Worn in">Worn in</option>
+            <option value="Dreadful">Dreadful</option>
+        </select>
+    </div>
+
+    <input type="submit" value="Edit Textbook" class="btn btn-success w-100 p-2" />
+    <input type="hidden" asp-for="ListingId" />
+</form>
