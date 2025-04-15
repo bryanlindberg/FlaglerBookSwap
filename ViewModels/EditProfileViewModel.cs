@@ -6,7 +6,7 @@ namespace FlaglerBookSwap.ViewModels
     {
    
         [Required(ErrorMessage = "Please check off your major")]
-        public List<EditMajorViewModel> major { get; set; }
+        public List<EditMajorViewModel>? major { get; set; }
 
         [Required(ErrorMessage = "Please pick your graduation year")]
         public string? expected_grad_year { get; set; }

@@ -42,7 +42,10 @@
                     <span asp-validation-for="EditProfileViewModel.gender" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <!--This will be for pfp-->
+                    <label asp-for="EditProfileViewModel.profile_picture" class="form-label">Profile Picture</label>
+                    <input asp-for="EditProfileViewModel.profile_picture" type="file" class="form-control" />
+                    <span asp-validation-for="EditProfileViewModel.profile_picture" class="text-danger"></span>
+                    
                 </div> 
                 <input type="submit" value="Update Profile" class="btn btn-success w-100 p-2" />
             </form>
