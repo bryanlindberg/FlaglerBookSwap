@@ -9,7 +9,7 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-            <select asp-for="Subject" class="form-control">
+            <select asp-for="Subject" class="form-control subject-dropdown">
                 <option value="">Please select a subject</option>
                 <option value="ACC">ACC</option>
                 <option value="BUS">BUS</option>
@@ -20,6 +20,8 @@
                 <option value="PSY">PSY</option>
                 <option value="HTM">HTM</option>
                 <option value="BIO">BIO</option>
+                <option value="ENG">ENG</option>
+                <option value="COR">COR</option>
             </select>
         </div>
         <div class="col-md-6">
@@ -74,3 +76,14 @@ else
 }
 
 
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.subject-dropdown').select2({
+                placeholder: "Select a subject",
+                allowClear: true,
+                width: '100%'
+            });
+        });
+    </script>
+}

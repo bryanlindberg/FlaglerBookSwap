@@ -3,41 +3,150 @@
 @{
     ViewData["Title"] = "Your Current Listings";
 }
+
+<head>
+    <style>
+        /* Body */
+        body.account-container {
+            background-color: #f5f5f5; /* Light gray background */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+        }
+
+        /* Header */
+        .header-font {
+            font-family: 'Roboto', sans-serif;
+            color: #A3282F; /* Red color */
+        }
+
+        /* Account Box */
+        .account-box {
+            margin: 30px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 900px;
+        }
+
+        /* Table Styling */
+        .table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+            .table th,
+            .table td {
+                padding: 12px 15px;
+                text-align: center;
+            }
+
+            .table th {
+                background-color: #A3282F; /* Red color */
+                color: #fff;
+                font-weight: bold;
+            }
+
+            .table td {
+                background-color: #f9f9f9;
+            }
+
+            .table tr:nth-child(even) td {
+                background-color: #f1f1f1;
+            }
+
+        /* Buttons */
+        .btn {
+            padding: 8px 16px;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-outline-dark {
+            border: 1px solid #A3282F; /* Red border */
+            color: #A3282F;
+            background-color: transparent;
+        }
+
+            .btn-outline-dark:hover {
+                background-color: #A3282F;
+                color: #fff;
+            }
+
+        .ms-2 {
+            margin-left: 10px;
+        }
+
+        /* List item */
+        .list-group-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+            .list-group-item .btn {
+                margin-left: 10px;
+            }
+
+            .list-group-item span {
+                font-weight: bold;
+                color: #A3282F;
+            }
+    </style>
+</head>
+
 <body class="account-container">
     <div class="text-center">
         <h1 class="display-4 header-font">@ViewData["Title"]</h1>
     </div>
+
     <div class="account-box">
         <table class="table">
             <thead>
                 <tr>
                     <th>Book Title</th>
                     <th>Edition</th>
-                    <th>Asking price</th>
+                    <th>Asking Price</th>
                     <th>Date Listed</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
-            <!--  <input type="submit" value="Hide Listing" class="btn btn-outline-dark" /> -->
+            <tbody>
+                @foreach (var listing in Model.ListingInfo)
+                {
+                    if (listing.list_status == true)
+                    {
+                        <tr>
+                            <td>@listing.Textbooks.Book_Title</td>
+                            <td>@listing.edition</td>
+                            <td>@listing.price</td>
+                            <td>@listing.date_listed</td>
+                            <td>
+                                <form method="post" asp-page-handler="DeleteListing" asp-route-ListingID="@listing.ListingID" class="d-inline">
+                                    <input type="submit"
+                                           value="Hide Listing"
+                                           class="btn btn-outline-dark"
+                                           onclick="return confirm('Are you sure you want to hide this listing?');" />
+                                </form>
+                                <a asp-page="/Search & List/EditListing"
+                                   asp-route-ListingId="@listing.ListingID"
+                                   class="btn btn-outline-dark ms-2">
+                                    Edit Listing
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
         </table>
-
-
-        @foreach (var listing in Model.ListingInfo)
-        {
-            if (listing.list_status == true)
-            {
-            <li class="list-group-item">
-                @listing.Textbooks.Book_Title
-                @listing.edition
-                @listing.price
-                @listing.date_listed
-                <form method="post" asp-page-handler="DeleteListing" asp-route-ListingID="@listing.ListingID">
-                    <input type="submit" value="Hide Listing" class="btn btn-outline-dark" />
-                </form>
-                    <a asp-page="/Search & List/EditListing" asp-route-ListingId="@listing.ListingID">
-                        Edit Listing
-                    </a>
-            </li>
-            }
-        }
     </div>
 </body>
