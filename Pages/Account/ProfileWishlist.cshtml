@@ -7,10 +7,15 @@
 
 @foreach (var listing in Model.WishlistInfo)
 {
+    if (listing.wishlist_status == true)
+    {
     <li class="list-group-item">
         @listing.Textbooks.Book_Title
         @listing.Textbooks.Authors
         @listing.Textbooks.ISBN
+        <form method="post" asp-page-handler="DeleteListing" asp-route-WishlistID="@listing.WishlistID">
+            <input type="submit" value="Remove from Wishlist" class="btn btn-outline-dark" />
+        </form>
     </li>
-
+    }
 }

@@ -2,6 +2,7 @@ using FlaglerBookSwap.Data;
 using FlaglerBookSwap.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Reflection;
 using System.Security.Claims;
 
 namespace FlaglerBookSwap.Pages.Search___List
@@ -20,6 +21,8 @@ namespace FlaglerBookSwap.Pages.Search___List
         public string textbookEdition { get; set; }
         [BindProperty(SupportsGet = true)]
         public short TextbookId { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public int ListingId { get; set; }
         [BindProperty]
         public IFormFile textbookImage { get; set; }
 
@@ -34,9 +37,23 @@ namespace FlaglerBookSwap.Pages.Search___List
 
 
 
-        public void OnGet(short textbookId)
+        public async Task<IActionResult> OnGetAsync(short textbookId, short listingId)
         {
+
             TextbookId = textbookId;
+            ListingId = listingId;
+
+            var listing = await _context.Listings.FindAsync(listingId);
+
+            if (listing != null)
+            {
+                Price = listing.price;
+                textbookEdition = listing.edition;
+                isSwapping = listing.is_willing_to_trade;
+                contactPref = listing.contact_preference;
+                textbookCondition = listing.condition;
+            }
+            return Page();
         }
 
         private short GetNextAvailableListingId()
@@ -44,6 +61,8 @@ namespace FlaglerBookSwap.Pages.Search___List
             short maxId = (short)(_context.Listings.Any() ? _context.Listings.Max(l => l.ListingID) : (short)0);
             return (short)(maxId + 1);
         }
+
+
 
         public IActionResult OnPost()
         {
@@ -61,6 +80,7 @@ namespace FlaglerBookSwap.Pages.Search___List
 
             byte[] imageBytes = null;
 
+            // Check if the image file is not null and has content
             if (textbookImage != null && textbookImage.Length > 0)
             {
                 using var memoryStream = new MemoryStream();
@@ -70,7 +90,7 @@ namespace FlaglerBookSwap.Pages.Search___List
 
             var newTextbookListing = new Listings
             {
-                ListingID = GetNextAvailableListingId(), 
+                ListingID = GetNextAvailableListingId(),
                 date_listed = DateTime.Now,
                 price = Price,
                 is_willing_to_trade = isSwapping,
@@ -87,6 +107,56 @@ namespace FlaglerBookSwap.Pages.Search___List
             _context.Listings.Add(newTextbookListing);
             _context.SaveChanges();
             // Redirect to a confirmation page or another action
+            return RedirectToPage("/Account/ProfileListing");
+
+        }
+
+        public IActionResult OnPostEdit()
+        {
+            // Retrieve the logged-in user's ID
+            string userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            // If the user is not logged in, handle accordingly (e.g., redirect to login page)
+            if (string.IsNullOrEmpty(userIdString))
+            {
+                return RedirectToPage("/Account/Login"); // Redirect to login if not logged in
+            }
+
+            short userId = short.Parse(userIdString);
+
+            byte[] imageBytes = null;
+
+            // Check if the image file is not null and has content
+            if (textbookImage != null && textbookImage.Length > 0)
+            {
+                using var memoryStream = new MemoryStream();
+                textbookImage.CopyTo(memoryStream);
+                imageBytes = memoryStream.ToArray();
+            }
+
+            // Assuming textbookId is passed as a parameter or bound property
+            var listing = _context.Listings.FirstOrDefault(l => l.ListingID == ListingId && l.userID == userId);
+
+            if (listing == null)
+            {
+                return NotFound();
+            }
+
+            listing.price = Price;
+            listing.is_willing_to_trade = isSwapping;
+            listing.condition = textbookCondition;
+            listing.edition = textbookEdition;
+            listing.contact_preference = contactPref;
+
+            if (textbookImage != null && textbookImage.Length > 0)
+            {
+                using var memoryStream = new MemoryStream();
+                textbookImage.CopyTo(memoryStream);
+                listing.photo = memoryStream.ToArray();
+            }
+
+            // Save changes
+            _context.SaveChanges();
             return RedirectToPage("/Account/ProfileListing");
 
         }

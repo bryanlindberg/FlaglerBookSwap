@@ -20,7 +20,17 @@ namespace FlaglerBookSwap.Pages.Account
             _context = context;
         }
 
-
+        //change listing status of textbook to false
+        public IActionResult OnPostDeleteListing(short listingId)
+        {
+            var listing = _context.Listings.Find(listingId);
+            if (listing != null)
+            {
+                listing.list_status = false;
+                _context.SaveChanges();
+            }
+            return RedirectToPage("/Account/ProfileListing");
+        }
 
         public void OnGet()
         {

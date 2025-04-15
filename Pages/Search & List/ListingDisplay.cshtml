@@ -7,64 +7,64 @@
 
 <style>
     .page-wrapper {
-    display: flex;
-    min-height: 100vh;
-    gap: 20px;
+        display: flex;
+        min-height: 100vh;
+        gap: 20px;
     }
 
     .left-side {
-    flex: 1;
+        flex: 1;
     }
 
     .right-side {
-    width: 35%;
-    padding: 20px;
+        width: 35%;
+        padding: 20px;
     }
 
     .listing-card {
-    list-style: none; 
-    border: 1px solid #ddd;
-    border-radius: 15px;
-    padding: 20px;
-    margin-bottom: 20px;
-    background-color: #f9f9f9;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s ease-in-out;
+        list-style: none;
+        border: 1px solid #ddd;
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 20px;
+        background-color: #f9f9f9;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        transition: transform 0.2s ease-in-out;
     }
 
-    .listing-card:hover {
-    transform: scale(1.01);
-    }
+        .listing-card:hover {
+            transform: scale(1.01);
+        }
 
     .listing-title {
-    font-size: 1.3rem;
-    color: #2c3e50;
-    margin-bottom: 10px;
+        font-size: 1.3rem;
+        color: #2c3e50;
+        margin-bottom: 10px;
     }
 
     .listing-detail {
-    font-size: 0.95rem;
-    color: #333;
-    margin-bottom: 6px;
+        font-size: 0.95rem;
+        color: #333;
+        margin-bottom: 6px;
     }
 
     .listing-contact {
-    margin-top: 10px;
-    font-style: italic;
-    color: #555;
+        margin-top: 10px;
+        font-style: italic;
+        color: #555;
     }
 
     .listing-image {
-    margin-top: 15px;
-    max-height: 200px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
+        margin-top: 15px;
+        max-height: 200px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
     }
 
     .no-image {
-    font-size: 0.9rem;
-    color: #888;
-    margin-top: 10px;
+        font-size: 0.9rem;
+        color: #888;
+        margin-top: 10px;
     }
 </style>
 
@@ -98,7 +98,8 @@
                             <div class="col-7 profile-value">
                                 @foreach (var course in Model.CourseDisplay)
                                 {
-                                    @course.course_title <br /> @course.section <br /> @course.term <br /> <br />;
+                                    @course.course_title <br /> @course.section <br /> @course.term <br /> <br />
+                                    ;
                                 }
                             </div>
                         </div>
@@ -122,14 +123,19 @@
         {
             <h1>Here are the listings for this textbook:</h1>
 
-    int listingNumber = 1;        
-            
+            //keeping track of the listing number so we can display it
+            int listingNumber = 1;
+
             @foreach (var listing in Model.ListingDisplay)
             {
+                if (@listing.list_status == true)
+                {
+                    
+                
                 <li class="listing-card">
                     <div class="listing-title">Listing #@listingNumber</div>
 
-                    <div class="listing-detail">Name of seller: @listing.Users.FullName</div>
+                    <div class="listing-detail">Name of seller:<a asp-page="/Account/Profile" asp-route-userId="@listing.Users.UserID">@listing.Users.FullName</a></div>
                     <div class="listing-detail">Textbook title: @listing.Textbooks.Book_Title, Edition @listing.edition</div>
                     <div class="listing-detail">Textbook condition: @listing.condition</div>
                     <div class="listing-detail">Asking price: @String.Format("{0:C}", listing.price)</div>
@@ -140,13 +146,14 @@
                         {
                             <div>
                                 Contact Preference: Email <br />
-                                Email: @listing.Users.flagler_email</div>
+                                Email: @listing.Users.flagler_email
+                            </div>
                         }
                         else if (listing.contact_preference == "Phone")
                         {
-                            <div>  
-                               Contact Preference: Phone <br />  
-                               Phone Number: @String.Format("{0:(###) ###-####}", Convert.ToInt64(listing.Users.phone_number))  
+                            <div>
+                                Contact Preference: Phone <br />
+                                Phone Number: @String.Format("{0:(###) ###-####}", Convert.ToInt64(listing.Users.phone_number))
                             </div>
                         }
                         else
@@ -173,7 +180,8 @@
                     @{
                         listingNumber++;
                     }
-                </li>
+                    </li>
+                }
             }
         }
     </div>
