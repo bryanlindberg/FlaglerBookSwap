@@ -29,7 +29,7 @@ namespace FlaglerBookSwap.Pages.Account
             // If the user is not logged in, handle accordingly (e.g., redirect to login page)
             if (string.IsNullOrEmpty(userIdString))
             {
-                return RedirectToPage("/Account/Login"); // Redirect to login if not logged in
+                return RedirectToPage("/Account/Login/"); // Redirect to login if not logged in
             }
 
             userId = short.Parse(userIdString);
@@ -149,7 +149,7 @@ namespace FlaglerBookSwap.Pages.Account
             await _context.SaveChangesAsync();
 
             TempData["SuccessMessage"] = "Your profile has been updated successfully.";
-            return RedirectToPage("/Faq");
+            return Redirect("/Account/Profile/" + userId);
         }
     }
 }
