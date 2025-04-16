@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace FlaglerBookSwap.Pages.Account
 {
@@ -16,9 +17,6 @@ namespace FlaglerBookSwap.Pages.Account
             _context = context;
         }
 
-        [BindProperty(SupportsGet = true)]
-        public short? userId { get; set; }
-
         [BindProperty]
         public EditProfileViewModel EditProfileViewModel { get; set; }
         public List<SelectListItem> GraduationYears { get; set; }
@@ -26,8 +24,16 @@ namespace FlaglerBookSwap.Pages.Account
 
         public async Task<IActionResult>OnGetAsync(short userId)
         {
-            this.userId = userId;
-                      
+            string userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            // If the user is not logged in, handle accordingly (e.g., redirect to login page)
+            if (string.IsNullOrEmpty(userIdString))
+            {
+                return RedirectToPage("/Account/Login"); // Redirect to login if not logged in
+            }
+
+            userId = short.Parse(userIdString);
+
             // Fetch the user from the database
             var user = await _context.Users.FirstOrDefaultAsync(u => u.UserID == userId);
             if (user == null)
@@ -103,7 +109,15 @@ namespace FlaglerBookSwap.Pages.Account
             {
                 return Page();
             }
+            string userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+            // If the user is not logged in, handle accordingly (e.g., redirect to login page)
+            if (string.IsNullOrEmpty(userIdString))
+            {
+                return RedirectToPage("/Account/Login"); // Redirect to login if not logged in
+            }
+
+            short userId = short.Parse(userIdString);
             // Fetch the user from the database
             var user = await _context.Users.FirstOrDefaultAsync(u => u.UserID == userId);
             if (user == null)
