@@ -1,8 +1,11 @@
 ﻿@page "/Account/Profile/{userID:int}"
+@using System.Security.Claims
 @model FlaglerBookSwap.Pages.Account.ProfileModel
 @{
     ViewData["Title"] = "Profile";
+    var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
 }
+
 <body class="Page-Color">
     <div class="text-center">
         <h1 class="display-4 header-font">@ViewData["Title"]</h1>
@@ -20,7 +23,7 @@
     </div>
     <div class="text-left">
         <div accesskey="">
-            <a class="nav-linkbtn btn btn-outline-secondary" asp-page="/Account/EditProfile">Edit Your Profile Info!</a>
+            <a class="nav-linkbtn btn btn-outline-secondary" asp-route-userId="@user" asp-page="/Account/EditProfile">Edit Your Profile Info!</a>
         </div>
     </div>
 </div>

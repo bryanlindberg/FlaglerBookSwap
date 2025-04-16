@@ -17,19 +17,19 @@ namespace FlaglerBookSwap.Pages.Account
         }
 
         [BindProperty(SupportsGet = true)]
-        public string? Email { get; set; }
+        public short? userId { get; set; }
 
         [BindProperty]
         public EditProfileViewModel EditProfileViewModel { get; set; }
         public List<SelectListItem> GraduationYears { get; set; }
 
 
-        public async Task<IActionResult>OnGetAsync(string email)
+        public async Task<IActionResult>OnGetAsync(short userId)
         {
-            Email = email;
+            this.userId = userId;
                       
             // Fetch the user from the database
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.flagler_email == email);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserID == userId);
             if (user == null)
             {
                 return NotFound("User not found.");
@@ -40,7 +40,7 @@ namespace FlaglerBookSwap.Pages.Account
                 //Idk how to abbrevaite half these majors
                 major = new List<EditMajorViewModel>
                 {
-                    new EditMajorViewModel { Value = "Computer Information Systems", Text = "CIS",Selected = user.major == "Computer Information Systems"}, //computer information systems
+                    new EditMajorViewModel { Value = "CIS", Text = "CIS",Selected = user.major == "Computer Information Systems"}, //computer information systems
                     new EditMajorViewModel { Value = "Business Administration", Text = "BUS ADMIN" }, //business
                     new EditMajorViewModel { Value = "Psychology", Text = "PSY" }, //psychology
                     new EditMajorViewModel { Value = "Coastal Enviormental Science", Text = "ENV SCI" }, //Coastal Enviormental Science
@@ -105,7 +105,7 @@ namespace FlaglerBookSwap.Pages.Account
             }
 
             // Fetch the user from the database
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.flagler_email == Email);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserID == userId);
             if (user == null)
             {
                 return NotFound("User not found.");
@@ -135,7 +135,7 @@ namespace FlaglerBookSwap.Pages.Account
             await _context.SaveChangesAsync();
 
             TempData["SuccessMessage"] = "Your profile has been updated successfully.";
-            return RedirectToPage("Profile");
+            return RedirectToPage("/Faq");
         }
     }
 }
