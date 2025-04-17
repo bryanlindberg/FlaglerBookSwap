@@ -15,16 +15,33 @@
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="mb-3">
                     <label asp-for="CreateProfileViewModel.major" class="form-label">Major</label>
-                    <div class="form-check-inline">
-                        @for (var i = 0; i < Model.CreateProfileViewModel.major.Count(); i++)
-                        {
-                            <div class="form-check">
-                                <input asp-for="@Model.CreateProfileViewModel.major[i].Selected" class="form-check-input" />
-                                <label asp-for="@Model.CreateProfileViewModel.major[i].Selected">@Model.CreateProfileViewModel.major[i].Text</label>
-                                <input type="hidden" asp-for="@Model.CreateProfileViewModel.major[i].Value" />
-                                <input type="hidden" asp-for="@Model.CreateProfileViewModel.major[i].Text" />
-                            </div>
-                        }
+                    <div class="row" style="max-height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px;">
+                        <div class="col-md-6">
+                            @for (var i = 0; i < Model.CreateProfileViewModel.major.Count() / 2; i++)
+                            {
+                                <div class="form-check mb-2">
+                                    <input asp-for="@Model.CreateProfileViewModel.major[i].Selected" class="form-check-input" />
+                                    <label asp-for="@Model.CreateProfileViewModel.major[i].Selected" class="form-check-label">
+                                        @Model.CreateProfileViewModel.major[i].Text
+                                    </label>
+                                    <input type="hidden" asp-for="@Model.CreateProfileViewModel.major[i].Value" />
+                                    <input type="hidden" asp-for="@Model.CreateProfileViewModel.major[i].Text" />
+                                </div>
+                            }
+                        </div>
+                        <div class="col-md-6">
+                            @for (var i = Model.CreateProfileViewModel.major.Count() / 2; i < Model.CreateProfileViewModel.major.Count(); i++)
+                            {
+                                <div class="form-check mb-2">
+                                    <input asp-for="@Model.CreateProfileViewModel.major[i].Selected" class="form-check-input" />
+                                    <label asp-for="@Model.CreateProfileViewModel.major[i].Selected" class="form-check-label">
+                                        @Model.CreateProfileViewModel.major[i].Text
+                                    </label>
+                                    <input type="hidden" asp-for="@Model.CreateProfileViewModel.major[i].Value" />
+                                    <input type="hidden" asp-for="@Model.CreateProfileViewModel.major[i].Text" />
+                                </div>
+                            }
+                        </div>
                     </div>
                     <span asp-validation-for="CreateProfileViewModel.major" class="text-danger"></span>
                 </div>
