@@ -52,54 +52,8 @@ namespace FlaglerBookSwap.Pages.Account
 
             CreateProfileViewModel = new CreateProfileViewModel
             {
-                major = new List<CreateMajorViewModel>
-                    {
-                        new CreateMajorViewModel { Value = "Computer Information Systems", Text = "CIS" },
-                        new CreateMajorViewModel { Value = "Business Administration", Text = "BUS ADMIN" },
-                        new CreateMajorViewModel { Value = "Psychology", Text = "PSY" },
-                        new CreateMajorViewModel { Value = "Coastal Environmental Science", Text = "ENV SCI" },
-                        new CreateMajorViewModel { Value = "Elementary Education", Text = "ELE EDU" },
-                        new CreateMajorViewModel { Value = "Elementary Exceptional Student Education", Text = "ELE EXC EDU" },
-                        new CreateMajorViewModel { Value = "Graphic Design", Text = "ECO" },
-                        new CreateMajorViewModel { Value = "Accounting", Text = "ACC" },
-                        new CreateMajorViewModel { Value = "Marketing", Text = "MARK" },
-                        new CreateMajorViewModel { Value = "Journalism", Text = "JOURN" },
-                        new CreateMajorViewModel { Value = "Public Relations", Text = "PBR" },
-                        new CreateMajorViewModel { Value = "Fine Arts", Text = "ART" },
-                        new CreateMajorViewModel { Value = "History", Text = "HIS" },
-                        new CreateMajorViewModel { Value = "Sport Management", Text = "SPT" },
-                        new CreateMajorViewModel { Value = "Hospitality", Text = "HSP" },
-                        new CreateMajorViewModel { Value = "English", Text = "ENG" },
-                        new CreateMajorViewModel { Value = "English Literature", Text = "ENG LIT" },
-                        new CreateMajorViewModel { Value = "Public Administration", Text = "PUB ADMIN" },
-                        new CreateMajorViewModel { Value = "Global Studies", Text = "GLB STU" },
-                        new CreateMajorViewModel { Value = "Political Science", Text = "POLY SCI" },
-                        new CreateMajorViewModel { Value = "Education", Text = "EDU" },
-                        new CreateMajorViewModel { Value = "Finance", Text = "FIN" },
-                        new CreateMajorViewModel { Value = "Theatre Arts", Text = "THT ART" },
-                        new CreateMajorViewModel { Value = "Liberal Arts", Text = "LBL ART" },
-                        new CreateMajorViewModel { Value = "Sociology", Text = "SOC" },
-                        new CreateMajorViewModel { Value = "Entrepreneurial", Text = "ENT" },
-                        new CreateMajorViewModel { Value = "Media Studies", Text = "MDA STU" },
-                        new CreateMajorViewModel { Value = "Deaf Education", Text = "DF EDU" },
-                        new CreateMajorViewModel { Value = "International Business", Text = "INT BUS" },
-                        new CreateMajorViewModel { Value = "International Studies", Text = "INT STU" },
-                        new CreateMajorViewModel { Value = "Economics", Text = "ECON" },
-                        new CreateMajorViewModel { Value = "Anthropology", Text = "ANTH" },
-                        new CreateMajorViewModel { Value = "Mathematics", Text = "MAT" },
-                        new CreateMajorViewModel { Value = "Philosophy", Text = "PHI" },
-                        new CreateMajorViewModel { Value = "Art History", Text = "ART HIST" },
-                        new CreateMajorViewModel { Value = "Management Information Systems", Text = "MIS" },
-                        new CreateMajorViewModel { Value = "Public History", Text = "PUB HIST" },
-                        new CreateMajorViewModel { Value = "Spanish", Text = "SPAN" },
-                        new CreateMajorViewModel { Value = "Biology", Text = "BIO" },
-                        new CreateMajorViewModel { Value = "Cinematic Arts", Text = "CIN ARTS" },
-                        new CreateMajorViewModel { Value = "Criminology", Text = "CRM" },
-                        new CreateMajorViewModel { Value = "Data Science", Text = "DTA SCI" },
-                        new CreateMajorViewModel { Value = "Social Entrepreneurship", Text = "SOC ENT" },
-                        new CreateMajorViewModel { Value = "Secondary Education Math", Text = "SEC MAT" },
-                        new CreateMajorViewModel { Value = "Secondary Education English", Text = "SEC ENG" }
-                    }
+                major = CreateMajor.GetMajors()
+
             };
             GraduationYears = new List<string> { "2025", "2026", "2027", "2028", "2029", "2030", "2031" }
                .Select(x => new SelectListItem { Text = x, Value = x })

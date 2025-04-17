@@ -6,61 +6,44 @@
     ViewData["Title"] = "About Us";
 }
 <body class="Page-Color">
-<div class="text-center">
-    <h1 class="display-4 header-font">@ViewData["Title"]</h1>
-</div>
+    <div class="text-center">
+        <h1 class="display-4 header-font">@ViewData["Title"]</h1>
+    </div>
+    <div class="text-center">
+        <h5>This started as an idea to help students get rid of their used textbooks by creating this platform to trade or sell them! </h5>
+        <br />
+        <h6>below are the creators of the website and some information about themselves</h6>
+        <br />
 
-<p>We created this to help students get rid of their old textbooks by giving them a platform to trade or sell </p>
+    </div>
 
-<h2>Textbooks List</h2>
+    <div class="side-by-side">
+        <div class="text-right">
+            <h6>Bryan Lindberg</h6>
 
-@if (Model.Textbooks == null || !Model.Textbooks.Any())  
-{
-    <p>No textbooks found.</p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>ISBN</th>
-                <th>Author</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var textbook in Model.Textbooks) 
-            {
-                <tr>
-                    <td>@textbook.Book_Title</td>
-                    <td>@textbook.ISBN</td>
-                    <td>@textbook.Authors</td> 
-                </tr>
-            }
-    
-        </tbody>
-    </table>
+            <img src="~/images/DSC00132-XL.jpg" style="width: 150px; height: auto;" alt="Bryan pfp" />
+            <br />
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Course Code</th>
-                <th>Term</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var courses in Model.Courses)
-            {
-                <tr>
-                    <td>@courses.course_title</td>
-                    <td>@courses.course_code</td>
-                    <td>@courses.term</td>
-                </tr>
-            }
+            <a class="nav-linkbtn btn btn-outline-dark" href="" target="_blank">My Github</a>
 
-        </tbody>
-    </table>
+        </div>
 
-}
+        <div class="text-left">
+
+
+            <h6>Reuel Belizaire</h6>
+            <img src="~/images/DSC00132-XL.jpg" style="width: 150px; height: auto;" alt="Reuel pfp" />
+            <br />
+            <p class="header-font">Hello my name is Reuel Belizaire, I'm a Student Athlete here at flagler with a Major in CIS and a minor in Data Science</p>
+
+
+            <a class="nav-linkbtn btn btn-outline-dark" href="https://github.com/Reuelbelizaire" target="_blank">My Github</a>
+
+        </div>
+    </div>
+    <div class="text-center">
+        <!--I don't know what to add here yet-->
+
+    </div>
+
 </body>
