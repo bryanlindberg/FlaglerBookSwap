@@ -25,28 +25,23 @@ namespace FlaglerBookSwap.Pages.Account
 
 
         public async Task<IActionResult>OnGetAsync()
-        {          
+        {
             //Email = email
             var email = User.Identity?.Name;
 
             if (string.IsNullOrEmpty(email))
             {
-                return ErrorEventArgs("Email is not provided.");
+                Console.WriteLine("Email is null or user not logged in.");
+                return RedirectToPage("/Login"); // or some fallback
             }
 
-            // get the user from the database
             var user = await _context.Users.FirstOrDefaultAsync(u => u.flagler_email == email);
-            if (user != null)
+            if (user == null)
             {
-                Console.WriteLine($"Found user with ID: {user.UserID}");
+                Console.WriteLine("User not found for email: " + email);
+                return NotFound("User not found.");
             }
-            else
-            {
-                Console.WriteLine("No user found with email: " + email);
-                // List all emails in the database for debugging
-                var allEmails = await _context.Users.Select(u => u.flagler_email).ToListAsync();
-                Console.WriteLine("Available emails: " + string.Join(", ", allEmails));
-            }
+
 
             EditProfileViewModel = new EditProfileViewModel
             {
@@ -110,6 +105,7 @@ namespace FlaglerBookSwap.Pages.Account
 
             return Page();
         }
+
 
         private IActionResult ErrorEventArgs(string v)
         {
