@@ -4,18 +4,96 @@
     ViewData["Title"] = "Your Wishlist";
 }
 
+<head>
+    <style>
+        /* Body */
+        body.wishlist-container {
+            background-color: #f5f5f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+        }
 
-@foreach (var listing in Model.WishlistInfo)
-{
-    if (listing.wishlist_status == true)
-    {
-    <li class="list-group-item">
-        @listing.Textbooks.Book_Title
-        @listing.Textbooks.Authors
-        @listing.Textbooks.ISBN
-        <form method="post" asp-page-handler="DeleteListing" asp-route-WishlistID="@listing.WishlistID">
-            <input type="submit" value="Remove from Wishlist" class="btn btn-outline-dark" />
-        </form>
-    </li>
-    }
-}
+        /* Header */
+        .header-font {
+            font-family: 'Roboto', sans-serif;
+            color: #A3282F;
+        }
+
+        /* Wishlist Box */
+        .wishlist-box {
+            margin: 30px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 900px;
+        }
+
+        /* List item styling */
+        .list-group-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .listing-details {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 8px 16px;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-outline-dark {
+            border: 1px solid #A3282F;
+            color: #A3282F;
+            background-color: transparent;
+        }
+
+            .btn-outline-dark:hover {
+                background-color: #A3282F;
+                color: #fff;
+            }
+    </style>
+</head>
+
+<body class="wishlist-container">
+    <div class="text-center">
+        <h1 class="display-4 header-font">@ViewData["Title"]</h1>
+    </div>
+
+    <div class="wishlist-box">
+        @foreach (var listing in Model.WishlistInfo)
+        {
+            if (listing.wishlist_status == true)
+            {
+                <li class="list-group-item">
+                    <div class="listing-details">
+                        <strong>@listing.Textbooks.Book_Title</strong>
+                        <span>Author(s): @listing.Textbooks.Authors</span>
+                        <span>ISBN: @listing.Textbooks.ISBN</span>
+                    </div>
+                    <form method="post" asp-page-handler="DeleteListing" asp-route-WishlistID="@listing.WishlistID">
+                        <input type="submit"
+                               value="Remove from Wishlist"
+                               class="btn btn-outline-dark"
+                               onclick="return confirm('Are you sure you want to remove this book from your wishlist?');" />
+                    </form>
+                </li>
+            }
+        }
+    </div>
+</body>
