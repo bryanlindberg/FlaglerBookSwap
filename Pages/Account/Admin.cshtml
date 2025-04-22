@@ -6,7 +6,7 @@
 <form method="post" enctype="multipart/form-data">
     <label for="TextbookID">Select a textbook:</label>
     <select name="TextbookID" asp-for="TextbookID" class="form-control">
-        @foreach (var book in Model.Textbooks)
+        @foreach (var book in Model.Textbooks.OrderBy(b => b.textbook_id))
         {
             <option value="@book.textbook_id">@book.textbook_id</option>
         }

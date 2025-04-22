@@ -128,7 +128,7 @@
                         <tr>
                             <td>@listing.Textbooks.Book_Title</td>
                             <td>@listing.edition</td>
-                            <td>@listing.price</td>
+                            <td>@listing.price.ToString("C")</td>
                             <td>@listing.date_listed</td>
                             <td>
                                 <form method="post" asp-page-handler="DeleteListing" asp-route-ListingID="@listing.ListingID" class="d-inline">
