@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Reflection;
 using System.Security.Claims;
+using static System.Collections.Specialized.BitVector32;
 
 namespace FlaglerBookSwap.Pages.Search___List
 {
@@ -24,6 +25,7 @@ namespace FlaglerBookSwap.Pages.Search___List
         [BindProperty(SupportsGet = true)]
         public int ListingId { get; set; }
         [BindProperty]
+        public string Message { get; set; } = string.Empty;
         public IFormFile textbookImage { get; set; }
 
 
@@ -66,6 +68,34 @@ namespace FlaglerBookSwap.Pages.Search___List
 
         public IActionResult OnPost()
         {
+
+            //input validation
+            if (string.IsNullOrWhiteSpace(textbookCondition))
+            {
+                Message = "Please select a condition.";
+                return Page();
+            }
+            else if (string.IsNullOrWhiteSpace(textbookEdition))
+            {
+                Message = "Please enter an edition.";
+                return Page();
+            }
+            else if (string.IsNullOrWhiteSpace(contactPref))
+            {
+                Message = "Please select a contact preference.";
+                return Page();
+            }
+            else if (Price < 0)
+            {
+                Message = "Please enter a valid price.";
+                return Page();
+            }
+            else if (textbookImage == null || textbookImage.Length == 0)
+            {
+                Message = "Please upload an image.";
+                return Page();
+            }
+
 
             // Retrieve the logged-in user's ID
             string userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);

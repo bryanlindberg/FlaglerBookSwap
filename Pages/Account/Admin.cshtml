@@ -1,0 +1,23 @@
+﻿@page
+@model FlaglerBookSwap.Pages.Account.AdminModel
+@{
+}
+
+<form method="post" enctype="multipart/form-data">
+    <label for="TextbookID">Select a textbook:</label>
+    <select name="TextbookID" asp-for="TextbookID" class="form-control">
+        @foreach (var book in Model.Textbooks)
+        {
+            <option value="@book.textbook_id">@book.textbook_id</option>
+        }
+    </select>
+
+    <br />
+
+    <label for="TextbookPhotoUpload">Upload textbook photo:</label>
+    <input type="file" name="TextbookPhotoUpload" class="form-control" accept="image/*" />
+
+    <br />
+
+    <button type="submit" class="btn btn-primary">Upload</button>
+</form>

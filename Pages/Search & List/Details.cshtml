@@ -4,57 +4,115 @@
     ViewData["Title"] = "Textbook Details";
 }
 
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background-color: #ffffff;
+        color: #2c3e50;
+    }
 
-<form method="post" enctype="multipart/form-data">
-    <div class="col-md-6">
-        <label>How much do you want to sell this textbook for?</label>
-        <input type="text" asp-for="Price" class="form-control" placeholder="" />
-    </div>
+    .details-wrapper {
+        max-width: 1000px;
+        margin: 40px auto;
+        background-color: #f9f9f9;
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
 
-    <div class="col-md-6">
-        <label>What is the edition of this textbook?</label>
-        <input type="text" asp-for="textbookEdition" class="form-control" placeholder="" />
-    </div>
+    .form-label, label {
+        color: #A3282F;
+        font-weight: 600;
+    }
 
-    <div class="form-group">
-        <label>Are you willing to swap your textbook for another textbook?</label>
-        <div>
-            <label>
-                <input type="radio" name="isSwapping" value="true" /> Yes
-            </label>
-            <label>
-                <input type="radio" name="isSwapping" value="false" /> No
-            </label>
+    .form-control, select {
+        border-radius: 10px;
+        padding: 10px;
+    }
 
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    .btn-success {
+        background-color: #A3282F;
+        border-color: #A3282F;
+        font-weight: bold;
+        font-size: 1.1rem;
+        border-radius: 10px;
+        margin-top: 20px;
+    }
+
+        .btn-success:hover {
+            background-color: #891d25;
+            border-color: #891d25;
+        }
+
+    input[type="radio"] {
+        margin-right: 5px;
+        margin-left: 10px;
+    }
+
+    .text-danger {
+        font-size: 0.9rem;
+        color: #d9534f;
+    }
+</style>
+
+<div class="details-wrapper">
+    <h1 class="mb-4" style="color: #A3282F;">List Your Textbook</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="Price">How much do you want to sell this textbook for?</label>
+            <input type="text" asp-for="Price" class="form-control price-input" placeholder="Enter price" />
         </div>
 
-    </div>
-    <div class="form-group">
-        <label>Would you like to be contacted by phone or email?</label>
-        <div>
-            <input type="radio" asp-for="contactPref" value="Email" /> Email
-            <input type="radio" asp-for="contactPref" value="Phone" /> Phone
-            <input type="radio" asp-for="contactPref" value="Either" /> Either
+        <div class="form-group">
+            <label for="textbookEdition">What is the edition of this textbook?</label>
+            <input type="text" asp-for="textbookEdition" class="form-control" placeholder="Enter edition" />
         </div>
 
-    </div>
+        <div class="form-group">
+            <label>Are you willing to swap your textbook for another textbook?</label>
+            <div>
+                <label>
+                    <input type="radio" name="isSwapping" value="true" /> Yes
+                </label>
+                <label>
+                    <input type="radio" name="isSwapping" value="false" /> No
+                </label>
+            </div>
+        </div>
 
+        <div class="form-group">
+            <label>Would you like to be contacted by phone or email?</label>
+            <div>
+                <input type="radio" asp-for="contactPref" value="Email" /> Email
+                <input type="radio" asp-for="contactPref" value="Phone" /> Phone
+                <input type="radio" asp-for="contactPref" value="Either" /> Either
+            </div>
+        </div>
 
-    <div class="col-md-6">
-        <label>What is the condition of this textbook?</label>
-        <select asp-for="textbookCondition" class="form-control">
-            <option value="Please select an option"></option>
-            <option value="Pristine">Pristine</option>
-            <option value="Lightly Used">Lightly Used</option>
-            <option value="Worn in">Worn in</option>
-            <option value="Dreadful">Dreadful</option>
-        </select>
-    </div>
+        <div class="form-group">
+            <label for="textbookCondition">What is the condition of this textbook?</label>
+            <select asp-for="textbookCondition" class="form-control">
+                <option value="">Please select an option</option>
+                <option value="Pristine">Pristine</option>
+                <option value="Lightly Used">Lightly Used</option>
+                <option value="Worn in">Worn in</option>
+                <option value="Dreadful">Dreadful</option>
+            </select>
+        </div>
 
-    <div class="mb-3">
-        <label asp-for="textbookImage" class="form-label">Profile Picture</label>
-        <input asp-for="textbookImage" type="file" class="form-control" />
-        <span asp-validation-for="textbookImage" class="text-danger"></span>
-    </div>
-    <input type="submit" value="List Textbook" class="btn btn-success w-100 p-2" />
-</form>
+        <div class="form-group">
+            <label for="textbookImage">Textbook Image</label>
+            <input asp-for="textbookImage" type="file" class="form-control" />
+            <span asp-validation-for="textbookImage" class="text-danger"></span>
+        </div>
+
+        <input type="submit" value="List Textbook" class="btn btn-success w-100 p-2" />
+        @Model.Message
+    </form>
+
+</div>

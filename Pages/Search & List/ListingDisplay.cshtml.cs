@@ -13,6 +13,7 @@ namespace FlaglerBookSwap.Pages.Search___List
         public double ISBN { get; set; }
         public string? Authors { get; set; }
         public string? Courses { get; set; }
+        public byte[] TextbookPhoto { get; set; } 
 
 
         [BindProperty(SupportsGet = true)]
@@ -51,6 +52,7 @@ namespace FlaglerBookSwap.Pages.Search___List
                 Book_Title = textbook.Book_Title;
                 ISBN = textbook.ISBN;
                 Authors = textbook.Authors;
+                TextbookPhoto = textbook.TextbookPhoto;
             }
 
 

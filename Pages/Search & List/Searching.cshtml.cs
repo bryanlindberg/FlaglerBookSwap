@@ -29,7 +29,13 @@ namespace FlaglerBookSwap.Pages
 
         public void OnPost()
         {
-            if (string.IsNullOrWhiteSpace(ClassNumber))
+
+            if (string.IsNullOrWhiteSpace(Subject))
+            {
+                Message = "Please enter a subject.";
+                return;
+            }
+            else if (string.IsNullOrWhiteSpace(ClassNumber))
             {
                 Message = "Please enter a class number.";
                 return;
@@ -38,6 +44,12 @@ namespace FlaglerBookSwap.Pages
             else if (string.IsNullOrWhiteSpace(Section))
             {
                 Message = "Please enter a section.";
+                return;
+            }
+
+            else if (string.IsNullOrWhiteSpace(Term))
+            {
+                Message = "Please enter a term.";
                 return;
             }
 
