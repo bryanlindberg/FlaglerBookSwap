@@ -9,6 +9,12 @@
     <div class="text-center">
         <h1 class="display-4 header-font">@ViewData["Title"]</h1>
         <h4>Welcome to your profile</h4>
+        @if (TempData["UpdateSuccess"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["UpdateSuccess"]
+            </div>
+        }
     </div>
 </body>
 <div class="side-by-side">
@@ -56,7 +62,34 @@
                         <div class="col-7 profile-value">@Model.major</div>
                     </div>
                 </div>
-
+          
+                @if (!string.IsNullOrEmpty((string)ViewData["SecondMajor"]))
+                {
+                    <div class="profile-detail">
+                        <div class="row">
+                            <div class="col-5 profile-label">Second Major:</div>
+                            <div class="col-7 profile-value">@ViewData["SecondMajor"]</div>
+                        </div>
+                    </div>
+                }
+                @if (!string.IsNullOrEmpty((string)ViewData["ThirdMajor"]))
+                {
+                    <div class="profile-detail">
+                        <div class="row">
+                            <div class="col-5 profile-label">Third Major:</div>
+                            <div class="col-7 profile-value">@ViewData["ThirdMajor"]</div>
+                        </div>
+                    </div>
+                }
+                @if (!string.IsNullOrEmpty((string)ViewData["FourthMajor"]))
+                {
+                    <div class="profile-detail">
+                        <div class="row">
+                            <div class="col-5 profile-label">Fourth Major:</div>
+                            <div class="col-7 profile-value">@ViewData["FourthMajor"]</div>
+                        </div>
+                    </div>
+                }
                 <div class="profile-detail">
                     <div class="row">
                         <div class="col-5 profile-label">Expected Graduation:</div>

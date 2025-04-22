@@ -7,6 +7,12 @@
 <body class="account-container">
     <div class="text-center">
         <h1 class="display-4 header-font">@ViewData["Title"]</h1>
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["SuccessMessage"]
+            </div>
+        }
     </div>
     <div class="center-box">
     <div class="account-box">

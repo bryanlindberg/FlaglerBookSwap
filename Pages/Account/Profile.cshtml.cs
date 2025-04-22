@@ -51,6 +51,10 @@ namespace FlaglerBookSwap.Pages.Account
             profile_picture = userProfile.profile_picture;
             first_name = userProfile.first_name;
 
+            ViewData["SecondMajor"] = userProfile.second_major;
+            ViewData["ThirdMajor"] = userProfile.third_major;
+            ViewData["FourthMajor"] = userProfile.fourth_major;
+
             return Page();
         }
     }

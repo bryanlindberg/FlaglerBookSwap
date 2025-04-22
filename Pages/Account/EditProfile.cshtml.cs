@@ -65,10 +65,6 @@ namespace FlaglerBookSwap.Pages.Account
         }
 
 
-        private IActionResult ErrorEventArgs(string v)
-        {
-            throw new NotImplementedException();
-        }
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -120,7 +116,7 @@ namespace FlaglerBookSwap.Pages.Account
             _context.Users.Update(user);
             await _context.SaveChangesAsync();
 
-            TempData["SuccessMessage"] = "Your profile has been updated successfully.";
+            TempData["UpdateSuccess"] = "Your profile has been updated successfully.";
             return Redirect("/Account/Profile/" + userId);
         }
     }

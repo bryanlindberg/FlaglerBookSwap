@@ -6,7 +6,8 @@ namespace FlaglerBookSwap.ViewModels
     public class CreateProfileViewModel
     {
         [Required(ErrorMessage = "Please check off your major")]
-        public List<CreateMajorViewModel>? major { get; set; }
+        public List<CreateMajorViewModel>? major { get; set; } = new List<CreateMajorViewModel>(); //list of majors
+        public List<string>? selected_major { get; set; } = new List<string>(); //list of selected majors
 
         [Required(ErrorMessage = "Please pick your graduation year")]
         public string? expected_grad_year { get; set; }

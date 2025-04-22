@@ -58,7 +58,7 @@ namespace FlaglerBookSwap.Pages.Account
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
-
+            TempData["SuccessMessage"] = "Your account has been created successfully. Please go to your email to making your profile!.";
 
             _logger.LogInformation("User created a new account.");
 
@@ -66,7 +66,7 @@ namespace FlaglerBookSwap.Pages.Account
             string createProfileLink = Url.Page("/Account/CreateProfile", pageHandler: null, 
                 values: new { area = "Identity", email = user.flagler_email }, protocol: Request.Scheme);
             string resultMsg = $@"
-                    <p>Welcome to Flagler Book Swap website! Your account has been created successfully.</p>
+                    <h1>Welcome to Flagler Book Swap website! Your account has been created successfully.</h1>
                     <p>Please <a href='{createProfileLink}'>click here</a> to create your profile.</p>";
 
             bool emailSent = SendStudentEmail(user.flagler_email, user.FullName, resultMsg);
@@ -80,9 +80,9 @@ namespace FlaglerBookSwap.Pages.Account
                 _logger.LogInformation("Email failed to send.");
             }
 
-            TempData["SuccessMessage"] = "Your account has been created successfully. Please log in.";
+            TempData["SuccessMessage"] = "Your account has been created successfully. Please go to your email to complete your account creation";
 
-            return RedirectToPage("/Account/Login"); //should bring the user to the login page but it doesn't and i need to                 
+            return RedirectToPage("/Account/Login"); // should bring the user to the login page but it doesn't and i need to                 
 
         }
         private short GetNextAvailableId()
@@ -120,7 +120,7 @@ namespace FlaglerBookSwap.Pages.Account
                 //client.Port = 587;
                 client.EnableSsl = true;
                 client.UseDefaultCredentials = false;
-                client.Credentials = new System.Net.NetworkCredential("flaglerbookswap@gmail.com", "jbsk jggt jcqs teeg\r\n"); //use an app password
+                client.Credentials = new System.Net.NetworkCredential("flaglerbookswap@gmail.com", "jbsk jggt jcqs teeg\r\n");
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;
                 client.Send(emailMessage);
                 return true;

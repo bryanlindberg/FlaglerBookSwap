@@ -52,7 +52,8 @@ namespace FlaglerBookSwap.Pages.Account
 
             CreateProfileViewModel = new CreateProfileViewModel
             {
-                major = CreateMajor.GetMajors()
+                major = CreateMajor.GetMajors(),
+                selected_major = new List<string>()
 
             };
             GraduationYears = new List<string> { "2025", "2026", "2027", "2028", "2029", "2030", "2031" }
@@ -78,7 +79,10 @@ namespace FlaglerBookSwap.Pages.Account
 
                 //this is for me for future projects Since i'm not using the identity framework
                 //then i have to instatiate the user manager below everytime a user needs to save data to the account
-                user.major = CreateProfileViewModel.major.FirstOrDefault(m => m.Selected)?.Value;
+                user.major = CreateProfileViewModel.selected_major.ElementAtOrDefault(0); // Primary major
+                user.second_major = CreateProfileViewModel.selected_major.ElementAtOrDefault(1); // Second major
+                user.third_major = CreateProfileViewModel.selected_major.ElementAtOrDefault(2);// Third major
+                user.fourth_major = CreateProfileViewModel.selected_major.ElementAtOrDefault(3); // Fourth major
                 user.expected_grad_year = CreateProfileViewModel.expected_grad_year;
                 user.phone_number = CreateProfileViewModel.Phone_number;
                 user.gender = CreateProfileViewModel.gender;
