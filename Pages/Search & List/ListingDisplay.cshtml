@@ -2,23 +2,65 @@
 @model ListingDisplayModel
 @{
     ViewData["Title"] = "Listing Display";
+    var activeListings = Model.ListingDisplay.Where(l => l.list_status == true).ToList();
 }
 
-
 <style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background-color: #ffffff;
+        color: #2c3e50;
+    }
+
     .page-wrapper {
         display: flex;
-        min-height: 100vh;
-        gap: 20px;
+        padding: 40px;
+        gap: 40px;
+        max-width: 1200px;
+        margin: auto;
     }
 
     .left-side {
         flex: 1;
+        background-color: #f9f9f9;
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     }
 
     .right-side {
-        width: 35%;
-        padding: 20px;
+        flex: 1.5;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 20px;
+        border: 2px solid #A3282F;
+    }
+
+    .textbook-image {
+        max-width: 100%;
+        max-height: 300px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        margin-bottom: 20px;
+    }
+
+    .profile-detail {
+        margin-bottom: 20px;
+    }
+
+    .profile-label {
+        font-weight: 600;
+        color: #A3282F;
+    }
+
+    .profile-value {
+        color: #2c3e50;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+        color: #A3282F;
+        margin-bottom: 20px;
     }
 
     .listing-card {
@@ -26,7 +68,7 @@
         border: 1px solid #ddd;
         border-radius: 15px;
         padding: 20px;
-        margin-bottom: 20px;
+        margin-bottom: 25px;
         background-color: #f9f9f9;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
         transition: transform 0.2s ease-in-out;
@@ -38,7 +80,7 @@
 
     .listing-title {
         font-size: 1.3rem;
-        color: #2c3e50;
+        color: #A3282F;
         margin-bottom: 10px;
     }
 
@@ -66,102 +108,108 @@
         color: #888;
         margin-top: 10px;
     }
+
+    a {
+        color: #A3282F;
+        text-decoration: none;
+    }
+
+        a:hover {
+            text-decoration: underline;
+        }
 </style>
 
-
 <div class="page-wrapper">
-    <div class="right-side">
-        <div class="container display-container">
-            <div class="row">
-                <div class="col-md-6 offset-md-3">
-                    <div class="profile-detail">
-                        <div class="row">
-                            <div class="col-5 profile-label">Name of textbook:</div>
-                            <div class="col-7 profile-value">@Model.Book_Title</div>
-                        </div>
-                    </div>
-                    <div class="profile-detail">
-                        <div class="row">
-                            <div class="col-5 profile-label">Author:</div>
-                            <div class="col-7 profile-value">@Model.Authors</div>
-                        </div>
-                    </div>
-                    <div class="profile-detail">
-                        <div class="row">
-                            <div class="col-5 profile-label">ISBN:</div>
-                            <div class="col-7 profile-value">@Model.ISBN</div>
-                        </div>
-                    </div>
-                    <div class="profile-detail">
-                        <div class="row">
-                            <div class="col-5 profile-label">Courses:</div>
-                            <div class="col-7 profile-value">
-                                @foreach (var course in Model.CourseDisplay)
-                                {
-                                    @course.course_title <br /> @course.section <br /> @course.term <br /> <br />
-                                    ;
-                                }
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
-
-        </div>
-    </div>
+    <!-- LEFT: Textbook info -->
     <div class="left-side">
-    </div>
-
-    <div class="right-side">
-        @if (Model.ListingDisplay.Count == 0)
+        @if (Model.TextbookPhoto != null)
         {
-            <p>Sorry, there are not any listings currently available for this textbook. Please click <a asp-page="/Account/ProfileWishlist" asp-page-handler="AddToWishlist" asp-route-textbookID="@Model.TextbookId">here</a> if you'd like to add this textbook to your wishlist and be notified if it becomes available.</p>
+            var base64 = Convert.ToBase64String(Model.TextbookPhoto);
+            var imageSrc = $"data:image/jpeg;base64,{base64}";
+            <img src="@imageSrc" alt="Textbook Cover" class="textbook-image" />
         }
         else
         {
-            <h1>Here are the listings for this textbook:</h1>
+            <div class="no-image">No textbook image available.</div>
+        }
 
-            //keeping track of the listing number so we can display it
+        <div class="profile-detail">
+            <div class="profile-label">Name of textbook:</div>
+            <div class="profile-value">@Model.Book_Title</div>
+        </div>
+        <div class="profile-detail">
+            <div class="profile-label">Author:</div>
+            <div class="profile-value">@Model.Authors</div>
+        </div>
+        <div class="profile-detail">
+            <div class="profile-label">ISBN:</div>
+            <div class="profile-value">@Model.ISBN</div>
+        </div>
+        <div class="profile-detail">
+            <div class="profile-label">Courses:</div>
+            <div class="profile-value">
+                @foreach (var course in Model.CourseDisplay)
+                {
+                    @course.course_title <br /> @course.section <br /> @course.term <br />
+
+                    <br />
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- RIGHT: Listings -->
+    <div class="right-side">
+        @if (!activeListings.Any())
+        {
+            <p>
+                Sorry, there are not any listings currently available for this textbook. Please click
+                <a asp-page="/Account/ProfileWishlist" asp-page-handler="AddToWishlist" asp-route-textbookID="@Model.TextbookId">here</a>
+                if you'd like to add this textbook to your wishlist and be notified if it becomes available.
+            </p>
+        }
+        else
+        {
+            <h1>Listings for this textbook</h1>
+
             int listingNumber = 1;
 
-            @foreach (var listing in Model.ListingDisplay)
+            @foreach (var listing in activeListings)
             {
-                if (@listing.list_status == true)
-                {
-                    
-                
                 <li class="listing-card">
                     <div class="listing-title">Listing #@listingNumber</div>
 
-                    <div class="listing-detail">Name of seller:<a asp-page="/Account/Profile" asp-route-userId="@listing.Users.UserID">@listing.Users.FullName</a></div>
-                    <div class="listing-detail">Textbook title: @listing.Textbooks.Book_Title, Edition @listing.edition</div>
-                    <div class="listing-detail">Textbook condition: @listing.condition</div>
+                    <div class="listing-detail">
+                        Name of seller: <a asp-page="/Account/Profile" asp-route-userId="@listing.Users.UserID">@listing.Users.FullName</a>
+                    </div>
+                    <div class="listing-detail">
+                        Textbook title: @listing.Textbooks.Book_Title, Edition @listing.edition
+                    </div>
+                    <div class="listing-detail">Condition: @listing.condition</div>
                     <div class="listing-detail">Asking price: @String.Format("{0:C}", listing.price)</div>
-                    <div class="listing-detail">Seller willing to trade: @(listing.is_willing_to_trade == false ? "Yes" : "No")</div>
+                    <div class="listing-detail">Willing to trade: @(listing.is_willing_to_trade ? "Yes" : "No")</div>
 
                     <div class="listing-contact">
                         @if (listing.contact_preference == "Email")
                         {
                             <div>
-                                Contact Preference: Email <br />
-                                Email: @listing.Users.flagler_email
+                                Contact via Email:<br />
+                                <strong>@listing.Users.flagler_email</strong>
                             </div>
                         }
                         else if (listing.contact_preference == "Phone")
                         {
                             <div>
-                                Contact Preference: Phone <br />
-                                Phone Number: @String.Format("{0:(###) ###-####}", Convert.ToInt64(listing.Users.phone_number))
+                                Contact via Phone:<br />
+                                <strong>@String.Format("{0:(###) ###-####}", Convert.ToInt64(listing.Users.phone_number))</strong>
                             </div>
                         }
                         else
                         {
                             <div>
-                                Contact preference: Either<br />
-                                Email: @listing.Users.flagler_email<br />
-                                Phone: @listing.Users.phone_number
+                                Contact via Email or Phone:<br />
+                                Email: <strong>@listing.Users.flagler_email</strong><br />
+                                Phone: <strong>@listing.Users.phone_number</strong>
                             </div>
                         }
                     </div>
@@ -180,14 +228,8 @@
                     @{
                         listingNumber++;
                     }
-                    </li>
-                }
+                </li>
             }
         }
     </div>
 </div>
-
-    }
-
-
-}
