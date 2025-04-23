@@ -25,7 +25,7 @@ namespace FlaglerBookSwap.Pages.Account
 
 
 
-        public async Task<IActionResult>OnGetAsync(short userId)
+        public async Task<IActionResult> OnGetAsync(short userId)
         {
             string userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -40,18 +40,24 @@ namespace FlaglerBookSwap.Pages.Account
             // Fetch the user from the database
             var user = await _context.Users.FirstOrDefaultAsync(u => u.UserID == userId);
             if (user == null)
-            {           
+            {
                 return NotFound("User not found.");
             }
 
 
             EditProfileViewModel = new EditProfileViewModel
             {
-                
 
-                    major = EditMajor.GetMajors(user),
 
-                
+                major = EditMajor.GetMajors(user),
+                selected_major = new List<string>
+                {
+                 user.major,
+                 user.second_major,
+                 user.third_major,
+                 user.fourth_major
+                }.Where(m => !string.IsNullOrEmpty(m)).ToList(),
+
                 expected_grad_year = user.expected_grad_year,
                 Phone_number = user.phone_number,
                 gender = user.gender,
@@ -89,12 +95,17 @@ namespace FlaglerBookSwap.Pages.Account
             }
 
             // Update the user with new inputs
-            user.major = EditProfileViewModel.major.FirstOrDefault(m => m.Selected)?.Value;
+            user.major = EditProfileViewModel.selected_major.ElementAtOrDefault(0); // Primary major
+            user.second_major = EditProfileViewModel.selected_major.ElementAtOrDefault(1); // Second major
+            user.third_major = EditProfileViewModel.selected_major.ElementAtOrDefault(2);// Third major
+            user.fourth_major = EditProfileViewModel.selected_major.ElementAtOrDefault(3); // Fourth major
+
             user.expected_grad_year = EditProfileViewModel.expected_grad_year;
             user.phone_number = EditProfileViewModel.Phone_number;
             user.gender = EditProfileViewModel.gender;
 
             if (Request.Form.Files.Count > 0)
+
             {
                 var file = Request.Form.Files[0];
                 if (file.Length > 0)

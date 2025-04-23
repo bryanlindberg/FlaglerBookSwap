@@ -4,10 +4,10 @@ namespace FlaglerBookSwap.ViewModels
 {
     public class EditProfileViewModel
     {
-   
-        [Required(ErrorMessage = "Please check off your major")]
-        public List<EditMajorViewModel>? major { get; set; }
 
+        [Required(ErrorMessage = "Please check off your major")]
+        public List<EditMajorViewModel>? major { get; set; } = new List<EditMajorViewModel>();
+        public List<string>? selected_major { get; set; } = new List<string>();
         [Required(ErrorMessage = "Please pick your graduation year")]
         public string? expected_grad_year { get; set; }
 
