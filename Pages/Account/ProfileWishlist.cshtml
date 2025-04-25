@@ -57,6 +57,13 @@
             transition: background-color 0.3s ease;
         }
 
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+
         .btn-outline-dark {
             border: 1px solid #A3282F;
             color: #A3282F;
@@ -74,6 +81,24 @@
     <div class="text-center">
         <h1 class="display-4 header-font">@ViewData["Title"]</h1>
     </div>
+    @if (TempData["RemoveSuccess"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["RemoveSuccess"]
+        </div>
+    }
+    @if (TempData["AddSuccess"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["AddSuccess"]
+        </div>
+    }
+    @if (TempData["AddError"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["AddError"]
+        </div>
+    }
 
     <div class="wishlist-box">
         @foreach (var listing in Model.WishlistInfo)
@@ -86,13 +111,22 @@
                         <span>Author(s): @listing.Textbooks.Authors</span>
                         <span>ISBN: @listing.Textbooks.ISBN</span>
                     </div>
-                    <form method="post" asp-page-handler="DeleteListing" asp-route-WishlistID="@listing.WishlistID">
-                        <input type="submit"
-                               value="Remove from Wishlist"
-                               class="btn btn-outline-dark"
-                               onclick="return confirm('Are you sure you want to remove this book from your wishlist?');" />
-                    </form>
+                    <div class="button-group">
+                        <form method="post" asp-page-handler="DeleteListing" asp-route-WishlistID="@listing.WishlistID">
+                            <input type="submit"
+                                   value="Remove from Wishlist"
+                                   class="btn btn-outline-dark"
+                                   onclick="return confirm('Are you sure you want to remove this book from your wishlist?');" />
+                        </form>
+                        <a asp-page="/Search & List/ListingDisplay"
+                           asp-route-TextbookID="@listing.Textbooks.textbook_id"
+                           class="btn btn-outline-dark">
+                            View Listings (@Model.ListingInfo.Count(l => l.textbook_id == listing.Textbooks.textbook_id && l.list_status))
+                        </a>
+                    </div>
+
                 </li>
+
             }
         }
     </div>

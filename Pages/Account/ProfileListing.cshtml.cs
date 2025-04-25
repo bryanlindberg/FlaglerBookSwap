@@ -29,6 +29,7 @@ namespace FlaglerBookSwap.Pages.Account
                 listing.list_status = false;
                 _context.SaveChanges();
             }
+            TempData["HideSuccess"] = "Your listing has been hidden successfully!";
             return RedirectToPage("/Account/ProfileListing");
         }
 

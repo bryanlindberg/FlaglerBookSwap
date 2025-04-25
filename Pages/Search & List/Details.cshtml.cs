@@ -137,6 +137,7 @@ namespace FlaglerBookSwap.Pages.Search___List
             _context.Listings.Add(newTextbookListing);
             _context.SaveChanges();
             // Redirect to a confirmation page or another action
+            TempData["ListingSuccess"] = "Your listing has been posted successfully!";
             return RedirectToPage("/Account/ProfileListing");
 
         }
@@ -187,6 +188,8 @@ namespace FlaglerBookSwap.Pages.Search___List
 
             // Save changes
             _context.SaveChanges();
+
+            TempData["EditSuccess"] = "Your listing has been edited successfully!";
             return RedirectToPage("/Account/ProfileListing");
 
         }

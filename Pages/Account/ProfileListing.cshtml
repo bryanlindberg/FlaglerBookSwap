@@ -108,6 +108,24 @@
     <div class="text-center">
         <h1 class="display-4 header-font">@ViewData["Title"]</h1>
     </div>
+    @if (TempData["ListingSuccess"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["ListingSuccess"]
+        </div>
+    }
+    @if (TempData["EditSuccess"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["EditSuccess"]
+        </div>
+    }
+    @if (TempData["HideSuccess"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["HideSuccess"]
+        </div>
+    }
 
     <div class="account-box">
         <table class="table">
@@ -142,6 +160,7 @@
                                    class="btn btn-outline-dark ms-2">
                                     Edit Listing
                                 </a>
+
                             </td>
                         </tr>
                     }

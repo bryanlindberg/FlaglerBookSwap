@@ -3,33 +3,85 @@
 @{
     ViewData["Title"] = "Textbook Swap";
 }
-<body class="Page-Color">
-    <div class="text-center">
-        <h1 class="display-4 header-font">TEXTBOOK SWAP</h1>
-        <h4 class="display-4">Welcome to Flagler's very own Book swap!</h4>
-        <img src="~/Images/home-flagler-logo.png" style="width: 200px; height: auto;" alt="Flagler Logo" />
+<style>
+    body {
+        background-color: #FFB100;
+        font-family: 'Segoe UI', sans-serif;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+
+
+    .header-font {
+        font-weight: 700;
+        color: #A3282F;
+        margin-bottom: 0.5rem;
+    }
+
+    .sub-header {
+        color: #555;
+        font-size: 1.25rem;
+        margin-bottom: 2rem;
+    }
+
+    .logo {
+        width: 200px;
+        height: auto;
+        margin-top: 1rem;
+    }
+
+    .side-by-side {
+        display: flex;
+        justify-content: center;
+        gap: 5rem;
+        margin-top: 3rem;
+    }
+
+    .option-box {
+        text-align: center;
+    }
+
+        .option-box h3 {
+            margin-bottom: 1rem;
+            color: #A3282F;
+        }
+
+    .image-link {
+        display: inline-block;
+        transition: background-color 0.3s ease;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+    }
+
+        .image-link:hover {
+            background-color: rgba(163, 40, 47, 0.2);
+        }
+
+        .image-link img {
+            width: 150px;
+            height: auto;
+        }
+</style>
+
+<div class="text-center">
+    <h1 class="display-4 header-font">TEXTBOOK SWAP</h1>
+    <h4 class="sub-header">Welcome to Flagler's very own textbook swap!</h4>
+    <img class="logo" src="~/Images/home-flagler-logo.png" alt="Flagler Logo" />
+</div>
+
+<div class="side-by-side">
+    <div class="option-box">
+        <h3>Want to list a textbook?</h3>
+        <a class="image-link" asp-page="/Search & List/Listings">
+            <img src="~/Images/book-list.png" alt="Book List" />
+        </a>
     </div>
 
-
-    <div class="side-by-side">
-        <div class="text-right">
-            <h3>To list your book click here!</h3>
-            <a class="nav-link text-dark btn btn-primary btn-font" asp-page="/Search & List/Listings">
-                <!-- I have to move all the pages to their correct MVC but when i tried doing that I got an error so
-                    i think it has to do with the model naming so i'll fix that later -->
-                List book!
-            </a>
-            <img src="~/Images/book-list.png" style="width: 150px; height: auto;" alt="Book List" />
-        </div>
-
-        <div class="text-left">
-            <h3>Want to find a textbook?</h3>
-            <a class="nav-link text-dark btn btn-primary btn-font" asp-page="/Search & List/Searching">
-                Search book!
-            </a>
-            <!-- looking for better pictures-->
-            <img src="~/Images/newglass.png" style="width: 150px; height: auto;" alt="Search Book" />
-        </div>
+    <div class="option-box">
+        <h3>Want to find a textbook?</h3>
+        <a class="image-link" asp-page="/Search & List/Searching">
+            <img src="~/Images/newglass.png" alt="Search Book" />
+        </a>
     </div>
-
-</body>
+</div>

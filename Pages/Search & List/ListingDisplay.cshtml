@@ -229,6 +229,11 @@
                         listingNumber++;
                     }
                 </li>
+                <p>
+                    Don't want to buy the book now? Please click
+                    <a asp-page="/Account/ProfileWishlist" asp-page-handler="AddToWishlist" asp-route-textbookID="@Model.TextbookId">here</a>
+                    if you'd like to add this textbook to your wishlist and and check back later!
+                </p>
             }
         }
     </div>

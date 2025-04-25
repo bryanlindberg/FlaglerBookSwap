@@ -10,6 +10,7 @@ namespace FlaglerBookSwap.Pages.Account
     public class ProfileWishlistModel : PageModel
     {
         public List<Wishlist> WishlistInfo { get; set; } = new List<Wishlist>();
+        public List<Listings> ListingInfo { get; set; } = new List<Listings>();
         private readonly AppDbContext _context;
 
         public ProfileWishlistModel(AppDbContext context)
@@ -25,10 +26,11 @@ namespace FlaglerBookSwap.Pages.Account
                 wishlistItem.wishlist_status = false;
                 _context.SaveChanges();
             }
+            TempData["RemoveSuccess"] = "Textbook has successfully been removed from wishlist!";
             return RedirectToPage("/Account/ProfileWishlist");
         }
 
-        
+
         private short GetNextAvailableWishlistId()
         {
             short maxId = (short)(_context.Wishlist.Any() ? _context.Wishlist.Max(w => w.WishlistID) : (short)0);
@@ -48,18 +50,16 @@ namespace FlaglerBookSwap.Pages.Account
 
             short userId = short.Parse(userIdString);
 
-            // Check if the textbook is already in the wishlist
-            var existingWishlistItem = _context.Wishlist.FirstOrDefault(w => w.userID == userId && w.textbook_id == textbookId);
+            //check if textbook is already in wishlist
+
+            var existingWishlistItem = await _context.Wishlist
+                .FirstOrDefaultAsync(w => w.userID == userId && w.textbook_id == textbookId && w.wishlist_status == true);
             if (existingWishlistItem != null)
             {
-                // If the textbook has been wishlisted by this user previously, reactivate the textbook and update the date
-                existingWishlistItem.wishlist_status = true;
-                existingWishlistItem.date_wishlisted = DateTime.Now;
-                _context.Wishlist.Update(existingWishlistItem);
-                await _context.SaveChangesAsync();
-
+                TempData["AddError"] = "Textbook is already in your wishlist!";
                 return RedirectToPage("/Account/ProfileWishlist");
             }
+
             else
             {
                 var wishlistItem = new Wishlist
@@ -74,6 +74,7 @@ namespace FlaglerBookSwap.Pages.Account
                 _context.Wishlist.Add(wishlistItem);
                 await _context.SaveChangesAsync();
 
+                TempData["AddSuccess"] = "Textbook successfully added to wishlist!";
                 return RedirectToPage("/Account/ProfileWishlist");
             }
 
@@ -95,6 +96,13 @@ namespace FlaglerBookSwap.Pages.Account
             {
                 throw new Exception("User ID is not valid.");
             }
+
+            //search db for active listings
+            ListingInfo = _context.Listings
+                .Where(l => l.list_status == true) //only search for textbooks that have an active listing
+                .Include(l => l.Textbooks)
+                .ToList();
+
 
         }
     }
