@@ -144,6 +144,10 @@ namespace FlaglerBookSwap.Pages.Search___List
             // Save the new textbook listing to the database or perform any other necessary actions
             _context.Listings.Add(newTextbookListing);
             _context.SaveChanges();
+
+            // Notify users who have the textbook on their wishlist
+            NotifyUserWishListItem(TextbookId).Wait();
+
             // Redirect to a confirmation page or another action
             TempData["ListingSuccess"] = "Your listing has been posted successfully!";
             return RedirectToPage("/Account/ProfileListing");
@@ -221,10 +225,12 @@ namespace FlaglerBookSwap.Pages.Search___List
                 var user = await _context.Users.FirstOrDefaultAsync(u => u.UserID == wishlist.userID);
                 if (user != null && !string.IsNullOrEmpty(user.flagler_email))
                 {
+                    string home = Url.Page("/Index", pageHandler: null,
+                values: new { area = "Identity", email = user.flagler_email }, protocol: Request.Scheme);
                     string resultMsg = $@"
             <h1>Good news!</h1>
             <p>The item <strong>{textbook.Book_Title}</strong> is now listed on Flagler Book Swap.</p>
-            <p>Visit the website to check it out!</p>";
+            <p>Visit the website to check it out <a href='{home}'>here</a>!</p>";
 
                     bool emailSent = SendStudentEmail(user.flagler_email, user.FullName, resultMsg);
 
