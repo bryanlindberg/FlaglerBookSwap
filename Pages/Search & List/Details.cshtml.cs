@@ -2,9 +2,17 @@ using FlaglerBookSwap.Data;
 using FlaglerBookSwap.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Net.Mail;
 using System.Reflection;
 using System.Security.Claims;
 using static System.Collections.Specialized.BitVector32;
+using FlaglerBookSwap.ViewModels;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
+
+
+
 
 namespace FlaglerBookSwap.Pages.Search___List
 {
@@ -186,12 +194,90 @@ namespace FlaglerBookSwap.Pages.Search___List
                 listing.photo = memoryStream.ToArray();
             }
 
+
+
             // Save changes
             _context.SaveChanges();
 
             TempData["EditSuccess"] = "Your listing has been edited successfully!";
             return RedirectToPage("/Account/ProfileListing");
 
+        }
+        private async Task NotifyUserWishListItem(short textbookId)
+        {
+            var textbook = await _context.Textbooks.FindAsync(textbookId);
+            if (textbook == null)
+            {
+                // Log error or handle case where textbook doesn't exist
+                return;
+            }
+
+            var wishlists = await _context.Wishlist
+                .Where(w => w.textbook_id == textbookId && w.wishlist_status)
+                .ToListAsync();
+
+            foreach (var wishlist in wishlists)
+            {
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.UserID == wishlist.userID);
+                if (user != null && !string.IsNullOrEmpty(user.flagler_email))
+                {
+                    string resultMsg = $@"
+            <h1>Good news!</h1>
+            <p>The item <strong>{textbook.Book_Title}</strong> is now listed on Flagler Book Swap.</p>
+            <p>Visit the website to check it out!</p>";
+
+                    bool emailSent = SendStudentEmail(user.flagler_email, user.FullName, resultMsg);
+
+                    // Log the result of the email sending
+                    if (emailSent)
+                    {
+                        // Log success
+                        Console.WriteLine($"Successfully sent notification to {user.FullName} for textbook {textbook.Book_Title}");
+                    }
+                    else
+                    {
+                        // Log failure
+                        Console.WriteLine($"Failed to send notification to {user.FullName} for textbook {textbook.Book_Title}");
+                    }
+                }
+            }
+        }
+        public bool SendStudentEmail(string sendStudentEmail, string sendStudentName, string resultMsg)
+        {
+            string sendFromEmail = "flaglerbookswap@gmail.com"; //put in your email
+            string sendFromName = "Flagler Book Swap";
+            string sendToEmail = sendStudentEmail;
+            string sendToName = sendStudentName;
+
+            string messageSubject = "An item on your wishlist is now available!";
+            string messageBody = resultMsg;
+
+            MailAddress from = new MailAddress(sendFromEmail, sendFromName);
+            MailAddress to = new MailAddress(sendToEmail, sendToName);
+            MailMessage emailMessage = new MailMessage(from, to);
+
+            emailMessage.Subject = messageSubject;
+            emailMessage.Body = messageBody;
+            emailMessage.IsBodyHtml = true;
+
+            try
+            {
+                SmtpClient client = new SmtpClient();
+                client.Host = "smtp.gmail.com";
+                client.Port = 587;
+                //client.Host = "smtp.office365.com";
+                //client.Port = 587;
+                client.EnableSsl = true;
+                client.UseDefaultCredentials = false;
+                client.Credentials = new System.Net.NetworkCredential("flaglerbookswap@gmail.com", "jbsk jggt jcqs teeg\r\n");
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                client.Send(emailMessage);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
     }
