@@ -112,7 +112,7 @@ namespace FlaglerBookSwap.Pages.Account
 
                 TempData["SuccessMessage"] = "Your profile has been created successfully.";
 
-                return RedirectToPage("/Index");
+                return RedirectToPage("/Account/Login");
                            
                 
             }

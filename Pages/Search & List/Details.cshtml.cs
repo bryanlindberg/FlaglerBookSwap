@@ -19,7 +19,7 @@ namespace FlaglerBookSwap.Pages.Search___List
     public class DetailsModel : PageModel
     {
         [BindProperty]
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
         [BindProperty]
         public bool? isSwapping { get; set; }
         [BindProperty]
@@ -49,6 +49,7 @@ namespace FlaglerBookSwap.Pages.Search___List
 
         public async Task<IActionResult> OnGetAsync(short textbookId, short listingId)
         {
+            Price = null;
             isSwapping = null;
 
             TextbookId = textbookId;
@@ -94,7 +95,7 @@ namespace FlaglerBookSwap.Pages.Search___List
                 Message = "Please select a contact preference.";
                 return Page();
             }
-            else if (Price < 0)
+            else if (Price < 0 || Price == null)
             {
                 Message = "Please enter a valid price.";
                 return Page();
@@ -137,7 +138,7 @@ namespace FlaglerBookSwap.Pages.Search___List
             {
                 ListingID = GetNextAvailableListingId(),
                 date_listed = DateTime.Now,
-                price = Price,
+                price = (decimal)Price,
                 is_willing_to_trade = (bool)isSwapping,
                 list_status = true,
                 condition = textbookCondition,
@@ -192,7 +193,7 @@ namespace FlaglerBookSwap.Pages.Search___List
                 return NotFound();
             }
 
-            listing.price = Price;
+            listing.price = (decimal)Price;
             listing.is_willing_to_trade = (bool)isSwapping;
             listing.condition = textbookCondition;
             listing.edition = textbookEdition;
