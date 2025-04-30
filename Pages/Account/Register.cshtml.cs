@@ -65,9 +65,11 @@ namespace FlaglerBookSwap.Pages.Account
             //code to send email to user
             string createProfileLink = Url.Page("/Account/CreateProfile", pageHandler: null, 
                 values: new { area = "Identity", email = user.flagler_email }, protocol: Request.Scheme);
-            string resultMsg = $@"
-                    <h1>Welcome to Flagler Book Swap website! Your account has been created successfully.</h1>
-                    <p>Please <a href='{createProfileLink}'>click here</a> to create your profile.</p>";
+            string resultMsg = $@"                  
+                     <h1 style='color: #A3282F;'> Welcome to Flagler's Textbook Swap! </h1>
+                     <p style='font-size:24px'>Your account has been created successfully. We're thrilled to have you on board!</p>
+                      <p><a href='{createProfileLink}' style='display: inline-block; background-color: #A3282F; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;'>Create My Profile</a></p>
+                     <p>Start swapping, saving, and connecting with other Flagler Saints! </p>";
 
             bool emailSent = SendStudentEmail(user.flagler_email, user.FullName, resultMsg);
 
@@ -96,11 +98,11 @@ namespace FlaglerBookSwap.Pages.Account
         public bool SendStudentEmail(string sendStudentEmail, string sendStudentName, string resultMsg)
         {
             string sendFromEmail = "flaglerbookswap@gmail.com"; //put in your email
-            string sendFromName = "Flagler Book Swap";
+            string sendFromName = "Flagler's Textbook Swap";
             string sendToEmail = sendStudentEmail;
             string sendToName = sendStudentName;
 
-            string messageSubject = "Welcome to Flagler Bookswap!";
+            string messageSubject = "Welcome to the textbook swap community!";
             string messageBody = resultMsg;
 
             MailAddress from = new MailAddress(sendFromEmail, sendFromName);
