@@ -65,8 +65,12 @@
     <form method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="Price">How much do you want to sell this textbook for?</label>
-            <input type="text" asp-for="Price" class="form-control price-input" placeholder="Enter price" />
+            <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input type="text" asp-for="Price" class="form-control price-input" placeholder="Enter price" />
+            </div>
         </div>
+
 
         <div class="form-group">
             <label for="textbookEdition">What is the edition of this textbook?</label>

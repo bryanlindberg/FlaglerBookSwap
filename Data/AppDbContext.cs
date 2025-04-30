@@ -17,6 +17,7 @@ namespace FlaglerBookSwap.Data
         public DbSet<Wishlist> Wishlist { get; set; }
         public DbSet<Users> Users { get; set; }
         public DbSet<Listings> Listings { get; set; }
+        public DbSet<ContactForms> ContactForms { get; set; }
     }
 
 }
