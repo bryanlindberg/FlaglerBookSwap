@@ -62,18 +62,18 @@ body {
 }
 
 .Page-Color {
-    background-color: #cf8e38;
+    background-color: #FFB100;
 }
 
 .profile-clr {
-    background-color: #FF746C;
+    background-color: #FFB100;
 }
 
 .login-clr {
     background-color: #e7daa7;
 }
 .bookstore-clr {
-    background-color: #FAF9F6;
+    background-color: #FFB100;
 }
 .account-container {
     background-color: #e7daa7;
@@ -106,6 +106,7 @@ body {
 .form-control {
     width: 50%
 }
+
 /*below is the style for the profile page*/
 
 .profile-container {

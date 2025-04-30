@@ -4,48 +4,55 @@
     ViewData["Title"] = "Login";
 }
 
-<body class="account-container">
+<body class="account-container" style="background-color: #eee2aa; min-height: 100vh;">
     <div class="text-center">
         <h1 class="display-4 header-font">@ViewData["Title"]</h1>
-        @if (TempData["SuccessMessage"] != null)
-        {
-            <div class="alert alert-success">
-                @TempData["SuccessMessage"]
-            </div>
-        }
     </div>
-    <div class="center-box">
-    <div class="account-box">
-        <form asp-page="Login" method="post">
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="mb-3">
-                    <label asp-for="LoginView.flagler_email" class="form-label">Email</label>
-                    <input asp-for="LoginView.flagler_email" class="form-control" />
-                    <span asp-validation-for="LoginView.flagler_email" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                    <label asp-for="LoginView.Password" class="form-label">Password</label>
-                    <input asp-for="LoginView.Password" class="form-control" />
-                    <span asp-validation-for="LoginView.Password" class="text-danger"></span>
-            </div>
-            <!--<div class="float-end">
-            <a class="text-decoration-none mt-3" asp-page="Register">
-            Forgot password
-            </a> 
-            </div>  I don't know if u want a forget password button we do have the code for it atlesat-->
-            <div class="form-check mb-3">                
-                    <input asp-for="LoginView.RememberMe" class="form-check-input" />
-                    <label asp-for="LoginView.RememberMe" class="form-check-label">Remember Me</label>
+    <div class="d-flex align-items-center justify-content-center" style="min-height: calc(100vh - 70px);">
+        <div class="w-100" style="max-width: 700px; height:800px;">
+            <div class="account-box p-4 shadow rounded-3 bg-white">
+                <div class="text-center mb-4">
+
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success mt-2">
+                            @TempData["SuccessMessage"]
+                        </div>
+                    }
                 </div>
-            <input type="submit" value="Login" class="btn btn-success w-100 p-2" />
-            <p class="text-center mt-2">
-                Don't have an account? <a class="text-decoration-none mt-3" asp-page="Register">
-                    Register
-                </a>
-            </p>          
-        </form>
-    </div> 
+
+                <form asp-page="Login" method="post">
+                    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="LoginView.flagler_email" class="form-label">Email</label>
+                        <input asp-for="LoginView.flagler_email" class="form-control" style="width: 60%" />
+                        <span asp-validation-for="LoginView.flagler_email" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="LoginView.Password" class="form-label">Password</label>
+                        <input asp-for="LoginView.Password" class="form-control" type="password" style="width: 60%" />
+                        <span asp-validation-for="LoginView.Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-check mb-4">
+                        <input asp-for="LoginView.RememberMe" class="form-check-input" id="rememberMe" />
+                        <label asp-for="LoginView.RememberMe" class="form-check-label" for="rememberMe">
+                            Remember Me
+                        </label>
+                    </div>
+
+                    <input type="submit" value="Login" class="btn btn-success w-100 p-2" />
+
+                    <p class="text-center mt-3 mb-0">
+                        Don't have an account? <a class="text-decoration-none" asp-page="Register">Register</a>
+                    </p>
+                </form>
+            </div>
+        </div>
     </div>
+
 </body>
 
 @section Scripts 

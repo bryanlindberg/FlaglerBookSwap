@@ -11,36 +11,47 @@
     <div class="text-center"></div>
     <div class="account-content">
         <div class="account-box">
-            <form asp-page="Register" method="post">
+            <form asp-page="Register" method="post" class="text-center">
                 <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="mb-3">
-                    <label asp-for="RegisterViewModel.Name" class="form-label">Full Name</label>
-                    <input asp-for="RegisterViewModel.Name" class="form-control" />
-                    <span asp-validation-for="RegisterViewModel.Name" class="text-danger"></span>
+
+                <div class="mb-3 d-flex flex-column align-items-center">
+                    <div class="w-75 text-start">
+                        <label asp-for="RegisterViewModel.Name" class="form-label">Full Name</label>
+                        <input asp-for="RegisterViewModel.Name" class="form-control" style="width: 100%" />
+                        <span asp-validation-for="RegisterViewModel.Name" class="text-danger"></span>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label asp-for="RegisterViewModel.flagler_email" class="form-label">Email</label>
-                    <input asp-for="RegisterViewModel.flagler_email" class="form-control" />
-                    <span asp-validation-for="RegisterViewModel.flagler_email" class="text-danger"></span>
+
+                <div class="mb-3 d-flex flex-column align-items-center">
+                    <div class="w-75 text-start">
+                        <label asp-for="RegisterViewModel.flagler_email" class="form-label">Email</label>
+                        <input asp-for="RegisterViewModel.flagler_email" class="form-control" style="width: 100%" />
+                        <span asp-validation-for="RegisterViewModel.flagler_email" class="text-danger"></span>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label asp-for="RegisterViewModel.BirthYear" class="form-label">Birthyear</label>
-                    <input asp-for="RegisterViewModel.BirthYear" class="form-control" />
-                    <span asp-validation-for="RegisterViewModel.BirthYear" class="text-danger"></span>
+
+                <div class="mb-3 d-flex flex-column align-items-center">
+                    <div class="w-75 text-start">
+                        <label asp-for="RegisterViewModel.BirthYear" class="form-label">Birthyear</label>
+                        <input asp-for="RegisterViewModel.BirthYear" class="form-control" style="width: 100%" />
+                        <span asp-validation-for="RegisterViewModel.BirthYear" class="text-danger"></span>
+                    </div>
                 </div>
-                <input type="submit" value="Register" class="btn btn-success w-100 p-2" />
+
+                <input type="submit" value="Register" class="btn btn-success w-25 p-2" />
                 <p class="text-center mt-2">
                     Already have an account? <a class="text-decoration-none mt-3" asp-page="Login">
                         Login
                     </a>
                 </p>
             </form>
-            <div class="account-image">
+            <div class="account-image d-flex justify-content-center mt-3">
                 <img src="~/Images/flagler logo 3.png" style="width: 200px; height: auto;" alt="Flagler Logo" />
             </div>
         </div>
     </div>
 </body>
+
 
 
 @section Scripts {
