@@ -32,7 +32,7 @@ namespace FlaglerBookSwap.Models
         public string? gender { get; set; }
         public string? phone_number { get; set; }
         public DateTime? date_created { get; set; }
-        public string? birth_year { get; set; } // will be a required field later but i set it to optional for testing purposes for now
+        public string? birth_year { get; set; } 
 
         public string? second_major { get; set; }
 

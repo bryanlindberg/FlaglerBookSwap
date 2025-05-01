@@ -3,6 +3,12 @@
 @{
     ViewData["Title"] = "Textbook Swap";
 }
+@if (TempData["ContactMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["ContactMessage"]
+    </div>
+}
 <style>
     body {
         background-color: #fafad2;
