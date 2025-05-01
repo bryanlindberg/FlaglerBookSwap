@@ -237,7 +237,7 @@ namespace FlaglerBookSwap.Pages.Search___List
                 values: new { area = "Identity", email = user.flagler_email }, protocol: Request.Scheme);
                     string resultMsg = $@"
             <h1>Good news!</h1>
-            <p style='font-size:24px'>The item <strong>{textbook.Book_Title}</strong> is now listed on Flagler Book Swap.</p>
+            <p style='font-size:24px'>The item <strong>{textbook.Book_Title}</strong> is now listed on Flagler Textbook Swap.</p>
             <p style='font-size:20px'>Visit the website to check it out <a href='{home}'>here</a>!</p>";
 
                     bool emailSent = SendStudentEmail(user.flagler_email, user.FullName, resultMsg);
@@ -259,7 +259,7 @@ namespace FlaglerBookSwap.Pages.Search___List
         public bool SendStudentEmail(string sendStudentEmail, string sendStudentName, string resultMsg)
         {
             string sendFromEmail = "flaglerbookswap@gmail.com"; //put in your email
-            string sendFromName = "Flagler Book Swap";
+            string sendFromName = "Flagler Textbook Swap";
             string sendToEmail = sendStudentEmail;
             string sendToName = sendStudentName;
 
