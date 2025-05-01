@@ -2,6 +2,7 @@ using FlaglerBookSwap.Data;
 using FlaglerBookSwap.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 
 namespace FlaglerBookSwap.Pages
@@ -12,7 +13,9 @@ namespace FlaglerBookSwap.Pages
         [BindProperty]
         public string Subject { get; set; }
         [BindProperty]
+        [StringLength(255, ErrorMessage = "Message cannot exceed 255 characters.")]
         public string Message { get; set; }
+
         public string Email { get; set; }
         public short UserID { get; set; }
 
