@@ -66,7 +66,7 @@ namespace FlaglerBookSwap.Pages.Account
             string createProfileLink = Url.Page("/Account/CreateProfile", pageHandler: null, 
                 values: new { area = "Identity", email = user.flagler_email }, protocol: Request.Scheme);
             string resultMsg = $@"                  
-                     <h1 style='color: #A3282F;'> Welcome to Flagler's Textbook Swap! </h1>
+                     <h1 style='color: #A3282F;'> Welcome to Flagler Textbook Swap! </h1>
                      <p style='font-size:24px'>Your account has been created successfully. We're thrilled to have you on board!</p>
                       <p><a href='{createProfileLink}' style='display: inline-block; background-color: #A3282F; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;'>Create My Profile</a></p>
                      <p>Start swapping, saving, and connecting with other Flagler Saints! </p>";
@@ -98,7 +98,7 @@ namespace FlaglerBookSwap.Pages.Account
         public bool SendStudentEmail(string sendStudentEmail, string sendStudentName, string resultMsg)
         {
             string sendFromEmail = "flaglerbookswap@gmail.com"; //put in your email
-            string sendFromName = "Flagler's Textbook Swap";
+            string sendFromName = "Flagler Textbook Swap";
             string sendToEmail = sendStudentEmail;
             string sendToName = sendStudentName;
 
