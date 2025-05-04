@@ -139,7 +139,7 @@
         </div>
         <div class="profile-detail">
             <div class="profile-label">Author:</div>
-            <div class="profile-value">@Model.Authors</div>
+            <div class="profile-value">@Model.Authors.Split(' ').Select(name => char.ToUpper(name[0]) + name.Substring(1)).Aggregate((current, next) => current + " " + next)</div>
         </div>
         <div class="profile-detail">
             <div class="profile-label">ISBN:</div>
