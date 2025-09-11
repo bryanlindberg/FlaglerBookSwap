@@ -122,7 +122,7 @@ namespace FlaglerBookSwap.Pages.Account
                 //client.Port = 587;
                 client.EnableSsl = true;
                 client.UseDefaultCredentials = false;
-                client.Credentials = new System.Net.NetworkCredential("flaglerbookswap@gmail.com", "jbsk jggt jcqs teeg\r\n");
+                client.Credentials = new System.Net.NetworkCredential("*********@gmail.com", "**** **** **** ****");
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;
                 client.Send(emailMessage);
                 return true;
